@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% if member_list %}
+    <ul>
+        {% for member in member_list %}
+            <li><a href="/helpapp/{{ member.id }}/">{{ member.id }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>멤버가 없습니다.</p>
+{% endif %}
+
+</body>
+</html>
