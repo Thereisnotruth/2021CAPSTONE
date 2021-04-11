@@ -2,21 +2,21 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Member
+from .models import User
 
 def index(request):
 
-    member_list = Member.objects.order_by('-height')
+    user_list = User.objects.order_by('-user_id')
 
     return render(request, 'helpapp/index.html')
 
 def user_login(request):
 
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
-        user = authenticate(request, username=username, password=password)
-        print('출력', username, password)
+        user_id = request.POST.get('username', '')
+        user_pw = request.POST.get('password', '')
+        user = authenticate(request, username=user_id, password=user_pw)
+        print('출력', user_id, user_pw)
         if user is not None:
             login(request, user)
             return render(request, 'helpapp/index.html')
@@ -28,18 +28,13 @@ def user_login(request):
 def signup(request):
 
     if request.method == 'POST':
-        username = request.POST.get('username', '')
-        password = request.POST.get('password', '')
+        user_id = request.POST.get('user_id', '')
+        user_pw = request.POST.get('user_pw', '')
         gender = request.POST.get('gender', '')
-        height = request.POST.get('height', '')
-        weight = request.POST.get('weight', '')
-        muscle = request.POST.get('muscle', '')
-        fat = request.POST.get('fat', '')
 
-        print('유저', username, password, gender , weight, height, muscle, fat)
+        print('유저', user_id, user_pw, gender)
 
-        user = Member(username=username, password=password, gender=gender,
-                      height=height, weight=weight, muscle=muscle, fat=fat)
+        user = User(user_id=user_id, user_pw=user_pw, gender=gender)
         user.save()
 
         return render(request, 'helpapp/index.html')

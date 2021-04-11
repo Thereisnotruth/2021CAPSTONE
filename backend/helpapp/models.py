@@ -3,15 +3,23 @@ from django.db import models
 # Create your models here.
 
 
-class Member(models.Model):
-    username = models.CharField(max_length=20, primary_key=True)
-    password = models.CharField(max_length=20)
+class User(models.Model):
+    user_id = models.IntegerField(primary_key=True)
+    user_pw = models.CharField(max_length=20)
+    user_name = models.CharField(max_length=20)
     gender = models.CharField(max_length=5)
-    weight = models.FloatField(max_length=5)
-    height = models.FloatField(max_length=5)
-    muscle = models.FloatField(max_length=5)
-    fat = models.FloatField(max_length=5)
+    character_type = models.IntegerField()
+    level = models.IntegerField()
+    exp = models.FloatField()
+    point = models.IntegerField()
 
-    def __str__(self):
-        return self.id
+class Study(models.Model):
+    study_id = models.IntegerField(primary_key=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    study_exp = models.FloatField()
+    capacity = models.IntegerField()
 
+class User_Study(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    study_id = models.ForeignKey(Study, on_delete=models.CASCADE)
+    date = models.DateTimeField()

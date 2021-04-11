@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Member
+from .models import User
 
 class MemberAdmin(admin.ModelAdmin):
     search_fields = ['id']
 
-admin.site.register(Member, MemberAdmin)
+admin.site.register(User, MemberAdmin)
