@@ -1,0 +1,13 @@
+.header {
+    background-color: $theme-color;
+    color: white;
+    height: 40px; 
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    .sidebar_button {
+        font-size: 40px;
+        height: 40px;
+        width: 40px;
+    }
+}
