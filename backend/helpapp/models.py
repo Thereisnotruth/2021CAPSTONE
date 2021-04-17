@@ -25,7 +25,9 @@ class User_Study(models.Model):
     date = models.DateTimeField()
     
     class Meta:
-        UniqueConstraint(fields=['user_id', 'study_id'], name='user_in_study')
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'study_id'], name ='user_in_study')
+        ]
 
 class Item(models.Model):
     item_id = models.IntegerField(primary_key=True)
@@ -39,7 +41,10 @@ class Inventory(models.Model):
     buy_time = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        UniqueConstraint(fields=['user_id', 'item_id'], name='item_in_inventory')
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'item_id'], name='item_in_inventory')
+        ]
+
 
 class Board(models.Model):
     board_id = models.IntegerField(primary_key=True)
@@ -52,7 +57,7 @@ class Post(models.Model):
     title = models.CharField(max_length=20)
     content = models.CharField(max_length=500) # 글자 제한 500
     time = models.DateTimeField(auto_now_add=True) # 해당 레코드 생성 시 생성 시간 자동 저장
-    
+
 class Comment(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -60,4 +65,6 @@ class Comment(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     
     class Meta:
-        UniqueConstraint(field=['user_id', 'post_id'], name='user_post')
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'post_id'], name='user_post')
+        ]
