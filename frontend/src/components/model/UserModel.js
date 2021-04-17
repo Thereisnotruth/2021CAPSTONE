@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-class HomeModel {
+class UserModel {
     async getdata(){
         
     }
 }
 
-export default HomeModel;
+export default UserModel;
