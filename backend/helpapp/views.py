@@ -1,7 +1,8 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import User
 
 def index(request):
@@ -41,3 +42,15 @@ def signup(request):
 
     else:
         return render(request, 'helpapp/signup.html')
+    
+@csrf_exempt
+def test(request):
+    # 프론트는 Json 형식의 데이터를 받아서 화면에 표시
+    if request.method == 'GET':
+        return JsonResponse({
+            'message': 'GET 테스트'
+        }, json_dumps_params={'ensure_ascii': False}, status=200)
+    elif request.method == 'POST':
+        return JsonResponse({
+            'message': 'POST 테스트'
+        }, json_dumps_params={'ensure_ascii': False}, status=200)
