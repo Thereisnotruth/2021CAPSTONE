@@ -3,6 +3,7 @@ from .models import *
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
+        model = User
         fields = (
             'user_id',
             'user_pw',
@@ -13,5 +14,4 @@ class UserSerializer(serializers.ModelSerializer):
             'exp',
             'point',
         )
-        model = User
 

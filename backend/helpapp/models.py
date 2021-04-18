@@ -8,10 +8,10 @@ class User(models.Model):
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=20)
     gender = models.CharField(max_length=5)
-    character_type = models.IntegerField()
-    level = models.IntegerField()
-    exp = models.FloatField()
-    point = models.IntegerField()
+    character_type = models.IntegerField(default=0)
+    level = models.IntegerField(default=1)
+    exp = models.FloatField(default=0)
+    point = models.IntegerField(default=0)
 
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
@@ -29,7 +29,7 @@ class Invitation(models.Model):
 class User_Study(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now=True)
     
     class Meta:
         constraints = [

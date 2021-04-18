@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .serializers import *
 from rest_framework import generics
+from rest_framework.parsers import JSONParser
 
 class ListUser(generics.ListCreateAPIView):
     queryset = User.objects.all()
@@ -35,20 +36,18 @@ def user_login(request):
             return render(request, 'helpapp/login.html')
     else:
         return render(request, 'helpapp/login.html')
-
+@csrf_exempt
 def signup(request):
 
     if request.method == 'POST':
-        user_id = request.POST.get('user_id', '')
-        user_pw = request.POST.get('user_pw', '')
-        gender = request.POST.get('gender', '')
-
-        print('유저', user_id, user_pw, gender)
-
-        user = User(user_id=user_id, user_pw=user_pw, gender=gender)
-        user.save()
-
-        return render(request, 'helpapp/index.html')
+        data = JSONParser().parse(request)
+        serializer = UserSerializer(data=data)
+        print('유저', data)
+        print('시리얼라이저', serializer)
+        if serializer.is_valid(): 
+            serializer.save() 
+            return JsonResponse(serializer.data, status=201) 
+        return JsonResponse(serializer.errors, status=400)
 
     else:
         return render(request, 'helpapp/signup.html')
