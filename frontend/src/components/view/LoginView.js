@@ -1,5 +1,6 @@
 import React from 'react';
 import { Grid, Divider } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 import { Header } from '../ui';
 
@@ -25,8 +26,9 @@ const LoginView = (props) => {
                 />
                 <button type='button' className='loginbtn' onClick={props.login}>로그인</button>
                 <Divider className='logindivider' />
-                <Grid>
-                    아이디찾기, 비밀번호찾기, 회원가입, 구글로그인 추가
+                <Grid className='link'>
+                    아이디찾기| 비밀번호찾기|구글로그인|
+                    <Link className='a' to={'/signup'}>회원가입</Link>
                 </Grid>
             </Grid>
         </Grid>

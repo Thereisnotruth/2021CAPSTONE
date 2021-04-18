@@ -2,4 +2,20 @@
     text-align: center;
     font-size: 64px;
     color: $theme-color;
+    background-color: white;
 }
+.grouplogo{
+    background-color: white;
+    display:table;
+    width:100%;
+    position:relative;
+    text-align: center;
+    .groupname{
+        vertical-align: middle;
+        display: table-cell;
+        text-align: center;
+        height:85px;
+        font-size: 32px;
+        color: $theme-color;
+        background-color: white;
+}}

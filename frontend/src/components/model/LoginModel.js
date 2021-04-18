@@ -4,7 +4,10 @@ class LoginModel {
     // Model의 로그인 함수
     login(id, pw) {
         try {
-            console.log(id, pw);
+            await axios.post('localhost:8000/v1/auth', {
+                userId: id,
+                userPw: pw
+            }, { withCredentials: true });
         } catch(error) {
             console.log(error);
         }
