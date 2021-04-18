@@ -27,7 +27,7 @@ const LoginView = (props) => {
                 <button type='button' className='loginbtn' onClick={props.login}>로그인</button>
                 <Divider className='logindivider' />
                 <Grid className='link'>
-                    아이디찾기| 비밀번호찾기|구글로그인 추가|
+                    아이디찾기| 비밀번호찾기|구글로그인|
                     <Link className='a' to={'/signup'}>회원가입</Link>
                 </Grid>
             </Grid>

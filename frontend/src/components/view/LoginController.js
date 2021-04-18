@@ -14,10 +14,9 @@ const LoginController = ({ viewmodel }) => {
     }
     const login = () => {
        try {
-      const user = viewmodel.login(id, pw);
-      history.replace("/");
+           viewmodel.login(id, pw);
+           history.replace("/");
     } catch (error) {
-        setId('');
         setPw('');
         window.alert('아이디와 비밀번호가 일치하지 않습니다.');
     }

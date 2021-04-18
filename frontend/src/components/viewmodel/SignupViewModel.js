@@ -3,8 +3,8 @@ class SignupViewModel {
         this.store = SignupStore;
     }
 
-    Signup(id, pw, cpw, name,gender) {
-        this.store.Signup(id, pw, cpw, name,gender);
+    Signup(id, pw, name,gender) {
+        this.store.Signup(id, pw, name,gender);
     }
     IdCheck(id){
         this.store.IdCheck(id);
