@@ -10,8 +10,13 @@ class User(models.Model):
     gender = models.CharField(max_length=5)
     character_type = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
-    exp = models.FloatField(default=0)
     point = models.IntegerField(default=0)
+    back_exp = models.FloatField(default=0)
+    chest_exp = models.FloatField(default=0)
+    shoulder_exp = models.FloatField(default=0)
+    belly_exp = models.FloatField(default=0)
+    arm_exp = models.FloatField(default=0)
+    leg_exp = models.FloatField(default=0)
 
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
