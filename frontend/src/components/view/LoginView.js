@@ -3,7 +3,16 @@ import { Grid, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
 import { Header } from '../ui';
+import axios from 'axios';
 
+axios.post('/helpapp/signup', {
+    user_id: 'test134',
+    user_pw: '1234',
+    user_name: 'tese',
+    gender: 1
+}).then((res) => {
+    console.log(res)
+})
 const LoginView = (props) => {
     return (
         <Grid container direction='column'>

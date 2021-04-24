@@ -14,7 +14,7 @@ const LoginController = ({ viewModel }) => {
     }
     const login = () => {
        try {
-           viewmodel.login(id, pw);
+           viewModel.login(id, pw);
            history.replace("/");
     } catch (error) {
         setPw('');
