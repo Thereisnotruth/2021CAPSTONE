@@ -123,9 +123,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 #Rest_framework 설정
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.DjangoModelPermissions',
+    )
 }
 
 # Internationalization

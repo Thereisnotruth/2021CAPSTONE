@@ -5,53 +5,46 @@ from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
 from .serializers import *
-from rest_framework import generics
+from rest_framework import generics, permissions
 from rest_framework.parsers import JSONParser
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
 
-class ListUser(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def user_list(request):
+    user_list = User.objects.all()
+    serializer = UserSerializer(user_list, many=True)
+    return Response(serializer.data)
 
-class DetailUser(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def user_detail(request, user_number):
+    user = User.objects.filter(user_number=user_number)
+    serializer = UserSerializer(user, many=True)
+    return Response(serializer.data)
 
-def index(request):
-
-    user_list = User.objects.order_by('-user_id')
-
-    return render(request, 'helpapp/index.html')
-
-def user_login(request):
-
-    if request.method == 'POST':
-        user_id = request.POST.get('username', '')
-        user_pw = request.POST.get('password', '')
-        user = authenticate(request, username=user_id, password=user_pw)
-        print('출력', user_id, user_pw)
-        if user is not None:
-            login(request, user)
-            return render(request, 'helpapp/index.html')
-        else:
-            return render(request, 'helpapp/login.html')
-    else:
-        return render(request, 'helpapp/login.html')
-@csrf_exempt
-def signup(request):
-
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def create_user(request):
     if request.method == 'POST':
         data = JSONParser().parse(request)
         serializer = UserSerializer(data=data)
         print('유저', data)
         print('시리얼라이저', serializer)
-        if serializer.is_valid(): 
-            serializer.save() 
-            return JsonResponse(serializer.data, status=201) 
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
-    else:
-        return render(request, 'helpapp/signup.html')
-    
+
+
+
+
+
+
+
+
 @csrf_exempt
 def test(request):
     # 프론트는 Json 형식의 데이터를 받아서 화면에 표시
