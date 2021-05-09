@@ -11,7 +11,11 @@ class UserSerializer(serializers.ModelSerializer):
             'gender',
             'character_type',
             'level',
-            'exp',
+            'back_exp',
+            'chest_exp',
+            'shoulder_exp',
+            'belly_exp',
+            'arm_exp',
+            'leg_exp',
             'point',
         )
-
