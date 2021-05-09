@@ -22,7 +22,7 @@ class User(models.Model):
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='host_id')
-    name = models.CharField(max_length=20)
+    study_name = models.CharField(max_length=20)
     study_exp = models.FloatField()
     capacity = models.IntegerField()
 

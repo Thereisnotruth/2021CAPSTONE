@@ -37,13 +37,37 @@ def create_user(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def study_list(request):
+    study_list = Study.objects.all()
+    serializer = StudySerializer(study_list, many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def study_detail(request, study_id):
+    study = Study.objects.filter(study_id=study_id)
+    serializer = StudySerializer(study, many=True)
+    return Response(serializer.data)
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def create_study(request):
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = StudySerializer(data=data)
+        user_id = request.data['user_id']
+        study_id = request.data['study_id']
+        user_study = User_Study(user_id=user_id, study_id=study_id)
+        user_study.save()
 
-
-
-
-
+        print('스터디', data)
+        print('시리얼라이저', serializer)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
 
 @csrf_exempt
 def test(request):

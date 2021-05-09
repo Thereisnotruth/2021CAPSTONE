@@ -21,3 +21,13 @@ class UserSerializer(serializers.ModelSerializer):
             'point',
         )
 
+class StudySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Study
+        fields = (
+            'study_id',
+            'user_id',
+            'study_name',
+            'study_exp',
+            'capacity',
+        )

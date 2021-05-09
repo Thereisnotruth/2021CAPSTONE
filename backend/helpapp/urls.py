@@ -9,5 +9,5 @@ urlpatterns = [
     path('users/<int:user_number>/', views.user_detail),
     path('studies', views.study_list),
     path('studies/new', views.create_study),
-    path('users/<int:study_number>/', views.study_number),
+    path('studies/<int:study_id>/', views.study_detail),
 ]
