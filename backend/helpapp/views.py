@@ -28,10 +28,7 @@ def user_detail(request, user_number):
 @permission_classes((permissions.AllowAny,))
 def create_user(request):
     if request.method == 'POST':
-        data = request
-        serializer = UserSerializer(data=data)
-        print('유저', data)
-        print('시리얼라이저', serializer)
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
@@ -55,19 +52,16 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
-        data = request
-        serializer = StudySerializer(data=data)
-        user_id = request.data['user_id']
-        study_id = request.data['study_id']
-        user_study = User_Study(user_id=user_id, study_id=study_id)
+        user_id = request.get['user_id']
+        study_name = request.get['study_name']
+        study_exp = request.get['study_exp']
+        study = Study(study_name=study_name, user_id=user_id, study_exp=study_exp)
+        study.save()
+        user_study = User_Study(user_id=user_id, study_id=study.study_id)
         user_study.save()
+        serializer = StudySerializer(study)
 
-        print('스터디', data)
-        print('시리얼라이저', serializer)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+        return JsonResponse(serializer.data, status=400)
 
 @csrf_exempt
 def test(request):
