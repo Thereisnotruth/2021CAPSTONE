@@ -26,7 +26,7 @@ SECRET_KEY = 'd$_^vo-r7d&v_t-q_aubtm_-38*8rpe3*r%9#te9fa)gvbv-nr'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -94,13 +94,6 @@ DATABASES = {
         'PORT':'3306',
     }
 }
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 
 # Password validation

@@ -28,7 +28,7 @@ def user_detail(request, user_number):
 @permission_classes((permissions.AllowAny,))
 def create_user(request):
     if request.method == 'POST':
-        data = JSONParser().parse(request)
+        data = request
         serializer = UserSerializer(data=data)
         print('유저', data)
         print('시리얼라이저', serializer)
@@ -55,7 +55,7 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
-        data = JSONParser().parse(request)
+        data = request
         serializer = StudySerializer(data=data)
         user_id = request.data['user_id']
         study_id = request.data['study_id']
