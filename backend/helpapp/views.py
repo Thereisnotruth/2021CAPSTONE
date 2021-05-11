@@ -52,9 +52,9 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
-        user_id = request.get['user_id']
-        study_name = request.get['study_name']
-        study_exp = request.get['study_exp']
+        user_id = request.GET.get('user_id')
+        study_name = request.GET.get('study_name')
+        study_exp = request.GET.get('study_exp')
         study = Study(study_name=study_name, user_id=user_id, study_exp=study_exp)
         study.save()
         user_study = User_Study(user_id=user_id, study_id=study.study_id)
