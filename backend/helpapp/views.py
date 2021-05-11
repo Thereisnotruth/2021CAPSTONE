@@ -63,6 +63,13 @@ def create_study(request):
 
         return JsonResponse(serializer.data, status=400)
 
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def study_userlist(request, study_id):
+    userlist = User_Study.objects.filter(study_id=study_id)
+    serializer = UserStudySerializer(userlist, many=True)
+    return JsonResponse(serializer.data, status=200)
+
 @csrf_exempt
 def test(request):
     # 프론트는 Json 형식의 데이터를 받아서 화면에 표시
@@ -74,3 +81,7 @@ def test(request):
         return JsonResponse({
             'message': 'POST 테스트'
         }, json_dumps_params={'ensure_ascii': False}, status=200)
+
+
+
+

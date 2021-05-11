@@ -4,6 +4,7 @@ from .models import *
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        # fields = __all__
         fields = (
             'user_number',
             'user_id',
@@ -31,3 +32,8 @@ class StudySerializer(serializers.ModelSerializer):
             'study_exp',
             'capacity',
         )
+
+class UserStudySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User_Study
+        fields = '__all__'

@@ -29,7 +29,7 @@ class User(models.Model):
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='host_id')
-    study_name = models.CharField(max_length=20)
+    study_name = models.CharField(max_length=20, unique=True)
     study_exp = models.FloatField()
     capacity = models.IntegerField()
 
@@ -39,32 +39,33 @@ class Study(models.Model):
     def __str__(self):
         return self.study_name
 
+
+class User_Study(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
+    date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user_id', 'study_id'], name='user_in_study')
+        ]
+
+    def __str__(self):
+        return str(self.study_id) + ' 스터디 회원 ' + str(self.user_id)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 class Invitation(models.Model):
     invitation_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='to')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='from')
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.invitation_id
-
-
-class User_Study(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
-    study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
-    date = models.DateTimeField(auto_now=True)
-    
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['user_id', 'study_id'], name ='user_in_study')
-        ]
-
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
 
 class Item(models.Model):
