@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
+import { HeaderController  } from '../ui';
 import HomeView from './HomeView';
 
-const LoginController = ({ viewmodel }) => {
+const HomeController = ({ viewmodel }) => {
     
     return (
+        <>
+        <HeaderController header={'캐릭터'}/>
         <HomeView/>
+        </>
     );
 };
 
-export default LoginController;
+export default HomeController;

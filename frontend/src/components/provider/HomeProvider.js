@@ -5,7 +5,7 @@ import { HomeController } from '../view';
 import { HomeViewModel } from '../viewmodel';
 
 
-const Home = () => {
+const HomeProvider = () => {
     const model = new UserModel();
     const [viewModel] = useState(new HomeViewModel(model));
     return (
@@ -13,4 +13,4 @@ const Home = () => {
     ); 
 };
 
-export default Home;
+export default HomeProvider;

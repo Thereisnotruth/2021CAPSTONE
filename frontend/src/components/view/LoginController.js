@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import LoginView from './LoginView';
+import { HeaderController } from '../ui';
 
 const LoginController = ({ viewModel }) => {
     const [id, setId] = useState('');
@@ -22,11 +23,16 @@ const LoginController = ({ viewModel }) => {
     }
 }
     return (
+        <>
+        <HeaderController
+            header={'로그인'}
+        />
         <LoginView 
             onIdChange={onIdChange}
             onPwChange={onPwChange}
             login={login}
         />
+        </>
     );
 };
 
