@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom';
 import { Header } from '../ui';
 import axios from 'axios';
 
+
 const LoginView = (props) => {
     return (
         <Grid container direction='column'>
-            <Header 
-                header={'로그인'}
-            />
+
             <Grid className='contents'>
                 <Grid className='logo'>HELP</Grid>
                 <input

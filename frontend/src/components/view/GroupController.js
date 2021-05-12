@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { GiRun } from 'react-icons/gi';
 
 import GroupView from './GroupView';
+import { HeaderController } from '../ui';
 
 const GroupController = ({ viewModel }) => {
     const[groupname,setgroupname] = useState('GroupName');
@@ -41,6 +42,8 @@ const GroupController = ({ viewModel }) => {
         
 
     return (
+        <>
+        <HeaderController header={'그룹 목록'}/>
         < GroupView 
             groupname={groupname}
             groupmember={groupmember}
@@ -48,6 +51,7 @@ const GroupController = ({ viewModel }) => {
             notice={notice}
             groupmembers = {state}
         />
+        </>
     );
 };
 

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { HeaderController } from '../ui';
 import GrouplistView from './GrouplistView';
 
 const GrouplistController = ({ viewModel }) => {
@@ -47,11 +48,14 @@ const GrouplistController = ({ viewModel }) => {
         
     }
     return (
-        < GrouplistView 
-        onsearchChange={onsearchChange}
-        onsearchClick={onsearchClick}
-        groupdata = {state}
-        />
+        <>
+            <HeaderController header='그룹 목록' />
+            <GrouplistView 
+                onsearchChange={onsearchChange}
+                onsearchClick={onsearchClick}
+                groupdata = {state.groupdata}
+            />
+        </>
     );
 };
 

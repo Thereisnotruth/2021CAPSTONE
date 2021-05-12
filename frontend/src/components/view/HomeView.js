@@ -7,7 +7,6 @@ import { Header ,Timer,Char } from '../ui';
 const HomeView = (props) => {
     return (
         <Grid container direction='column'>
-            <Header header={'캐릭터'}/>
             <Grid className='contents'>
                 <Grid className ='IdView'>
                     <Char/>

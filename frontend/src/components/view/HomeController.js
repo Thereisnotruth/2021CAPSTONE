@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { HeaderController  } from '../ui';
 import HomeView from './HomeView';
 
 const HomeController = ({ viewModel }) => {
@@ -67,16 +68,19 @@ const HomeController = ({ viewModel }) => {
         }
     }
     return (
+        <>
+        <HeaderController header='캐릭터' />
         <HomeView
-        time={time}
-        message={message}
-        status={status}
-        start={start}
-        run={run}
-        stop={stop}
-        exit={exit}
-        exerciseChange={exerciseChange}
+            time={time}
+            message={message}
+            status={status}
+            start={start}
+            run={run}
+            stop={stop}
+            exit={exit}
+            exerciseChange={exerciseChange}
         />
+        </>
     );
 };
 
