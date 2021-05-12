@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import GrouplistView from './GrouplistView';
 
-const GroupController = ({ viewmodel }) => {
+const GrouplistController = ({ viewModel }) => {
     const[Search,setSearch] = useState('');
     const state ={ groupdata:[{
         id:1,
@@ -43,4 +43,4 @@ const GroupController = ({ viewmodel }) => {
     );
 };
 
-export default GroupController;
+export default GrouplistController;

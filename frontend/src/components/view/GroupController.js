@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import GroupView from './GroupView';
 
-const GroupController = ({ viewmodel }) => {
+const GroupController = ({ viewModel }) => {
     const[groupname,setgroupname] = useState('GroupName');
     const[groupmember,setgroupmember] = useState('10');
     const[Exercisemember,setExercisemember] = useState('6');

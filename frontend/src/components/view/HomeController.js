@@ -2,11 +2,80 @@ import React, { useState } from 'react';
 
 import HomeView from './HomeView';
 
-const LoginController = ({ viewmodel }) => {
-    
+const HomeController = ({ viewModel }) => {
+    const [time, setTime] = useState({h:0,m:0,s:0});
+    const [interv, setInterv] = useState();
+    const [status, setStatus] = useState(0);
+    const [message, setmessage] = useState('');
+    const [expart, setExpart] = useState('');
+
+    const start = () => {
+        if(expart===''){
+            setmessage('운동부위를 선택해주세요.');
+        }
+        else{
+            run();
+            setStatus(1);
+            setInterv(setInterval(run,1000));
+        }
+    };
+    var updatedH = time.h, updatedM = time.m, updatedS = time.s;
+    const run=()=>{
+        if(updatedM===60){
+            updatedH++;
+            updatedM=0;
+        }
+        if(updatedS===60){
+            updatedM++;
+            updatedS=0;
+        }
+        updatedS++;
+        return setTime({h:updatedH,m:updatedM,s:updatedS});
+    };
+    const stop=()=>{
+        clearInterval(interv);
+        setStatus(2);
+    }
+    var times;
+    const exit=()=>{
+        if(message===''){
+            clearInterval(interv);
+            times = time.h * 3600 + time.m * 60 + time.s;
+            viewModel.exerciseend(expart,times);
+            setTime({h:0,m:0,s:0});
+            setStatus(0);
+        }
+    }
+    const exerciseChange = (e) =>{
+        if(status===0){
+            if(e.target.value==='')
+                setmessage('운동부위를 선택해주세요.');
+            else{
+                setmessage('');
+                setExpart(e.target.value);
+            }
+        }
+        else{
+            if(expart===e.target.value){
+                setmessage('');
+            }
+            else{
+                setmessage('운동중 운동부위 변경은 불가 합니다.');
+            }
+        }
+    }
     return (
-        <HomeView/>
+        <HomeView
+        time={time}
+        message={message}
+        status={status}
+        start={start}
+        run={run}
+        stop={stop}
+        exit={exit}
+        exerciseChange={exerciseChange}
+        />
     );
 };
 
-export default LoginController;
+export default HomeController;

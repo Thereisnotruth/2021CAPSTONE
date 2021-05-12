@@ -11,7 +11,7 @@ class SignupModel {
                 Gender: gender
             }, { withCredentials: true });
         } catch(error) {
-            console.Signup(error);
+            console.log(error);
         }
     }
     async IdCheck(id) {
@@ -20,7 +20,7 @@ class SignupModel {
                 userId: id,
             }, { withCredentials: true });
         } catch(error) {
-            console.Signup(error);
+            console.log(error);
         }
     }
 }

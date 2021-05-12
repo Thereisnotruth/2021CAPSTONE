@@ -8,7 +8,7 @@ const LoginController = ({ viewModel }) => {
     const history = useHistory();
     const onIdChange = (e) => {
         setId(e.target.value);
-    };
+    }
     const onPwChange = (e) => {
         setPw(e.target.value);
     }
