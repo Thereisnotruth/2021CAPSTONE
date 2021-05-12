@@ -1,6 +1,22 @@
 from rest_framework import serializers
+from django.contrib.auth import authenticate
 from .models import *
 
+class LoginUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('user_id', 'user_pw')
+    def validate(self, data):
+        user_id = data.get('user_id', None)
+        user_pw = data.get('user_pw', None)
+        user = authenticate(user_id=user_id, user_pw=user_pw)
+        if user is None:
+            raise serializers.ValidationError(
+                'A user with this id and pw is not found.'
+            )
+        return {
+            'user_id': user.user_id
+        }
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
