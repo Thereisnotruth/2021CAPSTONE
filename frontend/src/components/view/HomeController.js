@@ -14,18 +14,20 @@ const HomeController = ({ viewModel }) => {
             setmessage('운동부위를 선택해주세요.');
         }
         else{
-            run();
-            setStatus(1);
-            setInterv(setInterval(run,1000));
+            if(message ===''){
+                run();
+                setStatus(1);
+                setInterv(setInterval(run,1000));
+            }
         }
     };
     var updatedH = time.h, updatedM = time.m, updatedS = time.s;
     const run=()=>{
-        if(updatedM===60){
+        if(updatedM===59){
             updatedH++;
             updatedM=0;
         }
-        if(updatedS===60){
+        if(updatedS===59){
             updatedM++;
             updatedS=0;
         }

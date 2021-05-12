@@ -1,7 +1,8 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 
-import { Header ,Timer } from '../ui';
+
+import { Header ,Timer,Char } from '../ui';
 
 const HomeView = (props) => {
     return (
@@ -9,8 +10,8 @@ const HomeView = (props) => {
             <Header header={'캐릭터'}/>
             <Grid className='contents'>
                 <Grid className ='IdView'>
-                    <Grid className ='DrawChar'>캐릭터 그릴 공간</Grid>
-                    <Timer 
+                    <Char/>
+                    <Timer
                         time={props.time}
                         message={props.message}
                         status={props.status}
