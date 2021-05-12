@@ -35,6 +35,28 @@ def create_user(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny),)
+def save_time(request):
+    serializer = UserSerializer(data=request.data)
+
+    if serializer.is_valid():
+        user_id = serializer.data['user_id']
+        user = User.objects.get(user_id=user_id)
+
+        user.back_exp = serializer.data['back_exp']
+        user.chest_exp = serializer.data['chest_exp']
+        user.shoulder_exp = serializer.data['shoulder_exp']
+        user.belly_exp = serializer.data['belly_exp']
+        user.arm_exp = serializer.data['arm_exp']
+        user.leg_exp = serializer.data['leg_exp']
+        user.save()
+
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
+
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def study_list(request):
