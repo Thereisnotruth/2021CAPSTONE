@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import GroupView from './GroupView';
 import { HeaderController } from '../ui';
 
-const GroupController = ({ viewmodel }) => {
+const GroupController = ({ viewModel }) => {
     const[groupname,setgroupname] = useState('GroupName');
     const[groupmember,setgroupmember] = useState('10');
     const[Exercisemember,setExercisemember] = useState('6');

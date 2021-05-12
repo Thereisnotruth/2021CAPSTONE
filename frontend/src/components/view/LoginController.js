@@ -9,19 +9,19 @@ const LoginController = ({ viewModel }) => {
     const history = useHistory();
     const onIdChange = (e) => {
         setId(e.target.value);
-    };
+    }
     const onPwChange = (e) => {
         setPw(e.target.value);
     }
-    const login = () => {
+    const login = async () => {
        try {
-           viewModel.login(id, pw);
-           history.replace("/");
-    } catch (error) {
-        setPw('');
-        window.alert('아이디와 비밀번호가 일치하지 않습니다.');
+            const res = await viewModel.login(id, pw);
+            history.replace('/');
+        } catch (error) {
+            setPw('');
+            alert('아이디와 비밀번호가 일치하지 않습니다.');
+        }
     }
-}
     return (
         <>
         <HeaderController

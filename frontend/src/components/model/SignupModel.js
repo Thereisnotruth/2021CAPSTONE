@@ -23,7 +23,7 @@ class SignupModel {
                 userId: id,
             }, { withCredentials: true });
         } catch(error) {
-            console.Signup(error);
+            console.log(error);
         }
     }
 }
