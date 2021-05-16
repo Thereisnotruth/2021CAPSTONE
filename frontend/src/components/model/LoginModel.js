@@ -4,7 +4,7 @@ class LoginModel {
     // Model의 로그인 함수
     async login(id, pw) {
         try {
-            await axios.post('localhost:8000/v1/auth', {
+            await axios.post('/helpapp/signup', {
                 userId: id,
                 userPw: pw
             }, { withCredentials: true });

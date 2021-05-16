@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import SignupView from './SignupView';
 
-const SignupController = ({ viewmodel }) => {
+const SignupController = ({ viewModel }) => {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
     const [cpw, setPwc] = useState('');
@@ -22,7 +22,7 @@ const SignupController = ({ viewmodel }) => {
             setId(e.target.value);
             setmessage1('');
             try {
-                viewmodel.IdCheck(id);
+                viewModel.IdCheck(id);
             } catch (error) {
                 setmessage1('이미 존재하는 아이디입니다.');
             }   
@@ -62,14 +62,14 @@ const SignupController = ({ viewmodel }) => {
         if(id===''|| pw===''|| cpw===''|| name===''|| gender==='')
             alert('모든 정보를 입력해주세요.');
         else{
-            viewmodel.signup(id, pw, name, gender);
+            viewModel.Signup(id, pw, name, gender);
             alert('가입되었습니다.');
             history.replace("/login");
         }
 
     }
     const IdCheck = () =>{
-        viewmodel.IdCheck(id);
+        viewModel.IdCheck(id);
     }
     
     return (
