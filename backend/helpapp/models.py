@@ -18,7 +18,8 @@ class User(models.Model):
     belly_exp = models.FloatField(default=0)
     arm_exp = models.FloatField(default=0)
     leg_exp = models.FloatField(default=0)
-
+    exercise_time = models.IntegerField(default=0)
+    exercise_state = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -30,7 +31,7 @@ class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='host_id')
     study_name = models.CharField(max_length=20, unique=True)
-    study_exp = models.FloatField()
+    study_total_time = models.FloatField()
     capacity = models.IntegerField()
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -84,7 +85,6 @@ class Inventory(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE, db_column='item_id')
     buy_time = models.DateTimeField(auto_now_add=True)
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

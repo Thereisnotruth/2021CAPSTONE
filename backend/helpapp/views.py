@@ -15,14 +15,14 @@ from rest_framework.decorators import api_view, permission_classes
 def user_list(request):
     user_list = User.objects.all()
     serializer = UserSerializer(user_list, many=True)
-    return Response(serializer.data)
+    return JsonResponse(serializer.data, status=200)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def user_detail(request, user_number):
     user = User.objects.filter(user_number=user_number)
     serializer = UserSerializer(user, many=True)
-    return Response(serializer.data)
+    return JsonResponse(serializer.data, status=200)
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -62,14 +62,14 @@ def save_time(request):
 def study_list(request):
     study_list = Study.objects.all()
     serializer = StudySerializer(study_list, many=True)
-    return Response(serializer.data)
+    return JsonResponse(serializer.data, status=200)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def study_detail(request, study_id):
     study = Study.objects.filter(study_id=study_id)
     serializer = StudySerializer(study, many=True)
-    return Response(serializer.data)
+    return JsonResponse(serializer.data, status=200)
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -92,7 +92,6 @@ def study_userlist(request, study_id):
     userlist = User_Study.objects.filter(study_id=study_id)
     serializer = UserStudySerializer(userlist, many=True)
     return JsonResponse(serializer.data, status=200)
-
 
 class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
     def __init__(self):

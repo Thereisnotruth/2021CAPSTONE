@@ -17,26 +17,11 @@ class LoginUserSerializer(serializers.ModelSerializer):
         return {
             'user_id': user.user_id
         }
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        # fields = __all__
-        fields = (
-            'user_number',
-            'user_id',
-            'user_pw',
-            'user_name',
-            'gender',
-            'character_type',
-            'level',
-            'back_exp',
-            'chest_exp',
-            'shoulder_exp',
-            'belly_exp',
-            'arm_exp',
-            'leg_exp',
-            'point',
-        )
+        fields = '__all__'
 
 class StudySerializer(serializers.ModelSerializer):
     class Meta:
