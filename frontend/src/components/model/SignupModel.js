@@ -2,6 +2,9 @@ import axios from 'axios';
 
 class SignupModel {
     // Model의 회원가입 함수
+    constructor() {
+        this.Signup = this.Signup.bind(this);
+    }
     async Signup(id, pw, name,gender) {
         try {
             await axios.post('/helpapp/users/new', {

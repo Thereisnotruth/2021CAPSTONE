@@ -2,9 +2,8 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import { IoPodiumOutline,IoCalendarOutline } from "react-icons/io5";
 import { BsPersonPlus } from "react-icons/bs";
-import { GiWeightLiftingDown, GiWeightLiftingUp } from "react-icons/gi";
 
-import { Header  } from '../ui';
+import { Header ,Groupmember } from '../ui';
 
 const GroupView = (props) => {
     return (
@@ -22,11 +21,7 @@ const GroupView = (props) => {
                 <Grid className='noticetxt'>{props.notice}</Grid>
                 <Grid className ='doing'>
                     <Grid>지금운동중인 멤버 수<Grid className = 'groupmember'>{props.Exercisemember}</Grid></Grid>
-                    <Grid className ='memberstate'><GiWeightLiftingUp/><Grid>이름</Grid><Grid>00:00:00</Grid></Grid>
-                    <Grid className ='memberstate'><GiWeightLiftingUp/><Grid>이름</Grid><Grid>00:00:00</Grid></Grid>
-                    <Grid className ='memberstate'><GiWeightLiftingDown/><Grid>이름</Grid><Grid>00:00:00</Grid></Grid>
-                    <Grid className ='memberstate'><GiWeightLiftingUp/><Grid>이름</Grid><Grid>00:00:00</Grid></Grid>
-                    <Grid className ='memberstate'><GiWeightLiftingDown/><Grid>이름</Grid><Grid>00:00:00</Grid></Grid>
+                    <Groupmember groupmembers={props.groupmembers}></Groupmember>
                 </Grid>
             </Grid>
 

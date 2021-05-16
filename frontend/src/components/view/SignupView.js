@@ -1,17 +1,15 @@
 import React from 'react';
-import { Grid, Divider,NativeSelect,Button } from '@material-ui/core';
+import { Grid, Divider,NativeSelect } from '@material-ui/core';
 
 import { Header } from '../ui';
 
 const SignupView = (props) => {
     return (
         <Grid container direction='column'>
-            <Header 
-                header={'회원가입'}
-            />
             <Grid className='contents'>
                 <Grid className='logo'>HELP</Grid>
-                <Grid className='join_title'>아이디{/*<Button className='idbtn' onClick={props.IdCheck}>중복확인</Button>*/}</Grid>
+                <Divider />
+                <Grid className='join_title'>아이디</Grid>
                 <input
                     type='text'
                     className='login' 
@@ -44,16 +42,15 @@ const SignupView = (props) => {
                 />
                 <Grid className='errorm'>{props.message4}</Grid>
                 <Grid className='join_title'>성별</Grid>
-                <NativeSelect placeholder={'이름'}
-                onChange={props.genderChange}
-                className='GenderSelect'>
+                <NativeSelect
+                    onChange={props.genderChange}
+                    className='GenderSelect'>
                     <option aria-label="" value="" >성별</option>
                     <option value="M">남자</option>
                     <option value="F">여자</option>
                 </NativeSelect>
                 <Grid className='errorm'>{props.message5}</Grid>
                 <button type='button' className='loginbtn' onClick={props.Signup}>가입하기</button>
-                <Divider className='logindivider' />
             </Grid>
         </Grid>
     )    

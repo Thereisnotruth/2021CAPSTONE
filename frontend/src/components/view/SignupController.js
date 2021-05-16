@@ -1,66 +1,78 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import SignupView from './SignupView';
+import { HeaderController } from '../ui';
 
 const SignupController = ({ viewModel }) => {
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
-    const [cpw, setPwc] = useState('');
+    const [cpw, setCpw] = useState('');
     const [name, setName] = useState('');
-    const [gender, setgender] = useState('');
-    const [message1,setmessage1] = useState('');
-    const [message2,setmessage2] = useState('');
-    const [message3,setmessage3] = useState('');
-    const [message4,setmessage4] = useState('');
-    const [message5,setmessage5] = useState('');
+    const [gender, setGender] = useState('');
+    const [message1,setMessage1] = useState('');
+    const [message2,setMessage2] = useState('');
+    const [message3,setMessage3] = useState('');
+    const [message4,setMessage4] = useState('');
+    const [message5,setMessage5] = useState('');
     const history = useHistory();
 
     const onIdChange = (e) => {
         if(e.target.value==='')
-            setmessage1('아이디를 입력해주세요.');
+            setMessage1('아이디를 입력해주세요.');
         else{
             setId(e.target.value);
+<<<<<<< HEAD
             setmessage1('');
             try {
                 viewModel.IdCheck(id);
             } catch (error) {
                 setmessage1('이미 존재하는 아이디입니다.');
             }   
+=======
+            setMessage1('');
+>>>>>>> 6f0133d8a76a0932a6bd566ff343d73152a14110
         }
     };
     const onPwChange = (e) => {
         if(e.target.value==='')
-            setmessage2('비밀번호를 입력해주세요.');
+            setMessage2('비밀번호를 입력해주세요.');
         else{
-            setmessage2('');
+            setMessage2('');
             setPw(e.target.value);}
     }
     const onPwCheChange = (e) => {
         if(e.target.value==='')
-            setmessage3('비밀번호를 입력해주세요.');
+            setMessage3('비밀번호를 입력해주세요.');
         else if(e.target.value!==pw)
-            setmessage3('비밀번호가 일치하지 않습니다.');
+            setMessage3('비밀번호가 일치하지 않습니다.');
         else{
-            setmessage3('');
-            setPwc(e.target.value);}
+            setMessage3('');
+            setCpw(e.target.value);
+        }
     }
     const onNameChange = (e) => {
         if(e.target.value==='')
-            setmessage4('이름을 입력해주세요.');
+            setMessage4('이름을 입력해주세요.');
         else{
-            setmessage4('');
+            setMessage4('');
             setName(e.target.value);}
     }
     const genderChange = (e) =>{
         if(e.target.value==='')
-            setmessage5('성별을 선택해주세요.');
+            setMessage5('성별을 선택해주세요.');
         else{
-            setmessage5('');
-            setgender(e.target.value);}
+            setMessage5('');
+            setGender(e.target.value);}
     }
-    const Signup = () => {
-        if(id===''|| pw===''|| cpw===''|| name===''|| gender==='')
+    const Signup = async () => {
+        console.log('id: ',id);
+        console.log('pw: ', pw);
+        console.log('cpw: ', cpw);
+        console.log('name: ', name);
+        console.log('gender: ', gender);
+        if(id==''|| pw==''|| cpw==''|| name==''|| gender==''){
             alert('모든 정보를 입력해주세요.');
+<<<<<<< HEAD
         else{
             viewModel.Signup(id, pw, name, gender);
             alert('가입되었습니다.');
@@ -71,22 +83,37 @@ const SignupController = ({ viewModel }) => {
     const IdCheck = () =>{
         viewModel.IdCheck(id);
     }
+=======
+        }else{
+            try {
+                await viewModel.SignUp(id, pw, name, gender);
+                alert('가입되었습니다.');
+                history.replace('/login');
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+    }
+>>>>>>> 6f0133d8a76a0932a6bd566ff343d73152a14110
     
     return (
-        <SignupView 
-            onIdChange={onIdChange}
-            onPwChange={onPwChange}
-            onPwCheChange={onPwCheChange}
-            onNameChange={onNameChange}
-            genderChange={genderChange}
-            IdCheck={IdCheck}
-            message1={message1}
-            message2={message2}
-            message3={message3}
-            message4={message4}
-            message5={message5}
-            Signup={Signup}
-        />
+        <>
+            <HeaderController header='회원가입' />
+            <SignupView 
+                onIdChange={onIdChange}
+                onPwChange={onPwChange}
+                onPwCheChange={onPwCheChange}
+                onNameChange={onNameChange}
+                genderChange={genderChange}
+                message1={message1}
+                message2={message2}
+                message3={message3}
+                message4={message4}
+                message5={message5}
+                Signup={Signup}
+            />
+        </>
     );
 };
 

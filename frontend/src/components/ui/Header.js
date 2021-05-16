@@ -1,11 +1,13 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid, Button } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 
 const Header = (props) => {
     return (
         <Grid className='header'>
-            <Menu className='sidebar_button'style={{ fontSize: '10vh' }}/>
+            <Button onClick={props.sideBarOpen}>
+                <Menu className='sidebar_button'style={{ fontSize: '10vh' }}/>
+            </Button>
             {props.header}
         </Grid>
     )

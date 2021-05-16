@@ -11,7 +11,6 @@ import { Header, Groupform  } from '../ui';
 const GrouplistView = (props) => {
     return (
         <Grid container direction='column'>
-            <Header header={'그룹리스트'}/>
             <Grid className ='grouplist'>
                 <Grid className ='searchform'>
                     <IoSearch/>
