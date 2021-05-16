@@ -77,9 +77,8 @@ def create_study(request):
     if request.method == 'POST':
         user_id = request.GET.get('user_id')
         study_name = request.GET.get('study_name')
-        study_exp = request.GET.get('study_exp')
         capacity = request.GET.get('capacity')
-        study = Study(study_name=study_name, user_id=user_id, study_exp=study_exp, capacity=capacity)
+        study = Study(study_name=study_name, user_id=user_id, capacity=capacity)
         study.save()
         user_study = User_Study(user_id=user_id, study_id=study.study_id)
         user_study.save()
@@ -117,3 +116,40 @@ def login(request):
             return JsonResponse({ 'Error': '회원이 아님' }, status=400)
         except DiffPw:
             return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
+
+@api_view(['GET'])
+@permission_classes(permissions.AllowAny)
+def post_list(request):
+    if request.method == 'GET':
+        posts = Post.objects.all()
+        serializer = PostSerializer(data=posts, many=True)
+        return JsonResponse(serializer.data, status=200)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes(permissions.AllowAny)
+def create_post(request):
+    if request.method == 'POST':
+        user_id = request.GET.get('user_id')
+        board_id = request.GET.get('board_id')
+        post_title = request.GET.get('post_title')
+        post_content = request.GET.get('post_content')
+        post = Post(user_id=user_id, board_id=board_id, post_title=post_title, post_content=post_content)
+        post.save()
+        serializer = PostSerializer(post)
+        return JsonResponse(serializer.data, status=201)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['GET'])
+@permission_classes(permissions.AllowAny)
+def post_detail(request, post_id):
+    if request.method == 'GET':
+        post = Post.objects.filter(post_id=post_id)
+        serializer = PostSerializer(data=post)
+        return JsonResponse(serializer.data, status=200)
+    else:
+        return HttpResponse(status=400)
+
+

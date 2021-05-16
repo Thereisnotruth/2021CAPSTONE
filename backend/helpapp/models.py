@@ -108,10 +108,8 @@ class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     board_id = models.ForeignKey(Board, on_delete=models.CASCADE, db_column='board_id')
-    title = models.CharField(max_length=20)
-    content = models.CharField(max_length=500) # 글자 제한 500
-    time = models.DateTimeField(auto_now_add=True) # 해당 레코드 생성 시 생성 시간 자동 저장
-
+    post_title = models.CharField(max_length=20)
+    post_content = models.CharField(max_length=500) # 글자 제한 500
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
