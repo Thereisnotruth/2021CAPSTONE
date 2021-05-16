@@ -31,8 +31,8 @@ class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='host_id')
     study_name = models.CharField(max_length=20, unique=True)
-    study_total_time = models.FloatField()
-    capacity = models.IntegerField()
+    study_total_time = models.FloatField(default=0)
+    capacity = models.IntegerField(default=10)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
