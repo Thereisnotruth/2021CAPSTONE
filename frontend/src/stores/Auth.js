@@ -1,12 +1,12 @@
 import { observable } from 'mobx';
 
-const Auth = obsevable({
-    logged: False,
+const Auth = observable({
+    logged: false,
     login() {
-        this.logged = True;
+        this.logged = true;
     },
     logout() {
-        this.logged = False;
+        this.logged = false;
     },
 });
 

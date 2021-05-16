@@ -21,16 +21,7 @@ const SignupController = ({ viewModel }) => {
             setMessage1('아이디를 입력해주세요.');
         else{
             setId(e.target.value);
-<<<<<<< HEAD
-            setmessage1('');
-            try {
-                viewModel.IdCheck(id);
-            } catch (error) {
-                setmessage1('이미 존재하는 아이디입니다.');
-            }   
-=======
             setMessage1('');
->>>>>>> 6f0133d8a76a0932a6bd566ff343d73152a14110
         }
     };
     const onPwChange = (e) => {
@@ -72,18 +63,6 @@ const SignupController = ({ viewModel }) => {
         console.log('gender: ', gender);
         if(id==''|| pw==''|| cpw==''|| name==''|| gender==''){
             alert('모든 정보를 입력해주세요.');
-<<<<<<< HEAD
-        else{
-            viewModel.Signup(id, pw, name, gender);
-            alert('가입되었습니다.');
-            history.replace("/login");
-        }
-
-    }
-    const IdCheck = () =>{
-        viewModel.IdCheck(id);
-    }
-=======
         }else{
             try {
                 await viewModel.SignUp(id, pw, name, gender);
@@ -95,7 +74,6 @@ const SignupController = ({ viewModel }) => {
         }
 
     }
->>>>>>> 6f0133d8a76a0932a6bd566ff343d73152a14110
     
     return (
         <>
