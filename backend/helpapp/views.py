@@ -152,4 +152,36 @@ def post_detail(request, post_id):
     else:
         return HttpResponse(status=400)
 
+@api_view(['GET'])
+@permission_classes(permissions.AllowAny)
+def board_list(request):
+    if request.method == 'GET':
+        board = Board.objects.all()
+        serializer = BoardSerializer(data=board)
+        return JsonResponse(serializer.data, status=200)
+    else:
+        return HttpResponse(status=400)
+
+
+@api_view(['POST'])
+@permission_classes(permissions.AllowAny)
+def create_board(request):
+    if request.method == 'POST':
+        board_name = request.GET.get('board_name')
+        board = Board(board_name=board_name)
+        board.save()
+        serializer = BoardSerializer(data=board)
+        return JsonResponse(serializer.data, status=201)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['GET'])
+@permission_classes(permissions.AllowAny)
+def board_detail(request, board_id):
+    if request.method == 'GET':
+        board = Board.objects.filter(board_id=board_id)
+        serializer = BoardSerializer(board)
+        return JsonResponse(serializer.data, status=200)
+    else:
+        return HttpResponse(status=400)
 
