@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
-import { HomeProvider, LoginProvider , SignupProvider ,GroupProvider ,GrouplistProvider /* , ShopProvider*/ } from './components/provider'
+import { HomeProvider, LoginProvider , SignupProvider ,GroupProvider ,GrouplistProvider, GroupMakeProvider /* , ShopProvider*/ } from './components/provider'
 import './scss/main.scss';
 
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -15,6 +15,7 @@ function App() {
         <Route exact path='/' component={HomeProvider}/>
         <Route path='/login' component={LoginProvider}/>
         <Route path='/signup' component={SignupProvider}/>
+        <Route path='/GroupMake' component={GroupMakeProvider}/>
         <Route path="/grouplist" component={GrouplistProvider}/>
         <Route path='/group' component={GroupProvider}/>
 {/*     <Route path='/shop' component={ShopProvider}/>*/}

@@ -53,7 +53,7 @@ const GrouplistController = ({ viewModel }) => {
             <GrouplistView 
                 onsearchChange={onsearchChange}
                 onsearchClick={onsearchClick}
-                groupdata = {state.groupdata}
+                groupdata = {state}
             />
         </>
     );

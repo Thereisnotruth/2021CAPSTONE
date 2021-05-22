@@ -4,7 +4,6 @@ import { Grid,NativeSelect,Button } from '@material-ui/core';
 const Timer = (props) => {
     return (
         <Grid className='Timer'>
-            
             <div>{props.time.h < 10 ? `0${props.time.h}` : props.time.h}:{props.time.m < 10 ? `0${props.time.m}` : props.time.m}:{props.time.s < 10 ? `0${props.time.s}` : props.time.s}</div>
             <NativeSelect
                 onChange={props.exerciseChange}

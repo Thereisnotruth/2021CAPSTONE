@@ -8,5 +8,7 @@ export { default as GroupView } from './GroupView';
 export { default as GroupController } from './GroupController';
 export { default as GrouplistView } from './GrouplistView';
 export { default as GrouplistController } from './GrouplistController';
+export { default as GroupMakeView } from './GroupMakeView';
+export { default as GroupMakeController } from './GroupMakeController';
 
 

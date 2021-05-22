@@ -1,17 +1,11 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import Unity, { UnityContext } from 'react-unity-webgl';
-
-const unityContext = new UnityContext({
-    loaderUrl: 'Build/help.loader.js',
-    dataUrl: 'Build/help.data',
-    frameworkUrl: 'Build/help.framework.js',
-    codeUrl: 'Build/help.wasm'
-});
+import { unityContext } from '../../test';
 
 unityContext.on('canvas', (canvas) => {
-    canvas.width = 360;
-    canvas.height = 480;
+    canvas.width = 300;
+    canvas.height = 400;
 });
 
 const Char = (props) => {

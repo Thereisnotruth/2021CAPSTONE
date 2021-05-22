@@ -8,7 +8,6 @@ const SignupView = (props) => {
         <Grid container direction='column'>
             <Grid className='contents'>
                 <Grid className='logo'>HELP</Grid>
-                <Divider />
                 <Grid className='join_title'>아이디</Grid>
                 <input
                     type='text'
@@ -51,6 +50,7 @@ const SignupView = (props) => {
                 </NativeSelect>
                 <Grid className='errorm'>{props.message5}</Grid>
                 <button type='button' className='loginbtn' onClick={props.Signup}>가입하기</button>
+                <Divider />
             </Grid>
         </Grid>
     )    
