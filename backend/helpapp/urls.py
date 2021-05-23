@@ -15,7 +15,7 @@ urlpatterns = [
     path('posts', views.post_list),
     path('posts/new', views.create_post),
     path('posts/<int:post_id>/', views.post_detail),
-    # path('boards', views.board_list),
-    # path('boards/new', views.create_board),
-    # path('boards/<int:board_id>/', views.board_detail),
+    path('boards', views.board_list),
+    path('boards/new', views.create_board),
+    path('boards/<int:board_id>/', views.board_detail),
 ]

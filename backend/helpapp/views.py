@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import login
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import *
@@ -75,16 +75,21 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
-        user_id = request.GET.get('user_id')
-        study_name = request.GET.get('study_name')
-        capacity = request.GET.get('capacity')
-        study = Study(study_name=study_name, user_id=user_id, capacity=capacity)
+        user_id = request.data['user_id']
+        study_name = request.data['study_name']
+        capacity = request.data['capacity']
+        print(request)
+        print(user_id)
+        user = get_object_or_404(User, user_id=user_id)
+        study = Study(study_name=study_name, user_id=user, capacity=capacity)
         study.save()
-        user_study = User_Study(user_id=user_id, study_id=study.study_id)
+        user_study = User_Study(user_id=user, study_id=study)
         user_study.save()
-        serializer = StudySerializer(study)
+        print(user_study)
+        serializer = UserStudySerializer(study)
+        return JsonResponse(serializer.data, status=201)
 
-        return JsonResponse(serializer.data, status=400)
+    return HttpResponse(status=400)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -131,10 +136,10 @@ def post_list(request):
 @permission_classes(permissions.AllowAny)
 def create_post(request):
     if request.method == 'POST':
-        user_id = request.GET.get('user_id')
-        board_id = request.GET.get('board_id')
-        post_title = request.GET.get('post_title')
-        post_content = request.GET.get('post_content')
+        user_id = request.data['user_id']
+        board_id = request.data['board_id']
+        post_title = request.data['post_title']
+        post_content = request.data['post_content']
         post = Post(user_id=user_id, board_id=board_id, post_title=post_title, post_content=post_content)
         post.save()
         serializer = PostSerializer(post)
@@ -167,7 +172,7 @@ def board_list(request):
 @permission_classes(permissions.AllowAny)
 def create_board(request):
     if request.method == 'POST':
-        board_name = request.GET.get('board_name')
+        board_name = request.data['board_name']
         board = Board(board_name=board_name)
         board.save()
         serializer = BoardSerializer(data=board)
