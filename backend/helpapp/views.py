@@ -98,6 +98,33 @@ def study_userlist(request, study_id):
     serializer = UserStudySerializer(userlist, many=True)
     return JsonResponse(serializer.data, status=200)
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def study_join(request, study_id):
+    if request.method == 'POST':
+        study = get_object_or_404(Study, study_id=study_id)
+        user = get_object_or_404(User, user_id=request.data['user_id'])
+        user_study = User_Study(user_id=user, study_id=study)
+        user_study.save()
+        study.current_user_count += 1
+        study.save()
+
+        return HttpResponse(status=201)
+    return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def study_disjoin(request, study_id):
+    if request.method == 'POST':
+        study = get_object_or_404(Study, study_id=study_id)
+        user = get_object_or_404(User, user_id=request.data['user_id'])
+        User_Study.objects.get(user_id=user, study_id=study).delete()
+        study.current_user_count -= 1
+        study.save()
+
+        return HttpResponse(status=201)
+    return HttpResponse(status=200)
+
 class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
     def __init__(self):
         super()

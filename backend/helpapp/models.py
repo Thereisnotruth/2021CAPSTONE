@@ -42,7 +42,6 @@ class Study(models.Model):
     def __str__(self):
         return self.study_name
 
-
 class User_Study(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
