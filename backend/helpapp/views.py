@@ -36,6 +36,17 @@ def create_user(request):
         return JsonResponse(serializer.errors, status=400)
 
 @api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def show_mygroups(request, user_id):
+    if request.method == 'POST':
+        user_id = request.data['user_id']
+        user = get_object_or_404(User, user_id=user_id)
+        study_list = Study.objects.filter(user_id=user)
+        serializer = StudySerializer(data=study_list, many=True)
+        return JsonResponse(serializer.data, status=200)
+    return HttpResponse(status=400)
+
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny),)
 def save_time(request):
     serializer = UserSerializer(data=request.data)
@@ -62,7 +73,7 @@ def save_time(request):
 def study_list(request):
     study_list = Study.objects.all()
     serializer = StudySerializer(study_list, many=True)
-    return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.data, status=200, safe=False)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
