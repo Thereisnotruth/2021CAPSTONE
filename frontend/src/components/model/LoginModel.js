@@ -3,7 +3,7 @@ import useStore from '../useStore';
 
 class LoginModel {
     constructor() {
-        this.Auth = useStore();
+        // this.Auth = useStore();
         this.login = this.login.bind(this);
     }
     // Model의 로그인 함수

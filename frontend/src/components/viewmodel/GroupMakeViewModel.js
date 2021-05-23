@@ -2,7 +2,7 @@ class GroupMakeViewModel {
     constructor(GroupStore) {
         this.store = GroupStore;
         console.log(this.store)
-        this.Group = this.Study.bind(this);
+        this.MakeStudy = this.MakeStudy.bind(this);
     }
 
     MakeStudy(user,study,capacity) {
