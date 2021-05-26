@@ -20,8 +20,9 @@ def user_list(request):
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def user_detail(request, user_number):
-    user = User.objects.filter(user_number=user_number)
-    serializer = UserSerializer(user, many=True)
+    user = User.objects.get(user_number=user_number)
+    serializer = UserSerializer(user)
+    print(serializer.data)
     return JsonResponse(serializer.data, status=200)
 
 @api_view(['POST'])
