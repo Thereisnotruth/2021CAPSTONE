@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
-import SignupView from './SignupView';
+import SignupView from './SignUpView';
 import { HeaderController } from '../ui';
 
 const SignupController = ({ viewModel }) => {
@@ -65,7 +65,7 @@ const SignupController = ({ viewModel }) => {
             alert('모든 정보를 입력해주세요.');
         }else{
             try {
-                await viewModel.SignUp(id, pw, name, gender);
+                await viewModel.signUp(id, pw, name, gender);
                 alert('가입되었습니다.');
                 history.replace('/login');
             } catch (e) {

@@ -11,7 +11,6 @@ const SideBar = (props) => {
 		Auth.logout();
 		history.replace('/');
 	}
-	console.log(Auth.isLogged);
     return (
         <Grid className='sidebar'>
             <Grid className="sidebar-header">

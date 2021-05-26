@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { HeaderController } from '../ui';
-import GrouplistView from './GrouplistView';
+import GrouplistView from './GroupListView';
 
 const GrouplistController = ({ viewModel }) => {
     const[Search,setSearch] = useState('');

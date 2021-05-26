@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 
 
-import { Header, Timer, Char} from '../ui';
+import { Timer, Char} from '../ui';
 
 const HomeView = (props) => {
     return (

@@ -3,7 +3,7 @@ import { Grid } from '@material-ui/core';
 import { IoPodiumOutline,IoCalendarOutline } from "react-icons/io5";
 import { BsPersonPlus } from "react-icons/bs";
 
-import { Header ,Groupmember } from '../ui';
+import { GroupMember } from '../ui';
 
 const GroupView = (props) => {
     return (
@@ -20,7 +20,7 @@ const GroupView = (props) => {
                 <Grid className='noticetxt'>{props.notice}</Grid>
                 <Grid className ='doing'>
                     <Grid>지금운동중인 멤버 수<Grid className = 'groupmember'>{props.Exercisemember}</Grid></Grid>
-                    <Groupmember groupmembers={props.groupmembers}></Groupmember>
+                    <GroupMember groupmembers={props.groupmembers}></GroupMember>
                 </Grid>
             </Grid>
 

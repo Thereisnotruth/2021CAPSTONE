@@ -1,4 +1,4 @@
-import Unity, { UnityContext } from 'react-unity-webgl';
+import { UnityContext } from 'react-unity-webgl';
 export const unityContext = new UnityContext({
     loaderUrl: 'Build/help.loader.js',
     dataUrl: 'Build/help.data',

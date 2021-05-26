@@ -14,6 +14,7 @@ const Auth = observable({
     },
     login(userData) {
         this.isLogged = true;
+        this.data = userData;
         localStorage.setItem('userInfo', JSON.stringify(userData));
     },
     logout() {

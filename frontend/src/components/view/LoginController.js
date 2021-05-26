@@ -13,13 +13,20 @@ const LoginController = ({ viewModel }) => {
     const onPwChange = (e) => {
         setPw(e.target.value);
     }
+
     const login = async () => {
-       try {
-            const res = await viewModel.login(id, pw);
+ 
+        const test = await viewModel.login(id, pw);
+        const status = test?.status;
+
+        if (status === 200) {
             history.replace('/');
-        } catch (error) {
+        } else if (status === 400 || status === 401) {
             setPw('');
-            alert('아이디와 비밀번호가 일치하지 않습니다.');
+            alert('아이디 또는 비밀번호가 잘못되었습니다.')
+        } else {
+            setPw('');
+            alert('내부 서버 오류입니다.');
         }
     }
     return (

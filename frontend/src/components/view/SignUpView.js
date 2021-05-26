@@ -1,8 +1,6 @@
 import React from 'react';
 import { Grid, Divider,NativeSelect } from '@material-ui/core';
 
-import { Header } from '../ui';
-
 const SignupView = (props) => {
     return (
         <Grid container direction='column'>

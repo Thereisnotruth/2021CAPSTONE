@@ -8,7 +8,7 @@ unityContext.on('canvas', (canvas) => {
     canvas.height = 400;
 });
 
-const Char = (props) => {
+const Char = () => {
     return (
         <Grid className ='drawchar'>
              <Unity 

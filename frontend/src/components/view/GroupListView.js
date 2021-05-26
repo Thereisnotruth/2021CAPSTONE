@@ -6,7 +6,7 @@ import { IoSearch } from "react-icons/io5";
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
-import { Header, Groupform  } from '../ui';
+import { GroupForm  } from '../ui';
 
 const GrouplistView = (props) => {
     return (
@@ -22,7 +22,7 @@ const GrouplistView = (props) => {
                     />
                     <button type='button' onClick={props.onsearchClick}>Search</button>
                 </Grid>
-                    <Groupform groupdata = {props.groupdata}/>
+                    <GroupForm groupdata = {props.groupdata}/>
                 <Fab className = 'makegroupbtn' aria-label="add">
                     <AddIcon />
                 </Fab>
