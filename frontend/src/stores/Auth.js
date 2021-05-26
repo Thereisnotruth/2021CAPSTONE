@@ -1,12 +1,24 @@
 import { observable } from 'mobx';
 
-const Auth = obsevable({
-    logged: False,
-    login() {
-        this.logged = True;
+const Auth = observable({
+    isLogged: false,
+    data: {},
+
+    init() {
+        this.data = JSON.parse(localStorage.getItem('userInfo'));
+        if (this.data != null)
+            this.isLogged = true;
+        else {
+            this.isLogged = false;
+        }
+    },
+    login(userData) {
+        this.isLogged = true;
+        localStorage.setItem('userInfo', JSON.stringify(userData));
     },
     logout() {
-        this.logged = False;
+        this.isLogged = false;
+        localStorage.clear();
     },
 });
 

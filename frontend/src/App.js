@@ -4,11 +4,15 @@ import axios from 'axios';
 import { HomeProvider, LoginProvider , SignupProvider ,GroupProvider ,GrouplistProvider /* , ShopProvider*/ } from './components/provider'
 import './scss/main.scss';
 
+import useStore from './components/useStore';
+
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'x-CSRFToken';
 axios.defaults.withCredentials = true
 
 function App() {
+  const { Auth } = useStore();
+  Auth.init();
   return (
     <BrowserRouter>
       <Switch>

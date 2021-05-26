@@ -1,7 +1,5 @@
 import { Auth } from '../stores';
 
-const useStore = () => ({
-    Auth
-});
+const useStore = () => ({ Auth });
 
 export default useStore;

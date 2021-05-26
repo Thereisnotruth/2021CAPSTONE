@@ -10,8 +10,8 @@ const unityContext = new UnityContext({
 });
 
 unityContext.on('canvas', (canvas) => {
-    canvas.width = 360;
-    canvas.height = 480;
+    canvas.width = 300;
+    canvas.height = 400;
 });
 
 const Char = (props) => {

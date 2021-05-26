@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 
 import Header from './Header';
-
 import SideBar from './SideBar';
 
 const HeaderController = (props) => {
-    const test = () => {
-        alert('test!');
-    }
     const [open, setOpen] = useState(0);
 
     const sideBarOpen = () => {
@@ -20,7 +16,6 @@ const HeaderController = (props) => {
         <>
         <Header
             header={props.header}
-            menuClick={test}
             sideBarOpen={sideBarOpen}
         />
         {

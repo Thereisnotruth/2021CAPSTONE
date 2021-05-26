@@ -1,8 +1,17 @@
 import React from 'react';
 import { Grid, Button, Divider } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+import useStore from '../useStore';
 const SideBar = (props) => {
+	const { Auth } = useStore();
+	const history = useHistory();
+	const test = () => {
+		Auth.logout();
+		history.replace('/');
+	}
+	console.log(Auth.isLogged);
     return (
         <Grid className='sidebar'>
             <Grid className="sidebar-header">
@@ -10,11 +19,21 @@ const SideBar = (props) => {
 					<Close />
 				</Button>
 			</Grid>
-			<Link to='login' className='sidebar-link'>
-				<Button className='login-button'>
-					로그인
-				</Button>
-			</Link>
+			{
+				Auth.isLogged?
+				<Link to='userInfo' className='sidebar-link'>
+					<Button className='login-button'>
+						{Auth.data.user_id}
+					</Button>
+				</Link>
+				:		
+				<Link to='login' className='sidebar-link'>
+					<Button className='login-button'>
+						로그인
+					</Button>
+				</Link>
+			}
+	
 			<Divider />
 			<Link to='/' className='sidebar-link'>
 				<Button className='sidebar-item'>
@@ -26,6 +45,14 @@ const SideBar = (props) => {
 					그룹 목록
 				</Button>
 			</Link>
+			{
+				Auth.isLogged?
+				<Button className='login-button' onClick={test}>
+					로그아웃
+				</Button>
+				:		
+				undefined
+			}
         </Grid>
     )
 };

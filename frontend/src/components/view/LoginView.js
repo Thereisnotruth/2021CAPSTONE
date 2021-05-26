@@ -2,10 +2,6 @@ import React from 'react';
 import { Grid, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
-import { Header } from '../ui';
-import axios from 'axios';
-
-
 const LoginView = (props) => {
     return (
         <Grid container direction='column'>
