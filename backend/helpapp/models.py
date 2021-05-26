@@ -18,7 +18,8 @@ class User(models.Model):
     belly_exp = models.FloatField(default=0)
     arm_exp = models.FloatField(default=0)
     leg_exp = models.FloatField(default=0)
-
+    exercise_time = models.IntegerField(default=0)
+    exercise_state = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -28,17 +29,18 @@ class User(models.Model):
 
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='host_id')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    current_user_count = models.IntegerField(default=1)
     study_name = models.CharField(max_length=20, unique=True)
-    study_exp = models.FloatField()
-    capacity = models.IntegerField()
+    study_total_time = models.FloatField(default=0)
+    capacity = models.IntegerField(default=10)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.study_name
-
 
 class User_Study(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
@@ -85,7 +87,6 @@ class Inventory(models.Model):
     item_id = models.ForeignKey(Item, on_delete=models.CASCADE, db_column='item_id')
     buy_time = models.DateTimeField(auto_now_add=True)
 
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -108,10 +109,8 @@ class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     board_id = models.ForeignKey(Board, on_delete=models.CASCADE, db_column='board_id')
-    title = models.CharField(max_length=20)
-    content = models.CharField(max_length=500) # 글자 제한 500
-    time = models.DateTimeField(auto_now_add=True) # 해당 레코드 생성 시 생성 시간 자동 저장
-
+    post_title = models.CharField(max_length=20)
+    post_content = models.CharField(max_length=500) # 글자 제한 500
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
