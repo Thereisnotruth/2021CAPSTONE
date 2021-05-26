@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { UnityContext } from 'react-unity-webgl';
 
 import { HeaderController  } from '../ui';
 import HomeView from './HomeView';
+import { unityContext } from '../../test';
 
 const HomeController = ({ viewModel }) => {
     const [time, setTime] = useState({h:0,m:0,s:0});
@@ -9,7 +11,7 @@ const HomeController = ({ viewModel }) => {
     const [status, setStatus] = useState(0);
     const [message, setmessage] = useState('');
     const [expart, setExpart] = useState('');
-
+    const [level,setLevel] = useState();
     const start = () => {
         if(expart===''){
             setmessage('운동부위를 선택해주세요.');
@@ -39,12 +41,31 @@ const HomeController = ({ viewModel }) => {
         clearInterval(interv);
         setStatus(2);
     }
+    const levelChange = () => {
+        let level;
+        if(time.s > 10) {
+            level = 3;
+        }
+        else if(time.s > 5) {
+            level = 2;
+        }
+            else if(time.s > 2)
+            {
+            level = 1;
+            }
+            
+       
+        console.log(time.s)
+        console.log(level)
+        unityContext.send('Man', 'LevelChange', level);
+    }
     var times;
     const exit=()=>{
         if(message===''){
+            levelChange();
             clearInterval(interv);
             times = time.h * 3600 + time.m * 60 + time.s;
-            viewModel.exerciseend(expart,times);
+
             setTime({h:0,m:0,s:0});
             setStatus(0);
         }

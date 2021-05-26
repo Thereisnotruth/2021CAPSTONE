@@ -43,7 +43,7 @@ const GroupController = ({ viewModel }) => {
 
     return (
         <>
-        <HeaderController header={'그룹 목록'}/>
+        <HeaderController header={'그룹'}/>
         < GroupView 
             groupname={groupname}
             groupmember={groupmember}

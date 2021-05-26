@@ -9,3 +9,7 @@ export { default as GroupController } from './GroupController';
 export { default as GrouplistView } from './GrouplistView';
 export { default as GrouplistController } from './GrouplistController';
 export { default as UserInfoView } from './UserInfoView';  
+export { default as GroupMakeView } from './GroupMakeView';
+export { default as GroupMakeController } from './GroupMakeController';
+
+

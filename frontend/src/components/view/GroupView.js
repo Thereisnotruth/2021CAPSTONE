@@ -8,7 +8,6 @@ import { Header ,Groupmember } from '../ui';
 const GroupView = (props) => {
     return (
         <Grid container direction='column'>
-            <Header header={'그룹'}/>
             <Grid className='group'>
                 <Grid className='grouplogo'><Grid className='groupname'>{props.groupname}</Grid></Grid>
                 <Grid className = 'groupmembernumber'>멤버<Grid className = 'groupmember'>{props.groupmember}</Grid>명</Grid>

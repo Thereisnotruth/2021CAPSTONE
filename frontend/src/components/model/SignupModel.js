@@ -12,20 +12,22 @@ class SignupModel {
                 user_pw: pw,
                 user_name: name,
                 gender: gender
-            }, { withCredentials: true });
+            }).then((res) => {
+                console.log(res)
+            })
         } catch(error) {
             console.log(error);
         }
     }
-    async IdCheck(id) {
-        try {
-            await axios.post('localhost:8000/v1/auth', {
-                userId: id,
-            }, { withCredentials: true });
-        } catch(error) {
-            console.log(error);
-        }
-    }
+    // async IdCheck(id) {
+    //     try {
+    //         await axios.post('localhost:8000/v1/auth', {
+    //             userId: id,
+    //         }, { withCredentials: true });
+    //     } catch(error) {
+    //         console.Signup(error);
+    //     }
+    // }
 }
 
 export default SignupModel;
