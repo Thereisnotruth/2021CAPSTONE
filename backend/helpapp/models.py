@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-
 class User(models.Model):
     user_number = models.BigAutoField(primary_key=True)
     user_id = models.CharField(unique=True, max_length=20)
