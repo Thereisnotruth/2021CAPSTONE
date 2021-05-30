@@ -37,7 +37,6 @@ class Model {
             return res;
         })
         .catch((error) => {
-            console.log(error);
             return error.response;
         });
         return result;
@@ -59,18 +58,19 @@ class Model {
     }
     // 회원가입
     signUp(id, pw, name,gender) {
-        axios.post('/helpapp/users/new', {
+        const result = axios.post('/helpapp/users/new', {
             user_id: id,
             user_pw: pw,
             user_name: name,
             gender: gender
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
-        .catch((e) => {
-            console.log(e);
+        .catch((err) => {
+            return err.response;
         })
+        return result;
     }
     // 운동
     exercise(expart, times) {
