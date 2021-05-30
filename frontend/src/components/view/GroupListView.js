@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid ,Link} from '@material-ui/core';
 
 import { IoSearch } from "react-icons/io5";
 
@@ -23,9 +23,11 @@ const GrouplistView = (props) => {
                     <button type='button' onClick={props.onsearchClick}>Search</button>
                 </Grid>
                     <GroupForm groupdata = {props.groupdata}/>
-                <Fab className = 'makegroupbtn' aria-label="add">
-                    <AddIcon />
-                </Fab>
+                
+                    <Fab className = 'makegroupbtn' aria-label="add" onClick = {props.make}>
+                        <AddIcon />
+                    </Fab>
+                
             </Grid>
         </Grid>
     )    

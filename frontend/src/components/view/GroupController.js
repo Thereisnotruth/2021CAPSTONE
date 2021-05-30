@@ -3,12 +3,17 @@ import { GiRun } from 'react-icons/gi';
 
 import GroupView from './GroupView';
 import { HeaderController } from '../ui';
+import useStore from '../useStore';
+import { useHistory } from 'react-router-dom';
 
 const GroupController = ({ viewModel }) => {
     const[groupname,setgroupname] = useState('GroupName');
     const[groupmember,setgroupmember] = useState('5');
     const[Exercisemember,setExercisemember] = useState('2');
     const[notice,setnotice] = useState('notice');
+    const { Auth } = useStore();
+    const id = Auth .data.user_id;
+    const history = useHistory();
     const state = [
         {
             id:1,
@@ -39,6 +44,18 @@ const GroupController = ({ viewModel }) => {
             time:3600,
             state:0,
         }]
+        console.log(history);
+        const join=()=>{
+            if(Auth.isLogged === false){ history.replace('/login');}
+            else{
+                try {
+                    viewModel.join(id);
+                    alert('가입되었습니다.');
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+        }
         
 
     return (
@@ -50,6 +67,7 @@ const GroupController = ({ viewModel }) => {
             Exercisemember={Exercisemember}
             notice={notice}
             groupmembers = {state}
+            join = {join}
         />
         </>
     );

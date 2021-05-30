@@ -4,14 +4,12 @@ import { Link} from 'react-router-dom';
 const Groupform = (props) => {
 
     const list = props.groupdata.map(
-        groupdata => ( <Link className = 'groups'  to={`/group/${groupdata.id}`} >
-            <Grid className = 'area'>{groupdata.area}</Grid><Grid className = 'groupname'>{groupdata.groupname}</Grid>
-            <Grid className = 'dataname'>membernumber:</Grid><Grid className = 'data'>{groupdata.number}/{groupdata.maxnumber}</Grid>
-            <Grid className = 'dataname'>Groupleader:</Grid><Grid className = 'data'>{groupdata.leader}</Grid>
-            <Grid className = 'dataname'>Attendance:</Grid><Grid className = 'data'>{groupdata.attendance}</Grid>
-            <Grid className = 'dataname'>Averageexercisetime:</Grid><Grid className = 'data'>{groupdata.exercisetime}</Grid>
-            <Grid className = 'dataname'>start:</Grid><Grid className = 'data'>{groupdata.startdate}</Grid>
-            <Grid className = 'notion'>{groupdata.notion}</Grid>
+        groupdata => ( <Link className = 'groups'  to={`/group/${groupdata.study_id}`} >
+            <Grid className = 'groupname'>{groupdata.study_name}</Grid>
+            <Grid className = 'dataname'>membernumber:</Grid><Grid className = 'data'>{groupdata.number}/{groupdata.capacity}</Grid>
+            <Grid className = 'dataname'>Groupleader:</Grid><Grid className = 'data'>{groupdata.user_id}</Grid>
+            <Grid className = 'dataname'>exercise total time:</Grid><Grid className = 'data'>{groupdata.study_total_time}</Grid>
+            <Grid className = 'dataname'>start:</Grid><Grid className = 'data'>{groupdata.created_at}</Grid>
         </Link>)
       );
     return (

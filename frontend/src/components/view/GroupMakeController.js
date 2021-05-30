@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import GroupMakeView from './GroupMakeView';
 import { HeaderController } from '../ui';
+import useStore from '../useStore';
 
 const GroupMakeController = ({ viewModel }) => {
-	const user = '123';
+    const { Auth } = useStore();
+	const user = Auth.data.user_id;
     const [study, setStudy] = useState('');
     const [capacity, setCapacity] = useState('');
     const [message1,setMessage1] = useState('');
@@ -34,7 +36,7 @@ const GroupMakeController = ({ viewModel }) => {
             alert('모든 정보를 입력해주세요.');
         }else{
             try {
-                await viewModel.MakeStudy(user,study,capacity);
+                await viewModel.makeStudy(user,study,capacity);
                 alert('스터디가 생성되었습니다.');
                 history.replace('/grouplist');
             } catch (e) {
