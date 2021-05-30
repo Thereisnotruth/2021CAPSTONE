@@ -52,7 +52,7 @@ class Model {
     loginSuccess = (response) => {
         const accessToken = response.data;
         Auth.login(response.data);
-     
+        console.log(Auth.data.user_number);
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
         // setTimeout(this.silentRefresh, JWT_EXPIRY_TIME - 60000)
@@ -73,7 +73,7 @@ class Model {
         })
     }
     // 운동
-    exercise(expart,times) {
+    exercise(expart, times) {
         axios.post('/helpapp/exercise', {
             expart: expart,
             times: times
