@@ -5,3 +5,5 @@ export { default as GroupMember } from './GroupMember';
 export { default as SideBar } from './SideBar';
 export { default as Char } from './Char';
 export { default as Timer } from './Timer';
+export { default as ElementLeft } from './ElementLeft';
+export { default as ElementRight } from './ElementRight';
