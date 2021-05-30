@@ -15,6 +15,9 @@ class ViewModel {
     exercise = (expart, times) => {
         return this.model.exercise(expart, times);
     }
+    join = () => {
+        return this.model.join();
+    }
 }
 
 export default ViewModel;

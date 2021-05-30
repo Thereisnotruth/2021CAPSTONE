@@ -10,10 +10,10 @@ class Model {
     }
     // 스터디 생성
     makeStudy(user, study, capacity) {
-        axios.post('/helpapp/study/new', {
-            study_leader: user,
+        axios.post('/helpapp/studies/new', {
+            user_id: user,
             study_name:study,
-            study_capacity: capacity,
+            capacity: capacity,
         })
         .then((res) => {
             console.log(res);
