@@ -15,11 +15,21 @@ const SignupController = ({ viewModel }) => {
     const [message4,setMessage4] = useState('');
     const [message5,setMessage5] = useState('');
     const history = useHistory();
-
-    const onIdChange = (e) => {
+    const checkAlphaNum = (str) => {
+        const regexp = /^[a-za-z0-9]*$/;
+        if(regexp.test(str)){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    const onIdChange = (e) => {    
         if(e.target.value==='')
             setMessage1('아이디를 입력해주세요.');
-        else{
+        else if (!checkAlphaNum(e.target.value)) {
+            setId(e.target.value);
+            setMessage1('아이디는 알파벳 소문자, 대문자, 숫자만 가능합니다.');
+        } else {
             setId(e.target.value);
             setMessage1('');
         }
@@ -48,23 +58,33 @@ const SignupController = ({ viewModel }) => {
             setMessage4('');
             setName(e.target.value);}
     }
-    const genderChange = (e) =>{
+    const genderChange = (e) => {
         if(e.target.value==='')
             setMessage5('성별을 선택해주세요.');
         else{
             setMessage5('');
             setGender(e.target.value);}
     }
+
     const Signup = async () => {
-        if(id === ''|| pw === ''|| cpw === ''|| name === ''|| gender === ''){
+        if(id === ''|| pw === ''|| name === ''|| gender === ''){
             alert('모든 정보를 입력해주세요.');
-        }else{
-            try {
-                await viewModel.signUp(id, pw, name, gender);
+        } else if (cpw === '') {
+            alert('비밀번호가 일치하지 않습니다.');
+        } else if (!checkAlphaNum(id)) {
+            alert('아이디는 알파벳 소문자, 대문자, 숫자만 가능합니다.');
+            return;
+        } else {
+            const connect = await viewModel.signUp(id, pw, name, gender);
+            const status = connect?.status;
+
+            if (status === 201) {
                 alert('가입되었습니다.');
                 history.replace('/login');
-            } catch (e) {
-                console.log(e);
+            } else if (status === 400) {
+                alert('중복된 아이디입니다.');
+            } else {
+                alert('내부 서버 오류입니다.');
             }
         }
 
