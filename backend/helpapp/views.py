@@ -14,8 +14,8 @@ def user_list(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def user_detail(request, user_number):
-    user = User.objects.filter(user_number=user_number)
-    serializer = UserSerializer(user, many=True)
+    user = get_object_or_404(User, user_number=user_number)
+    serializer = UserSerializer(user)
     return JsonResponse(serializer.data, status=200)
 
 @api_view(['POST'])
@@ -47,7 +47,7 @@ def save_time(request):
 
     if serializer.is_valid():
         user_id = serializer.data['user_id']
-        user = User.objects.get(user_id=user_id)
+        user = get_object_or_404(User, user_id=user_id)
 
         user.back_exp = serializer.data['back_exp']
         user.chest_exp = serializer.data['chest_exp']
@@ -72,8 +72,8 @@ def study_list(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_detail(request, study_id):
-    study = Study.objects.filter(study_id=study_id)
-    serializer = StudySerializer(study, many=True)
+    study = get_object_or_404(Study, study_id=study_id)
+    serializer = StudySerializer(study)
     return JsonResponse(serializer.data, status=200)
 
 @api_view(['POST'])
