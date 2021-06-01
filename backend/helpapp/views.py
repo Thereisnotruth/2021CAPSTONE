@@ -4,6 +4,26 @@ from .serializers import *
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def login(request):
+    if request.method == 'POST':
+        id = request.data['user_id']
+        pw = request.data['user_pw']
+        print(request.data);
+        try:
+            user = User.objects.get(user_id=id)
+            serializer = UserSerializer(user)
+            if pw != serializer.data['user_pw']:
+                raise DiffPw
+            res = JsonResponse(serializer.data, status=200)
+            res.set_cookie('refreshToken', id, 600, httponly=True)
+            return res
+        except User.DoesNotExist:
+            return JsonResponse({ 'Error': '회원이 아님' }, status=400)
+        except DiffPw:
+            return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def user_list(request):
@@ -101,7 +121,7 @@ def create_study(request):
 def study_userlist(request, study_id):
     userlist = User_Study.objects.filter(study_id=study_id)
     serializer = UserStudySerializer(userlist, many=True)
-    return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.data, status=200, safe=False)
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -134,25 +154,7 @@ class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 �
     def __init__(self):
         super()
 
-@api_view(['POST'])
-@permission_classes((permissions.AllowAny,))
-def login(request):
-    if request.method == 'POST':
-        id = request.data['user_id']
-        pw = request.data['user_pw']
-        print(request.data);
-        try:
-            user = User.objects.get(user_id=id)
-            serializer = UserSerializer(user)
-            if pw != serializer.data['user_pw']:
-                raise DiffPw
-            res = JsonResponse(serializer.data, status=200)
-            res.set_cookie('refreshToken', id, 600, httponly=True)
-            return res
-        except User.DoesNotExist:
-            return JsonResponse({ 'Error': '회원이 아님' }, status=400)
-        except DiffPw:
-            return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
+
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))

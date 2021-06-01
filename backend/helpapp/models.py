@@ -21,7 +21,7 @@ class User(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.user_name
+        return self.user_id
 
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
