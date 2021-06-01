@@ -1,3 +1,4 @@
+import { ContactSupportOutlined } from '@material-ui/icons';
 import axios from 'axios';
 
 import useStore from './useStore';
@@ -84,6 +85,46 @@ class Model {
         .catch((e) => {
             console.log(e);
         });
+    }
+    //가입
+    join(user,study) {
+        axios.post(`helpapp/studies/${study}/join`, {
+            study_id: study,
+            user_id: user
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+    //스터디 목록
+    list = () =>{ 
+        let data = axios.get('helpapp/studies')
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
+    }
+    //스터디 세부정보
+    study_detail = (study_id) =>{ 
+        let data = axios.post('helpapp/studies/'+study_id+'/',{
+            study_id: study_id})
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
+    }
+    //스터디내의 유저들정보
+    member = (study_id) =>{ 
+        let data = axios.post(`helpapp/studies/${study_id}/userlist`,{
+            study_id: study_id
+        })
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
     }
 }
 

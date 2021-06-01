@@ -61,7 +61,7 @@ const SignupController = ({ viewModel }) => {
         console.log('cpw: ', cpw);
         console.log('name: ', name);
         console.log('gender: ', gender);
-        if(id==''|| pw==''|| cpw==''|| name==''|| gender==''){
+        if(id===''|| pw===''|| cpw===''|| name===''|| gender===''){
             alert('모든 정보를 입력해주세요.');
         }else{
             try {

@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 
 const GroupView = (props) => {
     const history = useHistory();
-    console.log(history.location.pathname);
     return (
         <Grid container direction='column'>
             <Grid className='group'>

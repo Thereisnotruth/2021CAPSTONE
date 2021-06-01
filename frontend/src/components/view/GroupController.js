@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { GiRun } from 'react-icons/gi';
 
 import GroupView from './GroupView';
@@ -7,13 +7,49 @@ import useStore from '../useStore';
 import { useHistory } from 'react-router-dom';
 
 const GroupController = ({ viewModel }) => {
-    const[groupname,setgroupname] = useState('GroupName');
-    const[groupmember,setgroupmember] = useState('5');
-    const[Exercisemember,setExercisemember] = useState('2');
-    const[notice,setnotice] = useState('notice');
+    const [groupname,setgroupname] = useState('GroupName');
+    const [memberlist,setMemberlist] = useState([]);
+    const [studydetail,setStudydetail] = useState([]);
+    const [groupmember,setgroupmember] = useState('5');
+    const [Exercisemember,setExercisemember] = useState('2');
+    const [notice,setnotice] = useState('notice');
     const { Auth } = useStore();
-    const id = Auth .data.user_id;
+    const id = Auth.isLogged ? Auth .data.user_id:'';
     const history = useHistory();
+    const address = (history.location.pathname);
+    const study_id = address.replace(/[^0-9]/g,'');
+
+    const getmember = async () => {
+        const test = await viewModel.member(study_id);
+        const status = test?.status;
+        console.log(test);
+        setMemberlist(test.data);
+        
+        if (status === 200) {
+            
+        }
+        else {
+            alert('내부 서버 오류입니다.');
+        }
+    }
+    const getstudy_detail = async () => {
+        const test = await viewModel.study_detail(study_id);
+        const status = test?.status;
+        console.log(test);
+        setStudydetail(test.data);
+        
+        if (status === 200) {
+            
+        }
+        else {
+            alert('내부 서버 오류입니다.');
+        }
+    }
+    useEffect(() => {
+        getstudy_detail();
+        //getmember();
+      },[]);
+
     const state = [
         {
             id:1,
@@ -44,12 +80,12 @@ const GroupController = ({ viewModel }) => {
             time:3600,
             state:0,
         }]
-        console.log(history);
+        
         const join=()=>{
             if(Auth.isLogged === false){ history.replace('/login');}
             else{
                 try {
-                    viewModel.join(id);
+                    viewModel.join(id,study_id);
                     alert('가입되었습니다.');
                 } catch (e) {
                     console.log(e);
