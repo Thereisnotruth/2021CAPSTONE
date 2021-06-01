@@ -16,8 +16,8 @@ const LoginController = ({ viewModel }) => {
 
     const login = async () => {
  
-        const test = await viewModel.login(id, pw);
-        const status = test?.status;
+        const connect = await viewModel.login(id, pw);
+        const status = connect?.status;
 
         if (status === 200) {
             history.replace('/');

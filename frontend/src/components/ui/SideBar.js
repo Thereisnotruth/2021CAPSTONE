@@ -20,7 +20,7 @@ const SideBar = (props) => {
 			</Grid>
 			{
 				Auth.isLogged?
-				<Link to='userInfo' className='sidebar-link'>
+				<Link to='/info' className='sidebar-link'>
 					<Button className='login-button'>
 						{Auth.data.user_id}
 					</Button>

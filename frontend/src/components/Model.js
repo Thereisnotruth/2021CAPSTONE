@@ -38,7 +38,6 @@ class Model {
             return res;
         })
         .catch((error) => {
-            console.log(error);
             return error.response;
         });
         return result;
@@ -53,28 +52,29 @@ class Model {
     loginSuccess = (response) => {
         const accessToken = response.data;
         Auth.login(response.data);
-     
+        console.log(Auth.data.user_number);
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
         // setTimeout(this.silentRefresh, JWT_EXPIRY_TIME - 60000)
     }
     // 회원가입
     signUp(id, pw, name,gender) {
-        axios.post('/helpapp/users/new', {
+        const result = axios.post('/helpapp/users/new', {
             user_id: id,
             user_pw: pw,
             user_name: name,
             gender: gender
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
-        .catch((e) => {
-            console.log(e);
+        .catch((err) => {
+            return err.response;
         })
+        return result;
     }
     // 운동
-    exercise(expart,times) {
+    exercise(expart, times) {
         axios.post('/helpapp/exercise', {
             expart: expart,
             times: times

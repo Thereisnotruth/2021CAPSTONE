@@ -9,5 +9,6 @@ export { default as GroupController } from './GroupController';
 export { default as GroupListView } from './GroupListView';
 export { default as GroupListController } from './GroupListController';
 export { default as UserInfoView } from './UserInfoView';  
+export { default as UserInfoController } from './UserInfoController';
 export { default as GroupMakeView } from './GroupMakeView';
 export { default as GroupMakeController } from './GroupMakeController';

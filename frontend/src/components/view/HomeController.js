@@ -54,14 +54,14 @@ const HomeController = ({ viewModel }) => {
             
         unityContext.send('Man', 'LevelChange', level);
     }
-    var times;
-    const exit=()=>{
+    const exit = async () => {
         if(message===''){
             levelChange();
             clearInterval(interv);
-            times = time.h * 3600 + time.m * 60 + time.s;
+            const times = time.h * 3600 + time.m * 60 + time.s;
             setTime({h:0,m:0,s:0});
             setStatus(0);
+            await viewModel.exercise(expart, times);
         }
     }
     const exerciseChange = (e) =>{
