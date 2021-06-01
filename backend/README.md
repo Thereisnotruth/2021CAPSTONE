@@ -5,7 +5,7 @@
 
 ## Directory
 helpapp <br>
-├─migrations: Database migrations 파일 보관 <br>
+├─migrations: Database migrations 파일 보관<br>
 │  └─__pycache__ <br>
 ├─admin.py: django admin 페이지 관련 설정 파일 <br>
 ├─apps.py <br>

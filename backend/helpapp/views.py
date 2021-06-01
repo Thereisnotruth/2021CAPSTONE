@@ -138,22 +138,29 @@ class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 �
 @permission_classes((permissions.AllowAny,))
 def login(request):
     if request.method == 'POST':
-        print(request.data)
         id = request.data['user_id']
         pw = request.data['user_pw']
+        print(request.data);
         try:
             user = User.objects.get(user_id=id)
             serializer = UserSerializer(user)
             if pw != serializer.data['user_pw']:
                 raise DiffPw
             res = JsonResponse(serializer.data, status=200)
-            res.set_cookie('user', id, 3600)
+            res.set_cookie('refreshToken', id, 600, httponly=True)
             return res
         except User.DoesNotExist:
             return JsonResponse({ 'Error': '회원이 아님' }, status=400)
         except DiffPw:
             return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def silent_refresh(request):
+    if request.method == 'POST':
+        res = JsonResponse({ 'Message': '로그인 갱신' }, status=201)
+        res.set_cookie('refreshToken', request.data['id'], 600, httponly=True)
+        return res;
 @api_view(['GET'])
 @permission_classes(permissions.AllowAny)
 def post_list(request):
