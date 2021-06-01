@@ -4,11 +4,11 @@
 """
 
 ## Directory
-backend
-├─config : 프로젝트 setting 정보 설정 파일 보관
-├─helpapp : 헬프스터디 웹 핵심 구동부
-└─templates : 웹 앱 구동에 필요한 template 파일
-  └─helpapp
+backend <br>
+├─config : 프로젝트 setting 정보 설정 파일 보관 <br>
+├─helpapp : 헬프스터디 웹 핵심 구동부 <br>
+└─templates : 웹 앱 구동에 필요한 template 파일 <br>
+  └─helpapp <br>
 
 ## Description
 - 헬스 스터디 웹앱 backend 구동을 담당하는 폴더
