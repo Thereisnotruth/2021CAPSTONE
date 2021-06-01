@@ -31,7 +31,6 @@ class Study(models.Model):
     study_total_time = models.FloatField(default=0)
     capacity = models.IntegerField(default=10)
 
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

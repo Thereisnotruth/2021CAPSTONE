@@ -11,7 +11,7 @@ def user_list(request):
     serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def user_detail(request, user_number):
     user = User.objects.get(user_number=user_number)
@@ -32,7 +32,7 @@ def create_user(request):
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
-def show_mygroups(request, user_id):
+def show_mygroups(request, user_number):
     if request.method == 'POST':
         user_id = request.data['user_id']
         user = get_object_or_404(User, user_id=user_id)
@@ -70,7 +70,7 @@ def study_list(request):
     serializer = StudySerializer(study_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_detail(request, study_id):
     study = Study.objects.filter(study_id=study_id)
@@ -97,7 +97,7 @@ def create_study(request):
 
     return HttpResponse(status=400)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_userlist(request, study_id):
     userlist = User_Study.objects.filter(study_id=study_id)
@@ -187,7 +187,7 @@ def create_post(request):
     else:
         return HttpResponse(status=400)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes(permissions.AllowAny)
 def post_detail(request, post_id):
     if request.method == 'GET':
@@ -220,7 +220,7 @@ def create_board(request):
     else:
         return HttpResponse(status=400)
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes(permissions.AllowAny)
 def board_detail(request, board_id):
     if request.method == 'GET':
