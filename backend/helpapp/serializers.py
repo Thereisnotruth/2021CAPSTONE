@@ -26,12 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
 class StudySerializer(serializers.ModelSerializer):
     class Meta:
         model = Study
-        fields = (
-            'study_id',
-            'user_id',
-            'study_name',
-            'capacity',
-        )
+        fields = '__all__'
 
 class UserStudySerializer(serializers.ModelSerializer):
     class Meta:

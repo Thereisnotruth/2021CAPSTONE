@@ -29,7 +29,7 @@ from . import views
             - Data) user_number
         studies: 스터디 목록 조회 요청을 처리하는 url
             - GET
-        studies/new: 스터드 생성 요청을 처리하는 url
+        studies/new: 스터디 생성 요청을 처리하는 url
             - POST
             - Data) Study 테이블 생성에 필요한 데이터
         studies/<int:study_id>/: 스터디 정보 조회를 요청하는 url
