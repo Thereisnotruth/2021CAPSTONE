@@ -16,7 +16,6 @@ class User(models.Model):
     arm_exp = models.FloatField(default=0)
     leg_exp = models.FloatField(default=0)
     exercise_time = models.IntegerField(default=0)
-    exercise_state = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -42,7 +41,8 @@ class User_Study(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
     date = models.DateTimeField(auto_now=True)
-
+    exercise_state = models.BooleanField(default=False)
+    
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['user_id', 'study_id'], name='user_in_study')

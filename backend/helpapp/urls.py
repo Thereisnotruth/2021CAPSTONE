@@ -57,6 +57,7 @@ urlpatterns = [
     path('studies/new', views.create_study),
     path('studies/<int:study_id>/', views.study_detail),
     path('studies/<int:study_id>/userlist', views.study_userlist),
+    path('silent-refresh', views.silent_refresh),
     path('studies/<int:study_id>/join', views.study_join),
     path('studies/<int:study_id>/disjoin', views.study_disjoin),
     path('posts', views.post_list),
