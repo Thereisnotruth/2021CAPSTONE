@@ -74,7 +74,7 @@ def study_list(request):
 def study_detail(request, study_id):
     study = get_object_or_404(Study, study_id=study_id)
     serializer = StudySerializer(study)
-    return JsonResponse(serializer.data, status=200)
+    return JsonResponse(serializer.data, status=200, safe=False)
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
