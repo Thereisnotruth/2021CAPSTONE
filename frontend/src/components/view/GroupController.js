@@ -15,7 +15,6 @@ const GroupController = ({ viewModel }) => {
     const [notice,setnotice] = useState('notice');
     const { Auth } = useStore();
     const id = Auth.isLogged ? Auth.data.user_id:'';
-    const number = Auth.isLogged ? Auth.data.user_number:'';
     const [ismember,setIsmember] = useState(false);
     const history = useHistory();
     const address = (history.location.pathname);
@@ -25,7 +24,7 @@ const GroupController = ({ viewModel }) => {
         const status = test?.status;
         console.log(test);
         setMemberlist(test.data);
-        if(test.data.find(element => element.user_id === number)===undefined){
+        if(test.data.find(element => element.user_id === id)===undefined){
             setIsmember(false);
         }else{
             setIsmember(true);
