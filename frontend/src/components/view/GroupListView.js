@@ -9,6 +9,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { GroupForm  } from '../ui';
 
 const GrouplistView = (props) => {
+    console.log(props.groupdata);
     return (
         <Grid container direction='column'>
             <Grid className ='grouplist'>

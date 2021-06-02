@@ -15,8 +15,17 @@ class ViewModel {
     exercise = (expart, times) => {
         return this.model.exercise(expart, times);
     }
-    join = () => {
-        return this.model.join();
+    join = (user,study) => {
+        return this.model.join(user,study);
+    }
+    list = async() => {
+        return await this.model.list();
+    }
+    member = async(study_id) => {
+        return await this.model.member(study_id);
+    }
+    study_detail = async(study_id) => {
+        return await this.model.study_detail(study_id);
     }
 }
 
