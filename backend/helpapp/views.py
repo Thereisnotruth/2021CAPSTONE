@@ -44,7 +44,6 @@ def user_detail(request, user_number):
 def create_user(request):
     if request.method == 'POST':
         serializer = UserSerializer(data=request.data)
-
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, status=201)
@@ -122,8 +121,13 @@ def create_study(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_userlist(request, study_id):
-    userlist = User_Study.objects.filter(study_id=study_id)
-    serializer = UserStudySerializer(userlist, many=True)
+    # userlist = User_Study.objects.filter(study_id=study_id)
+    user_set = User_Study.objects.filter(study_id=study_id)
+    user_list = []
+    for user in user_set:
+        user_list.append(user[0].user_number)
+
+    serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
 @api_view(['POST'])

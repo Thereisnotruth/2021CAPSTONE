@@ -40,17 +40,17 @@ class Study(models.Model):
         return self.study_name
 
 class User_Study(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
+    user_number = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_number')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
     date = models.DateTimeField(auto_now=True)
     
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['user_id', 'study_id'], name='user_in_study')
+            models.UniqueConstraint(fields=['user_number', 'study_id'], name='user_in_study')
         ]
 
     def __str__(self):
-        return str(self.study_id) + ' 스터디 회원 ' + str(self.user_id)
+        return str(self.study_id) + ' 스터디 회원 ' + str(self.user_number)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
