@@ -29,7 +29,7 @@ from . import views
             - Data) user_number
         studies: 스터디 목록 조회 요청을 처리하는 url
             - GET
-        studies/new: 스터드 생성 요청을 처리하는 url
+        studies/new: 스터디 생성 요청을 처리하는 url
             - POST
             - Data) Study 테이블 생성에 필요한 데이터
         studies/<int:study_id>/: 스터디 정보 조회를 요청하는 url
@@ -50,20 +50,20 @@ urlpatterns = [
     path('login', views.login),
     path('users', views.user_list),
     path('users/new', views.create_user),
-    path('users/<int:user_number>/', views.user_detail),
+    path('users/<int:user_number>', views.user_detail),
     path('users/<int:user_number>/save_time', views.save_time),
     path('users/<int:user_number>/mygroups', views.show_mygroups),
     path('studies', views.study_list),
     path('studies/new', views.create_study),
-    path('studies/<int:study_id>/', views.study_detail),
+    path('studies/<int:study_id>', views.study_detail),
     path('studies/<int:study_id>/userlist', views.study_userlist),
     path('silent-refresh', views.silent_refresh),
     path('studies/<int:study_id>/join', views.study_join),
     path('studies/<int:study_id>/disjoin', views.study_disjoin),
     path('posts', views.post_list),
     path('posts/new', views.create_post),
-    path('posts/<int:post_id>/', views.post_detail),
+    path('posts/<int:post_id>', views.post_detail),
     path('boards', views.board_list),
     path('boards/new', views.create_board),
-    path('boards/<int:board_id>/', views.board_detail)
+    path('boards/<int:board_id>', views.board_detail),
 ]
