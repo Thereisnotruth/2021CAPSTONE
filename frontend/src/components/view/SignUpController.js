@@ -16,7 +16,7 @@ const SignupController = ({ viewModel }) => {
     const [message5,setMessage5] = useState('');
     const history = useHistory();
     const checkAlphaNum = (str) => {
-        const regexp = /^[a-za-z0-9]*$/;
+        const regexp = /^[a-zA-Z0-9]*$/;
         if(regexp.test(str)){
             return true;
         } else {
