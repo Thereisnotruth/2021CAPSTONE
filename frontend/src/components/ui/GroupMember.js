@@ -5,7 +5,7 @@ import { GiWeightLiftingDown, GiWeightLiftingUp } from "react-icons/gi";
 const Groupmember = (props) => {
 
     const list = props.groupmembers.map(
-        groupmembers => (<Grid className ='memberstate'>
+        (groupmembers, index) => (<Grid className ='memberstate' key={index}>
             {(groupmembers.exercise_state===false)?<GiWeightLiftingDown/>:<GiWeightLiftingUp/>}
             <Grid>{groupmembers.user_id}</Grid>
             {/*<Grid>

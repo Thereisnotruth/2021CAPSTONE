@@ -22,7 +22,6 @@ const GroupController = ({ viewModel }) => {
     const getmember = async () => {
         const test = await viewModel.member(study_id);
         const status = test?.status;
-        console.log(test);
         setMemberlist(test.data);
         if(test.data.find(element => element.user_id === id)===undefined){
             setIsmember(false);
@@ -42,7 +41,6 @@ const GroupController = ({ viewModel }) => {
     const getstudy_detail = async () => {
         const test = await viewModel.study_detail(study_id);
         const status = test?.status;
-        console.log(test);
         setStudydetail(test.data);
         setgroupname(test.data.study_name);
         setgroupmember(test.data.current_user_count);

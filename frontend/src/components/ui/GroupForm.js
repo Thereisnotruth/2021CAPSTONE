@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 const Groupform = (props) => {
 
     const list = props.groupdata.map(
-        groupdata => ( <Link className = 'groups'  to={`/group/${groupdata.study_id}`} >
+        (groupdata, index) => ( <Link className = 'groups'  to={`/group/${groupdata.study_id}`} key={index}>
             <Grid className = 'member'>인원:{groupdata.current_user_count}/{groupdata.capacity}</Grid>
             <Grid className = 'groupname'>{groupdata.study_name}</Grid>
             <Grid className = 'leader'>스터디 장:{groupdata.user_id}</Grid>

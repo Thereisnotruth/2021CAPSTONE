@@ -92,7 +92,7 @@ class Model {
             user_id: user
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
         .catch((e) => {
             console.log(e);
@@ -105,15 +105,15 @@ class Model {
             user_id: user
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
         .catch((e) => {
             console.log(e);
         });
     }
     //스터디 목록
-    list = () =>{ 
-        let data = axios.get('helpapp/studies')
+    list = () => { 
+        let data = axios.get('/helpapp/studies')
             .then((res)=>{
                 return res;});
         console.log(data);
@@ -125,7 +125,6 @@ class Model {
             study_id: study_id})
             .then((res)=>{
                 return res;});
-        console.log(data);
         return data;
     }
     //스터디내의 유저들정보
@@ -135,7 +134,6 @@ class Model {
         })
             .then((res)=>{
                 return res;});
-        console.log(data);
         return data;
     }
 }
