@@ -122,7 +122,7 @@ class Model {
     }
     //스터디 세부정보
     study_detail = (study_id) =>{ 
-        let data = axios.post('../helpapp/studies/'+study_id,{
+        let data = axios.post('../../helpapp/studies/'+study_id,{
             study_id: study_id})
             .then((res)=>{
                 return res;});
@@ -131,7 +131,7 @@ class Model {
     }
     //스터디내의 유저들정보
     member = (study_id) =>{ 
-        let data = axios.post('../helpapp/studies/'+study_id+'/userlist',{
+        let data = axios.post('../../helpapp/studies/'+study_id+'/userlist',{
             study_id: study_id
         })
             .then((res)=>{
