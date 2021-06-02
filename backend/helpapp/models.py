@@ -1,7 +1,6 @@
 from django.db import models
 
 class User(models.Model):
-    user_number = models.BigAutoField()
     user_id = models.CharField(primary_key=True, max_length=20)
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=20)
@@ -16,7 +15,7 @@ class User(models.Model):
     arm_exp = models.FloatField(default=0)
     leg_exp = models.FloatField(default=0)
     exercise_state = models.BooleanField(default=False)
-    exercise_start_time = models.DateField(auto_now=True)
+    exercise_start_time = models.IntegerField(default=0)
     today_exercise_time = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
