@@ -121,12 +121,10 @@ def create_study(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_userlist(request, study_id):
-    # userlist = User_Study.objects.filter(study_id=study_id)
     user_set = User_Study.objects.filter(study_id=study_id)
     user_list = []
     for user in user_set:
-        user_list.append(user[0].user_number)
-
+        user_list.append(user.user_number)
     serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
