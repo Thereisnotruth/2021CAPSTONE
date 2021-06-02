@@ -6,8 +6,8 @@ const Groupmember = (props) => {
 
     const list = props.groupmembers.map(
         groupmembers => (<Grid className ='memberstate'>
-            {(groupmembers.state===0)?<GiWeightLiftingDown/>:<GiWeightLiftingUp/>}
-            <Grid>{groupmembers.name}</Grid>
+            {(groupmembers.exercise_state===false)?<GiWeightLiftingDown/>:<GiWeightLiftingUp/>}
+            <Grid>{groupmembers.user_id}</Grid>
             {/*<Grid>
                 {parseInt(parseInt(groupmembers.time/60)/60) < 10? `0${parseInt(parseInt(groupmembers.time/60)/60)}`:parseInt(parseInt(groupmembers.time/60)/60)}:
                 {parseInt(groupmembers.time/60)%60<10? `0${parseInt(groupmembers.time/60)%60}`:parseInt(groupmembers.time/60)%60}:

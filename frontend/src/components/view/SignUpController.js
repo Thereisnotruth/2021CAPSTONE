@@ -67,7 +67,6 @@ const SignupController = ({ viewModel }) => {
     }
 
     const Signup = async () => {
-
         if(id === ''|| pw === ''|| name === ''|| gender === ''){
             alert('모든 정보를 입력해주세요.');
         } else if (cpw === '') {

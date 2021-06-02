@@ -18,6 +18,9 @@ class ViewModel {
     join = (user,study) => {
         return this.model.join(user,study);
     }
+    disjoin = (user,study) => {
+        return this.model.disjoin(user,study);
+    }
     list = async() => {
         return await this.model.list();
     }
