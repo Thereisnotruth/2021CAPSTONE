@@ -67,16 +67,13 @@ const SignupController = ({ viewModel }) => {
     }
 
     const Signup = async () => {
-<<<<<<< HEAD
         console.log('id: ',id);
         console.log('pw: ', pw);
         console.log('cpw: ', cpw);
         console.log('name: ', name);
         console.log('gender: ', gender);
         if(id===''|| pw===''|| cpw===''|| name===''|| gender===''){
-=======
-        if(id === ''|| pw === ''|| name === ''|| gender === ''){
->>>>>>> 9105d505f8c89f8ce94d0eee2a09d77de7e76ebb
+
             alert('모든 정보를 입력해주세요.');
         } else if (cpw === '') {
             alert('비밀번호가 일치하지 않습니다.');

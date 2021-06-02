@@ -88,7 +88,20 @@ class Model {
     }
     //가입
     join(user,study) {
-        axios.post(`helpapp/studies/${study}/join`, {
+        axios.post('../helpapp/studies/'+study+'/join', {
+            study_id: study,
+            user_id: user
+        })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((e) => {
+            console.log(e);
+        });
+    }
+    //탈퇴
+    disjoin(user,study) {
+        axios.post('../helpapp/studies/'+study+'/disjoin', {
             study_id: study,
             user_id: user
         })
@@ -109,7 +122,7 @@ class Model {
     }
     //스터디 세부정보
     study_detail = (study_id) =>{ 
-        let data = axios.post('helpapp/studies/'+study_id+'/',{
+        let data = axios.post('../helpapp/studies/'+study_id,{
             study_id: study_id})
             .then((res)=>{
                 return res;});
@@ -118,7 +131,7 @@ class Model {
     }
     //스터디내의 유저들정보
     member = (study_id) =>{ 
-        let data = axios.post(`helpapp/studies/${study_id}/userlist`,{
+        let data = axios.post('../helpapp/studies/'+study_id+'/userlist',{
             study_id: study_id
         })
             .then((res)=>{
