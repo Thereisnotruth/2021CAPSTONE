@@ -1,8 +1,8 @@
 from django.db import models
 
 class User(models.Model):
-    user_number = models.BigAutoField(primary_key=True)
-    user_id = models.CharField(unique=True, max_length=20)
+    user_number = models.BigAutoField()
+    user_id = models.CharField(primary_key=True, max_length=20)
     user_pw = models.CharField(max_length=20)
     user_name = models.CharField(max_length=20)
     gender = models.CharField(max_length=5)
@@ -40,17 +40,17 @@ class Study(models.Model):
         return self.study_name
 
 class User_Study(models.Model):
-    user_number = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_number')
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
     date = models.DateTimeField(auto_now=True)
     
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['user_number', 'study_id'], name='user_in_study')
+            models.UniqueConstraint(fields=['user_id', 'study_id'], name='user_in_study')
         ]
 
     def __str__(self):
-        return str(self.study_id) + ' 스터디 회원 ' + str(self.user_number)
+        return str(self.study_id) + ' 스터디 회원 ' + str(self.user_id)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

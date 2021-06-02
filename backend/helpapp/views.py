@@ -11,7 +11,6 @@ def login(request):
     if request.method == 'POST':
         id = request.data['user_id']
         pw = request.data['user_pw']
-        print(request.data);
         try:
             user = User.objects.get(user_id=id)
             serializer = UserSerializer(user)
@@ -34,8 +33,8 @@ def user_list(request):
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
-def user_detail(request, user_number):
-    user = get_object_or_404(User, user_number=user_number)
+def user_detail(request, user_id):
+    user = get_object_or_404(User, user_id=user_id)
     serializer = UserSerializer(user)
     return JsonResponse(serializer.data, status=200)
 
@@ -51,7 +50,7 @@ def create_user(request):
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
-def show_mygroups(request, user_number):
+def show_mygroups(request, user_id):
     if request.method == 'POST':
         user_id = request.data['user_id']
         user = get_object_or_404(User, user_id=user_id)
@@ -105,8 +104,6 @@ def create_study(request):
         user_id = request.data['user_id']
         study_name = request.data['study_name']
         capacity = request.data['capacity']
-        print(request)
-        print(user_id)
         user = get_object_or_404(User, user_id=user_id)
         study = Study(study_name=study_name, user_id=user, capacity=capacity)
         study.save()
@@ -124,7 +121,7 @@ def study_userlist(request, study_id):
     user_set = User_Study.objects.filter(study_id=study_id)
     user_list = []
     for user in user_set:
-        user_list.append(user.user_number)
+        user_list.append(user.user_id)
     serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
