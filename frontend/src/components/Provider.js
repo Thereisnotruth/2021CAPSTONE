@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import {
-    HomeController, LoginController, SignUpController, GroupMakeController, GroupListController, GroupController,
-    UserInfoController,
+    HomeController, LoginController, SignUpController, GroupMakeController, GroupListController, GroupController, UserInfoController, Test
 } from './view';
 import ViewModel from './ViewModel'; 
 import Model from './Model';
@@ -21,6 +20,7 @@ const Provider = () => {
                 <Route path='/grouplist' render={ () => <GroupListController viewModel={viewModel} /> } />
                 <Route path='/group' render={ () => <GroupController viewModel={viewModel} /> } />
                 <Route path='/info' render={ () => <UserInfoController viewModel={viewModel} /> } />
+                <Route path='/test' render={ () => <Test viewModel={viewModel} /> } />
             </Switch>
         </BrowserRouter>
     )
