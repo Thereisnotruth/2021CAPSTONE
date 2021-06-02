@@ -3,7 +3,29 @@ from django.http import HttpResponse, JsonResponse
 from .serializers import *
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
+
+import threading
 import datetime
+
+def reset_exercise_time():
+    userlist = User.objects.all()
+    for user in userlist:
+        user.total_exercise_time = 0
+        user.save()
+
+# time_check=False
+# if time_check:
+#     now = datetime.datetime.now()
+#     hour = now.hour
+#     min = now.minute
+#     sec = now.second
+#     sec = hour*3600 + min*60 + sec
+#     reminder = 86400 - sec
+#     thread1 = threading.Timer(reminder, reset_exercise_time)
+#     thread1.start()
+#     threading.Timer(86400, reset_exercise_time).start()
+
+threading.Timer(86400, reset_exercise_time).start()
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -109,7 +131,6 @@ def create_study(request):
         study.save()
         user_study = User_Study(user_id=user, study_id=study)
         user_study.save()
-        print(user_study)
         serializer = UserStudySerializer(study)
         return JsonResponse(serializer.data, status=201)
 
@@ -164,7 +185,8 @@ def silent_refresh(request):
     if request.method == 'POST':
         res = JsonResponse({ 'Message': '로그인 갱신' }, status=201)
         res.set_cookie('refreshToken', request.data['id'], 600, httponly=True)
-        return res;
+        return res
+
 @api_view(['GET'])
 @permission_classes(permissions.AllowAny)
 def post_list(request):
