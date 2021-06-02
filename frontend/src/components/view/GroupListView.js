@@ -13,7 +13,7 @@ const GrouplistView = (props) => {
     return (
         <Grid container direction='column'>
             <Grid className ='grouplist'>
-                <Grid className ='searchform'>
+                {/*<Grid className ='searchform'>
                     <IoSearch/>
                     <input 
                     type='text'
@@ -22,13 +22,11 @@ const GrouplistView = (props) => {
                     onChange={props.onsearchChange}
                     />
                     <button type='button' onClick={props.onsearchClick}>Search</button>
-                </Grid>
+    </Grid>*/}
                     <GroupForm groupdata = {props.groupdata}/>
-                
-                    <Fab className = 'makegroupbtn' aria-label="add" onClick = {props.make}>
-                        <AddIcon />
-                    </Fab>
-                
+                <Fab className = 'makegroupbtn' aria-label="add" onClick = {props.make}>
+                    <AddIcon />
+                </Fab>
             </Grid>
         </Grid>
     )    

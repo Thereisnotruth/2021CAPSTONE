@@ -16,7 +16,7 @@ const SignupController = ({ viewModel }) => {
     const [message5,setMessage5] = useState('');
     const history = useHistory();
     const checkAlphaNum = (str) => {
-        const regexp = /^[a-za-z0-9]*$/;
+        const regexp = /^[a-zA-Z0-9]*$/;
         if(regexp.test(str)){
             return true;
         } else {
@@ -67,13 +67,7 @@ const SignupController = ({ viewModel }) => {
     }
 
     const Signup = async () => {
-        console.log('id: ',id);
-        console.log('pw: ', pw);
-        console.log('cpw: ', cpw);
-        console.log('name: ', name);
-        console.log('gender: ', gender);
-        if(id===''|| pw===''|| cpw===''|| name===''|| gender===''){
-
+        if(id === ''|| pw === ''|| name === ''|| gender === ''){
             alert('모든 정보를 입력해주세요.');
         } else if (cpw === '') {
             alert('비밀번호가 일치하지 않습니다.');

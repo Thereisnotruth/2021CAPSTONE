@@ -1,8 +1,18 @@
 import React from 'react';
 import { Grid, Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles'
 
-import { ElementLeft, ElementRight } from '../ui';
+import { ElementLeft, ElementRight, UserInfoModal } from '../ui';
 
+const ColorButton = withStyles({
+    root: {
+        backgroundColor: '#8AD3FC',
+        margin: '20px 0',
+        '&:hover': {
+            backgroundColor: '#30B0FD'
+        }
+    }
+})(Button);
 const UserInfoView = (props) => {
     return(
         <Grid container direction='column'>
@@ -29,6 +39,7 @@ const UserInfoView = (props) => {
                                 <input
                                     type='password'
                                     className='element-input'
+                                    onChange={props.onPwChange}
                                 />
                             }
                         />
@@ -37,56 +48,40 @@ const UserInfoView = (props) => {
                         />
                         <ElementRight
                             content={
+                                <>
                                 <input
                                     type='password'
                                     className='element-input'
+                                    onChange={props.onCpwChange}
                                 />
+                                <Grid className='errorm'>{props.message}</Grid>
+                                </>
                             }
                         />
                         <Grid item xs={12}>
-                            <Button variant='contained' />
+                            <ColorButton
+                                variant='contained'
+                                className='element-center'
+                                onClick={props.handleOpen}
+                                color='primary'
+                            >
+                                내 운동 정보
+                            </ColorButton>
                         </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            팔 경험치 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.arm_exp}
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            가슴 경험치 : 
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.back_exp}
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            등 경험치 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.back_exp}
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            어깨 경험치 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.shoulder_exp}
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            복근 경험치 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.belly_exp}
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            하체 경험치 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.leg_exp}   
-                        </Grid>
-                        <Grid item xs={6} className='element-left'>
-                            총 운동 시간 :
-                        </Grid>
-                        <Grid item xs={6} className='element-right'>
-                            {props.data.exercise_time}
+                        <UserInfoModal
+                            open={props.open}
+                            handleClose={props.handleClose}
+                            data={props.data}
+                        />
+                        <Grid item xs={12}>
+                            <ColorButton
+                                variant='contained'
+                                className='element-center'
+                                onClick={props.pwChange}
+                                color='primary'
+                            >
+                                비밀번호 변경
+                            </ColorButton>
                         </Grid>
                     </Grid>
             </Grid>

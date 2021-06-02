@@ -17,6 +17,7 @@ const LoginController = ({ viewModel }) => {
     const login = async () => {
  
         const connect = await viewModel.login(id, pw);
+        console.log(typeof(connect));
         const status = connect?.status;
 
         if (status === 200) {
