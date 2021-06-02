@@ -2,6 +2,10 @@
 작성일: 2021.05.28
 작성자: 신구현
 """
+## Install Dependencies
+```
+pip install -r requirements.txt
+```
 
 ## Directory
 helpapp

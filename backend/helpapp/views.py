@@ -229,4 +229,3 @@ def board_detail(request, board_id):
         return JsonResponse(serializer.data, status=200)
     else:
         return HttpResponse(status=400)
-
