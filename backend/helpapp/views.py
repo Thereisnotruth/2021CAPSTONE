@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .serializers import *
 from rest_framework import generics, permissions
 from rest_framework.decorators import api_view, permission_classes
+import datetime
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -75,6 +76,8 @@ def save_time(request):
         user.belly_exp = serializer.data['belly_exp']
         user.arm_exp = serializer.data['arm_exp']
         user.leg_exp = serializer.data['leg_exp']
+        user.exercise_state = False
+        user.total_exercise_time = serializer.data['total_exercise_time']
         user.save()
 
         return HttpResponse(status=200)
