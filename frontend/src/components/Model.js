@@ -73,17 +73,36 @@ class Model {
         return result;
     }
     // 운동
-    exercise(expart, times) {
-        axios.post('/helpapp/exercise', {
-            expart: expart,
-            times: times
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+    exercise(expart, times, btn) {
+        let socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + Auth.data.user_id;
+        console.log(btn)
+        const socket = new WebSocket(socketPath);
+
+        socket.onopen = function () {
+            socket.send(
+                JSON.stringify({
+                    user_id: Auth.data.user_id,
+                    start_time: times,
+                    expart: expart,
+                    btn: btn
+                })
+            )
+        }
+    }
+    endExercise() {
+        let socketPath = 'ws://127.0.0.1:8000/ws/helpapp' + Auth.data.user_id;
+
+        const socket = new WebSocket(socketPath);
+
+        socket.onopen = function () {
+            socket.send(
+                JSON.stringify({
+                    user_id: Auth.data.user_id,
+                    start_time: '',
+                    expart: ''
+                })
+            )
+        }
     }
     //가입
     join(user,study) {

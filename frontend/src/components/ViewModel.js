@@ -12,8 +12,8 @@ class ViewModel {
     signUp = (id, pw, name, gender) => {
         return this.model.signUp(id, pw, name, gender);
     }
-    exercise = (expart, times) => {
-        return this.model.exercise(expart, times);
+    exercise = (expart, times, btn) => {
+        return this.model.exercise(expart, times, btn);
     }
     join = (user,study) => {
         return this.model.join(user,study);

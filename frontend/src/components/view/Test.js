@@ -3,13 +3,17 @@ import React, { useState, useEffect } from 'react';
 const Test = () => {
   const [test, setTest] = useState('1234');
   useEffect(() => {
-    let socketPath = 'ws://127.0.0.1:8000/test/1';
+    let socketPath = 'ws://127.0.0.1:8000/ws/helpapp/' + 'abcd';
 
     const socket = new WebSocket(socketPath);
-    socket.onmessage = function (e) {
-      const data = e.data;
-      setTest(data);
-    }
+    socket.onopen = function () {
+      socket.send(
+        JSON.stringify({
+          room_name: 'abcd',
+          message: 'efgh',
+        }),
+      );
+    };
   }, [])
   return(
     <div>

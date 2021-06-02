@@ -66,7 +66,7 @@ const GroupController = ({ viewModel }) => {
                     try {
                         viewModel.join(id,study_id);
                         alert('가입되었습니다.');
-                        setnotice('탈퇴됨');
+                        setnotice('가입됨');
                         setIsmember(true);
                         getstudy_detail();
                         getmember();
@@ -86,7 +86,7 @@ const GroupController = ({ viewModel }) => {
                     try {
                         viewModel.disjoin(id,study_id);
                         alert('탈퇴되었습니다.');
-                        setnotice('가입됨');
+                        setnotice('탈퇴됨');
                         setIsmember(false);
                         getstudy_detail();
                         getmember();
