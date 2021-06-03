@@ -94,6 +94,7 @@ class Inventory(models.Model):
 class Board(models.Model):
     board_id = models.BigAutoField(primary_key=True)
     board_name = models.CharField(max_length=20)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -120,8 +121,6 @@ class Comment(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE, db_column='post_id')
     content = models.CharField(max_length=200)
-    time = models.DateTimeField(auto_now_add=True)
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
