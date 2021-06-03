@@ -1,7 +1,10 @@
-"""
-작성일: 2021.05.28
-작성자: 신구현
-"""
+작성일: 2021.05.28 <br>
+작성자: 신구현 <br>
+
+## Install Dependencies
+```
+pip install -r requirements.txt
+```
 
 ## Directory
 helpapp <br>
