@@ -1,31 +1,19 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .serializers import *
-from rest_framework import generics, permissions
+from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
-
-import threading
-import datetime
+from apscheduler.schedulers.background import BackgroundScheduler
 
 def reset_exercise_time():
     userlist = User.objects.all()
     for user in userlist:
-        user.total_exercise_time = 0
+        user.today_exercise_time = 0
         user.save()
 
-# time_check=False
-# if time_check:
-#     now = datetime.datetime.now()
-#     hour = now.hour
-#     min = now.minute
-#     sec = now.second
-#     sec = hour*3600 + min*60 + sec
-#     reminder = 86400 - sec
-#     thread1 = threading.Timer(reminder, reset_exercise_time)
-#     thread1.start()
-#     threading.Timer(86400, reset_exercise_time).start()
-
-threading.Timer(86400, reset_exercise_time).start()
+sched = BackgroundScheduler()
+sched.add_job(reset_exercise_time, 'cron', year='*', month='*', day='*', hour='0')
+sched.start()
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
