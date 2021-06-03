@@ -1,7 +1,5 @@
-""" <br>
 작성일: 2021.05.28 <br>
 작성자: 신구현 <br>
-"""
 
 ## Directory
 backend <br>
