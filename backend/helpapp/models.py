@@ -1,3 +1,10 @@
+"""
+06.04 17:32
+updated contents:
+    1. Post 출력시 fields명 수정: title -> post_title
+"""
+
+
 from django.db import models
 
 class User(models.Model):
@@ -113,7 +120,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.post_title
 
 
 class Comment(models.Model):
