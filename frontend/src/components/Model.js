@@ -139,6 +139,45 @@ class Model {
         console.log(data);
         return data;
     }
+    //게시판 리스트
+    boardlist = () =>{ 
+        let data = axios.get('/helpapp/boards')
+            .then((res)=>{
+                return res;});
+        return data;
+    }
+   //게시판 조회
+   searchboard = (board_id) =>{ 
+    let data = axios.post('/helpapp/boards/'+board_id,{
+        board_id: board_id
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
+    //게시판 수정
+   updateboard = (board_id) =>{ 
+    let data = axios.post('/helpapp/boards/'+board_id+'update',{
+        //필요데이터 넣을예정
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
+    //게시판 삭제
+   deleteboard = (board_id) =>{ 
+    let data = axios.post('/helpapp/boards/'+board_id+'delete',{
+        board_id: board_id
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
+    
+    
 }
 
 export default Model;

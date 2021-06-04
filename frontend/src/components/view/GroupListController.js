@@ -32,14 +32,6 @@ const GrouplistController = ({ viewModel }) => {
     console.log(list);
 
 
-        
-    const onsearchChange = (e) => {
-        setSearch(e.target.value);
-    }
-    const onsearchClick = () => {
-        
-    }
-
     const make = () =>{
         if(Auth.isLogged){
             history.replace('groupmake');}
@@ -53,8 +45,6 @@ const GrouplistController = ({ viewModel }) => {
         <>
             <HeaderController header='그룹 목록' />
             <GrouplistView 
-                onsearchChange={onsearchChange}
-                onsearchClick={onsearchClick}
                 make={make}
                 groupdata = {list}
             />

@@ -44,6 +44,11 @@ const SideBar = (props) => {
 					그룹 목록
 				</Button>
 			</Link>
+			<Link to='/board' className='sidebar-link'>
+				<Button className='sidebar-item'>
+					게시판
+				</Button>
+			</Link>
 			{
 				Auth.isLogged?
 				<Button className='login-button' onClick={test}>

@@ -30,6 +30,9 @@ class ViewModel {
     study_detail = async(study_id) => {
         return await this.model.study_detail(study_id);
     }
+    boardlist = async() => {
+        return await this.model.boardlist();
+    }
 }
 
 export default ViewModel;
