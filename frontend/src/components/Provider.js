@@ -22,6 +22,7 @@ const Provider = () => {
                 <Route path='/group' render={ () => <GroupController viewModel={viewModel} /> } />
                 <Route path='/info' render={ () => <UserInfoController viewModel={viewModel} /> } />
                 <Route path='/board' render={ () => <BoardController viewModel={viewModel} /> } />
+                <Route path='/test' render={ () => <Test viewModel={viewModel} /> } />
             </Switch>
         </BrowserRouter>
     )

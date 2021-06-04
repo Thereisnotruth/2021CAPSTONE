@@ -10,6 +10,7 @@ const HomeController = ({ viewModel }) => {
     const [status, setStatus] = useState(0);
     const [message, setmessage] = useState('');
     const [expart, setExpart] = useState('');
+    let today = new Date();
     const start = () => {
         if(expart===''){
             setmessage('운동부위를 선택해주세요.');
@@ -18,6 +19,8 @@ const HomeController = ({ viewModel }) => {
             if(message ===''){
                 run();
                 setStatus(1);
+                const now = today.getHours() * 3600 + today.getMinutes() * 60 + today.getSeconds();
+                viewModel.exercise(expart, now, 1);
                 setInterv(setInterval(run,1000));
             }
         }
@@ -61,7 +64,6 @@ const HomeController = ({ viewModel }) => {
             const times = time.h * 3600 + time.m * 60 + time.s;
             setTime({h:0,m:0,s:0});
             setStatus(0);
-            await viewModel.exercise(expart, times);
         }
     }
     const exerciseChange = (e) =>{

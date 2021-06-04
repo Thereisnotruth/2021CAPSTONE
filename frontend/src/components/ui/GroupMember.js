@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Grid} from '@material-ui/core';
 import { GiWeightLiftingDown, GiWeightLiftingUp } from "react-icons/gi";
 
-const Groupmember = (props) => {
+const GroupMember = (props) => {
+    const list = props.groupmembers.map((groupmembers, index) => {
+        let socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + groupmembers.user_id;
 
-    const list = props.groupmembers.map(
-        groupmembers => (<Grid className ='memberstate'>
+        const socket = new WebSocket(socketPath);
+
+        socket.onmessage = function (e) {
+            const data = JSON.parse(e.data);
+            console.log(data);
+        }
+        
+        return (<Grid className ='memberstate' key={index}>
             {(groupmembers.exercise_state===false)?<GiWeightLiftingDown/>:<GiWeightLiftingUp/>}
-            <Grid>{groupmembers.user_id}</Grid>
-            {/*<Grid>
-                {parseInt(parseInt(groupmembers.time/60)/60) < 10? `0${parseInt(parseInt(groupmembers.time/60)/60)}`:parseInt(parseInt(groupmembers.time/60)/60)}:
-                {parseInt(groupmembers.time/60)%60<10? `0${parseInt(groupmembers.time/60)%60}`:parseInt(groupmembers.time/60)%60}:
-                {groupmembers.time%60<10? `0${groupmembers.time%60}`:groupmembers.time%60}</Grid>*/}
-            </Grid>)
-      );
+            <Grid>{groupmembers.user_name}</Grid>
+            {
+                groupmembers.exercise_state?
+                <Grid>Test</Grid>
+                :
+                ''
+            }
+        </Grid>)
+    });
     return (
         <Grid>
             {list}
         </Grid>
         )
 };                
-export default Groupmember;
+export default GroupMember;

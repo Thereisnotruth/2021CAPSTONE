@@ -14,3 +14,4 @@ export { default as GroupMakeView } from './GroupMakeView';
 export { default as GroupMakeController } from './GroupMakeController';
 export { default as BoardView } from './BoardView';
 export { default as BoardController } from './BoardController';
+export { default as Test } from './Test';

@@ -52,7 +52,6 @@ class Model {
     loginSuccess = (response) => {
         const accessToken = response.data;
         Auth.login(response.data);
-        console.log(Auth.data.user_number);
         axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
 
         // setTimeout(this.silentRefresh, JWT_EXPIRY_TIME - 60000)
@@ -74,17 +73,36 @@ class Model {
         return result;
     }
     // 운동
-    exercise(expart, times) {
-        axios.post('/helpapp/exercise', {
-            expart: expart,
-            times: times
-        })
-        .then((res) => {
-            console.log(res);
-        })
-        .catch((e) => {
-            console.log(e);
-        });
+    exercise(expart, times, btn) {
+        let socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + Auth.data.user_id;
+        console.log(btn)
+        const socket = new WebSocket(socketPath);
+
+        socket.onopen = function () {
+            socket.send(
+                JSON.stringify({
+                    user_id: Auth.data.user_id,
+                    start_time: times,
+                    expart: expart,
+                    btn: btn
+                })
+            )
+        }
+    }
+    endExercise() {
+        let socketPath = 'ws://127.0.0.1:8000/ws/helpapp' + Auth.data.user_id;
+
+        const socket = new WebSocket(socketPath);
+
+        socket.onopen = function () {
+            socket.send(
+                JSON.stringify({
+                    user_id: Auth.data.user_id,
+                    start_time: '',
+                    expart: ''
+                })
+            )
+        }
     }
     //가입
     join(user,study) {
@@ -93,7 +111,7 @@ class Model {
             user_id: user
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
         .catch((e) => {
             console.log(e);
@@ -106,15 +124,15 @@ class Model {
             user_id: user
         })
         .then((res) => {
-            console.log(res);
+            return res;
         })
         .catch((e) => {
             console.log(e);
         });
     }
     //스터디 목록
-    list = () =>{ 
-        let data = axios.get('helpapp/studies')
+    list = () => { 
+        let data = axios.get('/helpapp/studies')
             .then((res)=>{
                 return res;});
         console.log(data);
@@ -122,21 +140,19 @@ class Model {
     }
     //스터디 세부정보
     study_detail = (study_id) =>{ 
-        let data = axios.post('../helpapp/studies/'+study_id,{
+        let data = axios.post('../../helpapp/studies/'+study_id,{
             study_id: study_id})
             .then((res)=>{
                 return res;});
-        console.log(data);
         return data;
     }
     //스터디내의 유저들정보
     member = (study_id) =>{ 
-        let data = axios.post('../helpapp/studies/'+study_id+'/userlist',{
+        let data = axios.post('../../helpapp/studies/'+study_id+'/userlist',{
             study_id: study_id
         })
             .then((res)=>{
                 return res;});
-        console.log(data);
         return data;
     }
     //게시판 리스트
