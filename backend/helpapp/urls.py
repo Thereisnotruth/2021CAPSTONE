@@ -51,16 +51,31 @@ from . import views
             - GET
         boards/new: board 생성 요청을 받는 url
             - POST
-            - Data) board 테이블 생성에 필요한 데이터 (models.py: Board 클래스)
+            - Data) board 테이블 생성에 필요한 데이터 (models.py: Board 클래스 참고)
         boards/<int:board_id>: board 상세 조회 요청을 받는 url
             - POST
             - Data) board_id
         boards/<int:board_id>/update: board 수정 요청을 받는 url
             - POST
-            - Data) board 테이블 데이터 (models.py: Baord)
+            - Data) board_id, board 테이블 데이터 (models.py: Baord 클래스)
         boards/<int:board_id>/delete: board 삭제 요청을 받는 url
             - POST
             - Data) board_id
+    - Post 관련
+        posts: post 목록 조회 요청을 받은 url
+            - GET
+        posts/new: post 생성 요청을 받는 url
+            - POST
+            - Data) post 테이블 생성에 필요한 데이터 (models.py: Post 클래스 참고)
+        posts/<int:post_id>: post 상세 조회 요청을 받는 url
+            - POST
+            - Data) post_id
+        posts/<int:post_id>/update: post 수정 요청을 받는 url
+            - POST
+            - Data) post_id, post 테이블 데이터 (models.py: POST 클래스)
+        posts/<int:post_id>/delete: board 삭제 요청을 받는 url
+            - POST
+            - Data) post_id
 """
 
 urlpatterns = [
