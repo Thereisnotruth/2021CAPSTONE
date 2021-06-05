@@ -10,6 +10,7 @@ from . import views
         - models.py 데이터베이스 구조 참고
 
     Paths:
+    - User 관련
         login: login 요청 처리하는 url
             - POST
             - Data) user_id, user_pw
@@ -27,6 +28,7 @@ from . import views
         user/<int:user_number>/mygroups: 해당 user가 가입한 스터디 조회 요청을 처리하는 url
             - POST
             - Data) user_number
+    - Study 관련    
         studies: 스터디 목록 조회 요청을 처리하는 url
             - GET
         studies/new: 스터디 생성 요청을 처리하는 url
@@ -44,6 +46,39 @@ from . import views
         studies/<int:study_id>/disjoin: 스터디 탈퇴 요청을 처리하는 url
             - POST
             - Data) user_id, study_id
+    - Board 관련
+        boards: board 목록 조회 요청을 받는 url
+            - GET
+        boards/new: board 생성 요청을 받는 url
+            - POST
+            - Data) board 테이블 생성에 필요한 데이터 (models.py: Board 클래스 참고)
+        boards/<int:board_id>: board 상세 조회 요청을 받는 url
+            - POST
+            - Data) board_id
+        boards/<int:board_id>/update: board 수정 요청을 받는 url
+            - POST
+            - Data) board_id, board 테이블 데이터 (models.py: Baord 클래스)
+        boards/<int:board_id>/delete: board 삭제 요청을 받는 url
+            - POST
+            - Data) board_id
+        boards/<int:board_id>/board_postlist: board안에 속한 postlist를 요청하는 url
+            - POST
+            - Data) board_id
+    - Post 관련
+        posts: post 목록 조회 요청을 받은 url
+            - GET
+        posts/new: post 생성 요청을 받는 url
+            - POST
+            - Data) post 테이블 생성에 필요한 데이터 (models.py: Post 클래스 참고)
+        posts/<int:post_id>: post 상세 조회 요청을 받는 url
+            - POST
+            - Data) post_id
+        posts/<int:post_id>/update: post 수정 요청을 받는 url
+            - POST
+            - Data) post_id, post 테이블 데이터 (models.py: POST 클래스)
+        posts/<int:post_id>/delete: board 삭제 요청을 받는 url
+            - POST
+            - Data) post_id
 """
 
 urlpatterns = [
@@ -60,10 +95,15 @@ urlpatterns = [
     path('silent-refresh', views.silent_refresh),
     path('studies/<int:study_id>/join', views.study_join),
     path('studies/<int:study_id>/disjoin', views.study_disjoin),
-    path('posts', views.post_list),
-    path('posts/new', views.create_post),
-    path('posts/<int:post_id>', views.post_detail),
     path('boards', views.board_list),
     path('boards/new', views.create_board),
     path('boards/<int:board_id>', views.board_detail),
+    path('boards/<int:board_id>/update', views.board_update),
+    path('boards/<int:board_id>/delete', views.board_delete),
+    path('boards/<int:board_id>/board_postlist', views.board_postlist),
+    path('posts', views.post_list),
+    path('posts/new', views.create_post),
+    path('posts/<int:post_id>', views.post_detail),
+    path('posts/<int:post_id>/update', views.post_update),
+    path('posts/<int:post_id>/delete', views.post_delete),
 ]

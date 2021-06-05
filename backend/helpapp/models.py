@@ -1,3 +1,10 @@
+"""
+06.04 17:32
+updated contents:
+    1. Post 출력시 fields명 수정: title -> post_title
+"""
+
+
 from django.db import models
 
 class User(models.Model):
@@ -94,6 +101,7 @@ class Inventory(models.Model):
 class Board(models.Model):
     board_id = models.BigAutoField(primary_key=True)
     board_name = models.CharField(max_length=20)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -112,7 +120,7 @@ class Post(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.post_title
 
 
 class Comment(models.Model):
@@ -120,8 +128,6 @@ class Comment(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     post_id = models.ForeignKey(Post, on_delete=models.CASCADE, db_column='post_id')
     content = models.CharField(max_length=200)
-    time = models.DateTimeField(auto_now_add=True)
-
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

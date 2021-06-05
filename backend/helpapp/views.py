@@ -1,3 +1,9 @@
+"""
+update contents:
+    1. board_postlist() 추가: Board에 속한 post 리스트를 반환하는 view
+"""
+
+
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from .serializers import *
@@ -33,6 +39,11 @@ def login(request):
             return JsonResponse({ 'Error': '회원이 아님' }, status=400)
         except DiffPw:
             return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
+
+
+class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
+    def __init__(self):
+        super()
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -70,7 +81,7 @@ def show_mygroups(request, user_id):
     return HttpResponse(status=400)
 
 @api_view(['POST'])
-@permission_classes((permissions.AllowAny),)
+@permission_classes((permissions.AllowAny,))
 def save_time(request):
     serializer = UserSerializer(data=request.data)
 
@@ -156,16 +167,13 @@ def study_disjoin(request, study_id):
         user = get_object_or_404(User, user_id=request.data['user_id'])
         User_Study.objects.get(user_id=user, study_id=study).delete()
         study.current_user_count -= 1
-        study.save()
+        if study.current_user_count == 0:
+            study.delete()
+        else:
+            study.save()
 
         return HttpResponse(status=201)
     return HttpResponse(status=200)
-
-class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
-    def __init__(self):
-        super()
-
-
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -175,18 +183,89 @@ def silent_refresh(request):
         res.set_cookie('refreshToken', request.data['id'], 600, httponly=True)
         return res
 
+
 @api_view(['GET'])
-@permission_classes(permissions.AllowAny)
-def post_list(request):
-    if request.method == 'GET':
-        posts = Post.objects.all()
-        serializer = PostSerializer(data=posts, many=True)
+@permission_classes((permissions.AllowAny,))
+def study_list(request):
+    study_list = Study.objects.all()
+    serializer = StudySerializer(study_list, many=True)
+    return JsonResponse(serializer.data, status=200, safe=False)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def board_list(request):
+    board_list = Board.objects.all()
+    serializer = BoardSerializer(board_list, many=True)
+    return JsonResponse(serializer.data, status=200, safe=False)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def create_board(request):
+    if request.method == 'POST':
+        board_name = request.data['board_name']
+        user_id = request.data['user_id']
+        user = User.objects.get(user_id=user_id)
+        board = Board(board_name=board_name, user_id=user)
+        board.save()
+        serializer = BoardSerializer(board)
+        return JsonResponse(serializer.data, status=201)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def board_detail(request, board_id):
+    if request.method == 'POST':
+        board = Board.objects.get(board_id=board_id)
+        serializer = BoardSerializer(board)
         return JsonResponse(serializer.data, status=200)
     else:
         return HttpResponse(status=400)
 
 @api_view(['POST'])
-@permission_classes(permissions.AllowAny)
+@permission_classes((permissions.AllowAny,))
+def board_postlist(request, board_id):
+    if request.method == 'POST':
+        post_set = Post.objects.filter(board_id=board_id)
+        post_list = []
+        for post in post_set:
+            post_list.append(post)
+        serializer = PostSerializer(post_list, many=True)
+        return JsonResponse(serializer.data, status=200, safe=False)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def board_update(request, board_id):
+    if request.method == 'POST':
+        board = Board.objects.get(board_id=board_id)
+        board.board_name = request.data['board_name']
+        board.save()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def board_delete(request, board_id):
+    if request.method == 'POST':
+        board = Board.objects.get(board_id=board_id)
+        board.delete()
+        return HttpResponse(status=200)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def post_list(request):
+    if request.method == 'GET':
+        posts = Post.objects.all()
+        serializer = PostSerializer(posts, many=True)
+        return JsonResponse(serializer.data, status=200)
+    else:
+        return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
 def create_post(request):
     if request.method == 'POST':
         user_id = request.data['user_id']
@@ -201,44 +280,35 @@ def create_post(request):
         return HttpResponse(status=400)
 
 @api_view(['POST'])
-@permission_classes(permissions.AllowAny)
+@permission_classes((permissions.AllowAny,))
 def post_detail(request, post_id):
     if request.method == 'GET':
-        post = Post.objects.filter(post_id=post_id)
-        serializer = PostSerializer(data=post)
+        post = Post.objects.get(post_id=post_id)
+        serializer = PostSerializer(post)
         return JsonResponse(serializer.data, status=200)
     else:
         return HttpResponse(status=400)
-
-@api_view(['GET'])
-@permission_classes(permissions.AllowAny)
-def board_list(request):
-    if request.method == 'GET':
-        board = Board.objects.all()
-        serializer = BoardSerializer(data=board)
-        return JsonResponse(serializer.data, status=200)
-    else:
-        return HttpResponse(status=400)
-
 
 @api_view(['POST'])
-@permission_classes(permissions.AllowAny)
-def create_board(request):
+@permission_classes((permissions.AllowAny,))
+def post_update(request, post_id):
     if request.method == 'POST':
-        board_name = request.data['board_name']
-        board = Board(board_name=board_name)
-        board.save()
-        serializer = BoardSerializer(data=board)
-        return JsonResponse(serializer.data, status=201)
+        post = Post.objects.get(post_id=post_id)
+        post.post_title = request.data['post_title']
+        post.post_content = request.data['post_content']
+        post.save()
+        return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
 
 @api_view(['POST'])
-@permission_classes(permissions.AllowAny)
-def board_detail(request, board_id):
-    if request.method == 'GET':
-        board = Board.objects.filter(board_id=board_id)
-        serializer = BoardSerializer(board)
-        return JsonResponse(serializer.data, status=200)
+@permission_classes((permissions.AllowAny,))
+def post_delete(request, post_id):
+    if request.method == 'POST':
+        post = Post.objects.get(post_id=post_id)
+        post.delete()
+        return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
+
+
