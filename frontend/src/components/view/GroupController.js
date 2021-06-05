@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import { GiRun } from 'react-icons/gi';
 
 import GroupView from './GroupView';
@@ -7,6 +7,7 @@ import useStore from '../useStore';
 import { useHistory } from 'react-router-dom';
 
 const GroupController = ({ viewModel }) => {
+    const mounted = useRef(false);
     const [memberlist,setMemberlist] = useState([]);
     const [studydetail,setStudydetail] = useState([]);
     const [groupname,setgroupname] = useState('');
@@ -56,7 +57,7 @@ const GroupController = ({ viewModel }) => {
     useEffect(() => {
         getstudy_detail();
         getmember();
-      },[]);
+    },[]);
       
         
         const join=()=>{
@@ -100,7 +101,7 @@ const GroupController = ({ viewModel }) => {
             }
         }
         
-
+       
     return (
         <>
         <HeaderController header={'그룹'}/>
