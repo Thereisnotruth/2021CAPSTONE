@@ -8,5 +8,6 @@ export { default as Timer } from './Timer';
 export { default as ElementLeft } from './ElementLeft';
 export { default as ElementRight } from './ElementRight';
 export { default as UserInfoModal } from './UserInfoModal';
+export { default as Member } from './Member';
 export { default as BoardList } from './BoardList';
 export { default as BoardListView } from './BoardListView';

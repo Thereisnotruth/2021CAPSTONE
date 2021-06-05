@@ -21,9 +21,7 @@ const Timer = (props) => {
                 {(props.status===0)?
                     <Grid><Button className ='btn' onClick={props.start}>시작</Button></Grid>:""}
                 {(props.status===1)?
-                    <Grid><Button className ='btn' onClick={props.stop}>일시정지</Button><Button className ='btn' onClick={props.exit}>정지</Button></Grid>:""}
-                {(props.status===2)?
-                    <Grid><Button className ='btn' onClick={props.start}>시작</Button><Button className ='btn' onClick={props.exit}>정지</Button></Grid>:""}
+                    <Grid><Button className ='btn' onClick={props.stop}>정지</Button></Grid>:""}
             </Grid>
         </Grid>
     )

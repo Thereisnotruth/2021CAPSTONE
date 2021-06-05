@@ -20,8 +20,8 @@ const HomeController = ({ viewModel }) => {
                 run();
                 setStatus(1);
                 const now = today.getHours() * 3600 + today.getMinutes() * 60 + today.getSeconds();
-                viewModel.exercise(expart, now, 1);
                 setInterv(setInterval(run,1000));
+                viewModel.exercise(expart, now, 1);
             }
         }
     };
@@ -39,8 +39,14 @@ const HomeController = ({ viewModel }) => {
         return setTime({h:updatedH,m:updatedM,s:updatedS});
     };
     const stop=()=>{
-        clearInterval(interv);
-        setStatus(2);
+        if(message===''){
+            levelChange();
+            clearInterval(interv);
+            const times = time.h * 3600 + time.m * 60 + time.s;
+            setTime({h:0,m:0,s:0});
+            setStatus(0);
+            viewModel.exercise(expart, times, 2);
+        }
     }
     const levelChange = () => {
         let level;
@@ -57,15 +63,7 @@ const HomeController = ({ viewModel }) => {
             
         unityContext.send('Man', 'LevelChange', level);
     }
-    const exit = async () => {
-        if(message===''){
-            levelChange();
-            clearInterval(interv);
-            const times = time.h * 3600 + time.m * 60 + time.s;
-            setTime({h:0,m:0,s:0});
-            setStatus(0);
-        }
-    }
+
     const exerciseChange = (e) =>{
         if(status===0){
             if(e.target.value==='')
@@ -94,7 +92,6 @@ const HomeController = ({ viewModel }) => {
             start={start}
             run={run}
             stop={stop}
-            exit={exit}
             exerciseChange={exerciseChange}
         />
         </>

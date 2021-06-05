@@ -17,7 +17,6 @@ const HomeView = (props) => {
                         start={props.start}
                         run={props.run}
                         stop={props.stop}
-                        exit={props.exit}
                         exerciseChange={props.exerciseChange}/>
                 </Grid>
             </Grid>
