@@ -31,6 +31,22 @@ class ViewModel {
     study_detail = async(study_id) => {
         return await this.model.study_detail(study_id);
     }
+    boardlist = async() => {
+        return await this.model.boardlist();
+    }
+    makeboard = async(user_id, board_name) => {
+        return await this.model.makeboard(user_id, board_name);
+    }
+    board_search = async(board_id) => {
+        return await this.model.board_search(board_id);
+    }
+    board_update = async(board_id) => {
+        return await this.model.board_update(board_id);
+    }
+    board_delete = async(board_id) => {
+        return await this.model.board_delete(board_id);
+    }
+
 }
 
 export default ViewModel;
