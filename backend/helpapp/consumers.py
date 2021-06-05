@@ -19,47 +19,62 @@ class ExConsumer(AsyncWebsocketConsumer):
       self.user_group_name,
       self.channel_name
     )
-  
+  # 클라이언트에서 오는 소켓 통신 
   async def receive(self, text_data):
     print(text_data)
     text_data_json = json.loads(text_data)
-    start_time = text_data_json['start_time']
+    time = text_data_json['time']
     expart = text_data_json['expart']
     button = text_data_json['btn']
     print(button)
+    # 운동 시작 메시지
     if button == 1:
-      await self.start_exercise(self.user_id, start_time)
+      await self.start_exercise(self.user_id, time)
 
       await self.channel_layer.group_send(
         self.user_group_name,
         {
           'type': 'spread_message',
           'user_id': self.user_id,
-          'start_time': start_time,
+          'time': time, # 시작 시간
           'exercise_state': True
         }
       )
+    # 운동 중지 메시지
+    elif button == 2:
+      await self.stop_exercise(self.user_id)
+
+      await self.channel_layer.group_send(
+        self.user_group_name,
+        {
+          'type': 'spread_message',
+          'user_id': self.user_id,
+          'time': time, # 총 운동 시간
+          'exercise_state': False
+        }
+      )
   @database_sync_to_async
-  def start_exercise(self, user_id, start_time):
+  def start_exercise(self, user_id, time):
     user = User.objects.get(user_id=user_id)
     user.exercise_state = True
+    user.exercise_start_time = time
     user.save()
   
   @database_sync_to_async
-  def puase_exercise(self, user_id, time):
-    pass
-  
-  @database_sync_to_async
   def stop_exercise(self, user_id):
-    pass
-
+    user = User.objects.get(user_id=user_id)
+    user.exercise_state = False
+    user.exercise_start_time = 0
+    user.save()
+  
+  # 서버에서 클라이언트로 뿌려주는 소켓 통신
   async def spread_message(self, event):
     user_id = event['user_id']
-    start_time = event['start_time']
+    time = event['time']
     exercise_state = event['exercise_state']
 
     await self.send(text_data=json.dumps({
       'user_id': user_id,
-      'start_time': start_time,
+      'time': time,
       'exercise_state': exercise_state
     }))
