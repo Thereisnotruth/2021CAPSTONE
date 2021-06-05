@@ -203,7 +203,29 @@ class Model {
     console.log(data);
     return data;
     }
-    
+    //특정 게시판글 조회
+   boardpostlist = (board_id) =>{ 
+    let data = axios.post('/helpapp/boards/'+board_id+'/board_postlist',{
+        board_id: board_id
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
+    //게시판글 작성
+    makepost= (board_id,user_id,post_title,post_content) =>{ 
+    let data = axios.post('/helpapp/posts/new',{
+        board_id: board_id,
+        user_id: user_id,
+        post_title: post_title,
+        post_content: post_content
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
     
 }
 

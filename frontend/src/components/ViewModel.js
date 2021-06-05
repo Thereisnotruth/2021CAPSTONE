@@ -45,7 +45,12 @@ class ViewModel {
     board_delete = async(board_id) => {
         return await this.model.board_delete(board_id);
     }
-
+    boardpostlist = async(board_id) => {
+        return await this.model.boardpostlist(board_id);
+    }
+    makepost = async(board_id,user_id,post_title,post_content) => {
+        return await this.model.makepost(board_id,user_id,post_title,post_content);
+    }
 }
 
 export default ViewModel;

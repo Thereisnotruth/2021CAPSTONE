@@ -12,8 +12,11 @@ const BoardView = (props) => {
                 <BoardList boardlist={props.boardlist} 
                             onboardnameChange={props.onboardnameChange}
                             makeboard ={props.makeboard}
+                            onboard = {props.onboard}
                             boardlist={props.boardlist}/>
-                <Grid className='board'></Grid>
+                <Grid className='board'>
+                <Button className='makebtn' onClick ={props.makepost}>게시글 생성</Button>
+                </Grid>
             </Grid>
         </Grid>
     )    

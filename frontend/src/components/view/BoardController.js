@@ -10,8 +10,11 @@ const BoardController = ({ viewModel }) => {
     const { Auth } = useStore();
     const history = useHistory();
     const [boardlist,setBoardlist] = useState([]);
+    const [postlist,setPostlist] = useState([]);
     const user_id = Auth.isLogged ? Auth.data.user_id:''
     const [board_name,setBoard_name] = useState('');
+    const [board,setBoard] = useState('1');
+
     const getboardlist = async () => {
         const test = await viewModel.boardlist();
         const status = test?.status;
@@ -25,6 +28,7 @@ const BoardController = ({ viewModel }) => {
     }
     useEffect(() => {
         getboardlist();
+        onboard('1');
       },[]);
 
     const makeboard = ()=>{
@@ -43,15 +47,31 @@ const BoardController = ({ viewModel }) => {
     const onboardnameChange= (e) =>{
         setBoard_name(e.target.value);
     }
-    
+    const onboard= (board_id) =>{
+        setBoard(board_id);
+        const test = viewModel.boardpostlist(board_id);
+        setPostlist(test.data);
+    }
 
+    const makepost = ()=>{
+        if(Auth.isLogged === false){ history.replace('/login');}
+        else{
+            {history.push({
+                pathname: "/postmake",
+                state: {board_id: board}
+              })}
+        }
+    }
     return (
         <>
         <HeaderController header='게시판' />
         <BoardView 
             onboardnameChange={onboardnameChange}
             makeboard={makeboard}
-            boardlist = {boardlist}/>
+            makepost={makepost}
+            onboard={onboard}
+            boardlist = {boardlist}
+            postlist = {postlist}/>
         </>
     );
 };
