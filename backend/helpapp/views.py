@@ -1,7 +1,6 @@
 """
 update contents:
-    1. @permissions 추가 시 ()안에 , 추가: 그렇지 않을 시 error 발생
-    2. board_list() 수정: serializer 사용 시 if_valid 검증 후 사용하거나, serializer의 data=를 지정하지 않아야 오류 발생하지 않음
+    1. study_disjoin() 수정: 스터디인원이 0명이 될 시 스터디 삭제
 """
 
 
@@ -168,7 +167,10 @@ def study_disjoin(request, study_id):
         user = get_object_or_404(User, user_id=request.data['user_id'])
         User_Study.objects.get(user_id=user, study_id=study).delete()
         study.current_user_count -= 1
-        study.save()
+        if study.current_user_count == 0:
+            study.delete()
+        else:
+            study.save()
 
         return HttpResponse(status=201)
     return HttpResponse(status=200)
