@@ -238,9 +238,12 @@ def board_postlist(request, board_id):
 def board_update(request, board_id):
     if request.method == 'POST':
         board = Board.objects.get(board_id=board_id)
-        board.board_name = request.data['board_name']
-        board.save()
-        return HttpResponse(status=200)
+        if board.user_id == request.data['user_id']:
+            board.board_name = request.data['board_name']
+            board.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
     else:
         return HttpResponse(status=400)
 
@@ -249,7 +252,10 @@ def board_update(request, board_id):
 def board_delete(request, board_id):
     if request.method == 'POST':
         board = Board.objects.get(board_id=board_id)
-        board.delete()
+        if board.user_id == request.data['user_id']:
+            board.delete()
+        else:
+            return HttpResponse(status=403)
         return HttpResponse(status=200)
     else:
         return HttpResponse(status=400)
@@ -296,10 +302,13 @@ def post_detail(request, post_id):
 def post_update(request, post_id):
     if request.method == 'POST':
         post = Post.objects.get(post_id=post_id)
-        post.post_title = request.data['post_title']
-        post.post_content = request.data['post_content']
-        post.save()
-        return HttpResponse(status=200)
+        if post.user_id == request.data['user_id']:
+            post.post_title = request.data['post_title']
+            post.post_content = request.data['post_content']
+            post.save()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
     else:
         return HttpResponse(status=400)
 
@@ -308,8 +317,11 @@ def post_update(request, post_id):
 def post_delete(request, post_id):
     if request.method == 'POST':
         post = Post.objects.get(post_id=post_id)
-        post.delete()
-        return HttpResponse(status=200)
+        if post.user_id == request.data['user_id']:
+            post.delete()
+            return HttpResponse(status=200)
+        else:
+            return HttpResponse(status=403)
     else:
         return HttpResponse(status=400)
 
