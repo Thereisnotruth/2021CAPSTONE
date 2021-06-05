@@ -237,8 +237,10 @@ def board_postlist(request, board_id):
 @permission_classes((permissions.AllowAny,))
 def board_update(request, board_id):
     if request.method == 'POST':
-        board = Board.objects.get(board_id=board_id)
-        if board.user_id == request.data['user_id']:
+        board = get_object_or_404(Board, board_id=board_id)
+        user_id = request.data['user_id']
+        if str(board.user_id) == request.data['user_id']:
+            board = Board.objects.get(board_id=board_id)
             board.board_name = request.data['board_name']
             board.save()
             return HttpResponse(status=200)
@@ -252,7 +254,7 @@ def board_update(request, board_id):
 def board_delete(request, board_id):
     if request.method == 'POST':
         board = Board.objects.get(board_id=board_id)
-        if board.user_id == request.data['user_id']:
+        if str(board.user_id) == request.data['user_id']:
             board.delete()
         else:
             return HttpResponse(status=403)
@@ -302,7 +304,7 @@ def post_detail(request, post_id):
 def post_update(request, post_id):
     if request.method == 'POST':
         post = Post.objects.get(post_id=post_id)
-        if post.user_id == request.data['user_id']:
+        if str(post.user_id) == request.data['user_id']:
             post.post_title = request.data['post_title']
             post.post_content = request.data['post_content']
             post.save()
@@ -317,7 +319,7 @@ def post_update(request, post_id):
 def post_delete(request, post_id):
     if request.method == 'POST':
         post = Post.objects.get(post_id=post_id)
-        if post.user_id == request.data['user_id']:
+        if str(post.user_id) == request.data['user_id']:
             post.delete()
             return HttpResponse(status=200)
         else:

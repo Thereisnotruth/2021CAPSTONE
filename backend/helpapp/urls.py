@@ -60,7 +60,7 @@ from . import views
             - Data) board_id, board 테이블 데이터 (models.py: Baord 클래스)
         boards/<int:board_id>/delete: board 삭제 요청을 받는 url
             - POST
-            - Data) board_id
+            - Data) board_id, user_id
         boards/<int:board_id>/board_postlist: board안에 속한 postlist를 요청하는 url
             - POST
             - Data) board_id
@@ -78,7 +78,7 @@ from . import views
             - Data) post_id, post 테이블 데이터 (models.py: POST 클래스)
         posts/<int:post_id>/delete: board 삭제 요청을 받는 url
             - POST
-            - Data) post_id
+            - Data) post_id, user_id
 """
 
 urlpatterns = [
