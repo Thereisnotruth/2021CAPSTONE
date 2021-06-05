@@ -61,6 +61,9 @@ from . import views
         boards/<int:board_id>/delete: board 삭제 요청을 받는 url
             - POST
             - Data) board_id
+        boards/<int:board_id>/board_postlist: board안에 속한 postlist를 요청하는 url
+            - POST
+            - Data) board_id
     - Post 관련
         posts: post 목록 조회 요청을 받은 url
             - GET
@@ -97,6 +100,7 @@ urlpatterns = [
     path('boards/<int:board_id>', views.board_detail),
     path('boards/<int:board_id>/update', views.board_update),
     path('boards/<int:board_id>/delete', views.board_delete),
+    path('boards/<int:board_id>/board_postlist', views.board_postlist),
     path('posts', views.post_list),
     path('posts/new', views.create_post),
     path('posts/<int:post_id>', views.post_detail),
