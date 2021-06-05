@@ -6,7 +6,10 @@ import { Link} from 'react-router-dom';
 const BoardView = (props) => {
     return (
         <Grid container direction='column'>
-            <BoardList boardlist={props.boardlist}/>
+            <BoardList boardlist={props.boardlist} 
+                        onboardnameChange={props.onboardnameChange}
+                        makeboard ={props.makeboard}
+                        boardlist={props.boardlist}/>
             <Grid className='board'>
                 test
             </Grid>

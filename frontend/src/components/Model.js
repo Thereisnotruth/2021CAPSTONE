@@ -162,8 +162,19 @@ class Model {
                 return res;});
         return data;
     }
+    //게시판 생성
+   makeboard = (user_id, board_name) =>{ 
+    let data = axios.post('/helpapp/boards/new',{
+        user_id: user_id, 
+        board_name: board_name
+    })
+        .then((res)=>{
+            return res;});
+    console.log(data);
+    return data;
+    }
    //게시판 조회
-   searchboard = (board_id) =>{ 
+   board_search = (board_id) =>{ 
     let data = axios.post('/helpapp/boards/'+board_id,{
         board_id: board_id
     })
@@ -173,7 +184,7 @@ class Model {
     return data;
     }
     //게시판 수정
-   updateboard = (board_id) =>{ 
+    board_update = (board_id) =>{ 
     let data = axios.post('/helpapp/boards/'+board_id+'update',{
         //필요데이터 넣을예정
     })
@@ -183,7 +194,7 @@ class Model {
     return data;
     }
     //게시판 삭제
-   deleteboard = (board_id) =>{ 
+    board_delete = (board_id) =>{ 
     let data = axios.post('/helpapp/boards/'+board_id+'delete',{
         board_id: board_id
     })

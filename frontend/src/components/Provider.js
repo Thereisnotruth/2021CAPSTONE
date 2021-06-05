@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import {
     HomeController, LoginController, SignUpController, GroupMakeController, GroupListController, GroupController,
-    UserInfoController, BoardController
+    UserInfoController, BoardController, Test
 } from './view';
 import ViewModel from './ViewModel'; 
 import Model from './Model';
