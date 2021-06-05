@@ -269,10 +269,12 @@ def post_list(request):
 def create_post(request):
     if request.method == 'POST':
         user_id = request.data['user_id']
+        user = User.objects.get(user_id=user_id)
         board_id = request.data['board_id']
+        board = Board.objects.get(board_id=board_id)
         post_title = request.data['post_title']
         post_content = request.data['post_content']
-        post = Post(user_id=user_id, board_id=board_id, post_title=post_title, post_content=post_content)
+        post = Post(user_id=user, board_id=board, post_title=post_title, post_content=post_content)
         post.save()
         serializer = PostSerializer(post)
         return JsonResponse(serializer.data, status=201)
