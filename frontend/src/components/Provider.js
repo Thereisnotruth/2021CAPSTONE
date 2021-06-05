@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import {
     HomeController, LoginController, SignUpController, GroupMakeController, GroupListController, GroupController,
-    UserInfoController, BoardController, Test ,PostMakeController
+    UserInfoController, BoardController, Test ,PostMakeController,PostController
 } from './view';
 import ViewModel from './ViewModel'; 
 import Model from './Model';
@@ -23,6 +23,7 @@ const Provider = () => {
                 <Route path='/info' render={ () => <UserInfoController viewModel={viewModel} /> } />
                 <Route path='/board' render={ () => <BoardController viewModel={viewModel} /> } />
                 <Route path='/postmake' render={ () => <PostMakeController viewModel={viewModel} /> } />
+                <Route path='/post/:id' render={ () => <PostController viewModel={viewModel} /> } />
                 <Route path='/test' render={ () => <Test viewModel={viewModel} /> } />
             </Switch>
         </BrowserRouter>

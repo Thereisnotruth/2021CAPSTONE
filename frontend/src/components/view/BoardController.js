@@ -47,9 +47,11 @@ const BoardController = ({ viewModel }) => {
     const onboardnameChange= (e) =>{
         setBoard_name(e.target.value);
     }
-    const onboard= (board_id) =>{
+
+    const onboard= async(board_id) =>{
         setBoard(board_id);
-        const test = viewModel.boardpostlist(board_id);
+        const test = await viewModel.boardpostlist(board_id);
+        console.log(test.data);
         setPostlist(test.data);
     }
 

@@ -52,6 +52,10 @@ class ViewModel {
     makepost = async(board_id,user_id,post_title,post_content) => {
         return await this.model.makepost(board_id,user_id,post_title,post_content);
     }
+    postdetail = async(post_id) => {
+        return await this.model.postdetail(post_id);
+    }
+     
 }
 
 export default ViewModel;

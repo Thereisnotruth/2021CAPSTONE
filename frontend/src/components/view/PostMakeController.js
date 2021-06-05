@@ -31,6 +31,7 @@ const PostMakeController = ({ viewModel }) => {
         }
         else{
             viewModel.makepost(board_id,user_id,title,content);
+            history.replace('/');
         }
     }
     return (

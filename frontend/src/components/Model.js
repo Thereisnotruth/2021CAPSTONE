@@ -180,7 +180,7 @@ class Model {
     }
     //게시판 삭제
     board_delete = (board_id) =>{ 
-    let data = axios.post('/helpapp/boards/'+board_id+'delete',{
+    let data = axios.post('/helpapp/boards/'+board_id+'/delete',{
         board_id: board_id
     })
         .then((res)=>{
@@ -188,8 +188,8 @@ class Model {
     console.log(data);
     return data;
     }
-    //특정 게시판글 조회
-   boardpostlist = (board_id) =>{ 
+    //특정 게시판글들 조회
+    boardpostlist = (board_id) =>{ 
     let data = axios.post('/helpapp/boards/'+board_id+'/board_postlist',{
         board_id: board_id
     })
@@ -211,6 +211,16 @@ class Model {
     console.log(data);
     return data;
     }
+    //특정 게시글 조회
+    postdetail = (post_id) =>{ 
+        let data = axios.post('/helpapp/posts/'+post_id,{
+            post_id: post_id
+        })
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
+        }
     
 }
 
