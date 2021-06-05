@@ -12,12 +12,12 @@ const BoardController = ({ viewModel }) => {
     const [boardlist,setBoardlist] = useState([]);
     const user_id = Auth.isLogged ? Auth.data.user_id:''
     const [board_name,setBoard_name] = useState('');
-    console.log(user_id);
     const getboardlist = async () => {
         const test = await viewModel.boardlist();
         const status = test?.status;
         console.log(test);
         if (status === 200) {
+            setBoardlist(test.data);
         }
         else {
             alert('내부 서버 오류입니다.');
@@ -36,6 +36,7 @@ const BoardController = ({ viewModel }) => {
             else{
                 viewModel.makeboard(user_id, board_name);
                 setBoard_name('');
+                getboardlist();
             }
         }
     }
