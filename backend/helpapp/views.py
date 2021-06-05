@@ -41,6 +41,11 @@ def login(request):
         except DiffPw:
             return JsonResponse({ 'Error': '비밀번호가 다름' }, status=401)
 
+
+class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
+    def __init__(self):
+        super()
+
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def user_list(request):
@@ -168,10 +173,6 @@ def study_disjoin(request, study_id):
         return HttpResponse(status=201)
     return HttpResponse(status=200)
 
-class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
-    def __init__(self):
-        super()
-
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def silent_refresh(request):
@@ -201,7 +202,8 @@ def create_board(request):
     if request.method == 'POST':
         board_name = request.data['board_name']
         user_id = request.data['user_id']
-        board = Board(board_name=board_name, user_id=user_id)
+        user = User.objects.get(user_id=user_id)
+        board = Board(board_name=board_name, user_id=user)
         board.save()
         serializer = BoardSerializer(board)
         return JsonResponse(serializer.data, status=201)
