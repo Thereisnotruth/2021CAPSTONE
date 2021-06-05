@@ -1,6 +1,6 @@
 """
 update contents:
-    1. study_disjoin() 수정: 스터디인원이 0명이 될 시 스터디 삭제
+    1. board_postlist() 추가: Board에 속한 post 리스트를 반환하는 view
 """
 
 
@@ -215,12 +215,23 @@ def create_board(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def board_detail(request, board_id):
-    if request.method == 'GET':
+    if request.method == 'POST':
         board = Board.objects.get(board_id=board_id)
         serializer = BoardSerializer(board)
         return JsonResponse(serializer.data, status=200)
     else:
         return HttpResponse(status=400)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def board_postlist(request, board_id):
+    if request.method == 'POST':
+        post_set = Post.objects.filter(board_id=board_id)
+        post_list = []
+        for post in post_set:
+            post_list.append(post)
+        serializer = PostSerializer(post_list, many=True)
+        return JsonResponse(serializer.data, status=200, safe=False)
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
