@@ -40,11 +40,11 @@ class ViewModel {
     board_search = async(board_id) => {
         return await this.model.board_search(board_id);
     }
-    board_update = async(board_id) => {
-        return await this.model.board_update(board_id);
+    board_update = async(board_id,board_name,user_id) => {
+        return await this.model.board_update(board_id,board_name,user_id);
     }
-    board_delete = async(board_id) => {
-        return await this.model.board_delete(board_id);
+    board_delete = async(user_id,board_id) => {
+        return await this.model.board_delete(user_id,board_id);
     }
     boardpostlist = async(board_id) => {
         return await this.model.boardpostlist(board_id);

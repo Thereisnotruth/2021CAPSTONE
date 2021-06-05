@@ -16,6 +16,14 @@ const BoardView = (props) => {
                             boardlist={props.boardlist}/>
                 <Grid className='board'>
                     <Button className='makebtn' onClick ={props.makepost}>게시글 생성</Button>
+                    <Button className='makebtn' onClick ={props.deleteboard}>게시판 삭제</Button>
+                    {!props.changestate?
+                    <Button className='makebtn' onClick ={props.change}>게시판 수정</Button>:
+                    <Grid><input 
+                    type='text'
+                    onChange={props.onRename}
+                    />
+                    <Button className='makebtn' onClick ={props.boardupdate}>수정</Button></Grid> }
                     <PostList postlist = {props.postlist}/>
                 </Grid>
             </Grid>

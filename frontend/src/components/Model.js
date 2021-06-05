@@ -169,9 +169,11 @@ class Model {
     return data;
     }
     //게시판 수정
-    board_update = (board_id) =>{ 
-    let data = axios.post('/helpapp/boards/'+board_id+'update',{
-        //필요데이터 넣을예정
+    board_update = (board_id,board_name,user_id) =>{ 
+    let data = axios.post('/helpapp/boards/'+board_id+'/update',{
+        board_id: board_id,
+        board_name: board_name,
+        user_id: user_id
     })
         .then((res)=>{
             return res;});
@@ -179,8 +181,9 @@ class Model {
     return data;
     }
     //게시판 삭제
-    board_delete = (board_id) =>{ 
+    board_delete = (user_id,board_id) =>{ 
     let data = axios.post('/helpapp/boards/'+board_id+'/delete',{
+        user_id: user_id,
         board_id: board_id
     })
         .then((res)=>{
