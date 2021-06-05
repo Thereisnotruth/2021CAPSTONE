@@ -10,7 +10,7 @@ numpy==1.20.2
 openpyxl==3.0.7
 pandas==1.2.3
 pefile==2019.4.18
-pyinstaller==5.0.dev0
+pyinstaller==4.3
 pyinstaller-hooks-contrib==2021.1
 pylint==2.4.4
 PySide2==5.15.2
@@ -27,6 +27,6 @@ pyMysql==1.0.2
 django-cors-headers==3.7.0
 djangorestframework-jwt==1.11.0
 cryptography==3.4.7
-channels==2.4.0
+channels==3.0.1
 channels-redis==2.4.2
 asgiref==3.3.4
