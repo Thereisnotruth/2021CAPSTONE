@@ -284,7 +284,7 @@ def create_post(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def post_detail(request, post_id):
-    if request.method == 'GET':
+    if request.method == 'POST':
         post = Post.objects.get(post_id=post_id)
         serializer = PostSerializer(post)
         return JsonResponse(serializer.data, status=200)
