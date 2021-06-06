@@ -26,12 +26,10 @@ const PwController = ({ viewModel }) => {
         if(quest==='' || hint==='' || name==='' || userid===''){
             alert('위의 항목들을 모두 작성해야합니다.');
         }else{
-            console.log(quest,hint,name,userid);
             const connect = await viewModel.findpw(userid,name,quest,hint);
-            console.log(connect);
             const status = connect?.status;
             if (status === 200) {
-                alert(userid+'아이디의 비밀번호는'+connect.data+'입니다.');
+                alert(userid+'아이디의 비밀번호는'+connect.data.user_pw+'입니다.');
                 history.replace('/login');
             } else if (status === 403) {
                 alert(connect.data.message);

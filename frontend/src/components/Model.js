@@ -63,7 +63,7 @@ class Model {
             user_pw: pw,
             user_name: name,
             gender: gender,
-            question_number: quest,
+            question_number: Number(quest),
             hint: hint,
             email: email
         })
@@ -257,7 +257,7 @@ class Model {
         const data = axios.post('/users/find_pw',{
             user_id: userid, 
             user_name: user_name, 
-            question_number: quest,
+            question_number: Number(quest),
             hint: hint
         })
         .then((res)=>{
