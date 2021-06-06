@@ -35,6 +35,9 @@ from . import views
         users/find_pw: user의 비밀번호 찾기 요청을 처리하는 url
             - POST
             - Data) user_id, user_name, question_number, hint
+        users/change_pw: user의 비밀번호 변경 요청을 처리하는 url
+            - POST
+            - Data) user_id, user_pw
     - Study 관련    
         studies: 스터디 목록 조회 요청을 처리하는 url
             - GET
@@ -95,6 +98,7 @@ urlpatterns = [
     path('users', views.user_list),
     path('users/find_id', views.find_id),
     path('users/find_pw', views.find_pw),
+    path('users/change_pw', views.change_pw),
     path('users/new', views.create_user),
     path('users/<str:user_id>', views.user_detail),
     path('users/<str:user_id>/save_time', views.save_time),
