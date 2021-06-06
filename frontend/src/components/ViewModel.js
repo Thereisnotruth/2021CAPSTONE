@@ -67,6 +67,9 @@ class ViewModel {
     findpw = (userid,user_name,quest,hint) => {
         return this.model.findpw(userid,user_name,quest,hint);
     }
+    changepw = (user_id,user_pw)=>{
+        return this.model.changepw(user_id,user_pw);
+    }
 }
 
 export default ViewModel;

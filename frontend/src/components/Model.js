@@ -267,6 +267,26 @@ class Model {
         });
         return data;
     }
+    //비밀번호변경
+    changepw = (id, pw) => {
+        this.loginData = {
+            id,
+            pw,
+        };
+        const result = axios.post('/users/change_pw', {
+            user_id: id,
+            user_pw: pw
+        })
+        .then((res) => {
+            this.loginSuccess(res);
+            return res;
+        })
+        .catch((error) => {
+            return error.response;
+        });
+        return result;
+    }
+    
 }
 
 export default Model;

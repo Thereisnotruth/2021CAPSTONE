@@ -31,33 +31,6 @@ const UserInfoView = (props) => {
                         <ElementRight
                             content={props.data.user_name}
                         />
-                        <ElementLeft
-                            content='비밀번호 :'
-                        />
-                        <ElementRight
-                            content={
-                                <input
-                                    type='password'
-                                    className='element-input'
-                                    onChange={props.onPwChange}
-                                />
-                            }
-                        />
-                        <ElementLeft
-                            content='비밀번호 확인 :'
-                        />
-                        <ElementRight
-                            content={
-                                <>
-                                <input
-                                    type='password'
-                                    className='element-input'
-                                    onChange={props.onCpwChange}
-                                />
-                                <Grid className='errorm'>{props.message}</Grid>
-                                </>
-                            }
-                        />
                         <Grid item xs={12}>
                             <ColorButton
                                 variant='contained'
@@ -73,6 +46,7 @@ const UserInfoView = (props) => {
                             handleClose={props.handleClose}
                             data={props.data}
                         />
+                        {(props.state===1)?
                         <Grid item xs={12}>
                             <ColorButton
                                 variant='contained'
@@ -82,7 +56,45 @@ const UserInfoView = (props) => {
                             >
                                 비밀번호 변경
                             </ColorButton>
-                        </Grid>
+                        </Grid>:''}
+                        {(props.state===2)?
+                            <><ElementLeft
+                                content='변경비밀번호 :'
+                            />
+                            <ElementRight
+                                content={
+                                    <input
+                                        type='password'
+                                        className='element-input'
+                                        onChange={props.onPwChange}
+                                    />
+                                }
+                            />
+                            <ElementLeft
+                                content='비밀번호 확인 :'
+                            />
+                            <ElementRight
+                                content={
+                                    <>
+                                    <input
+                                        type='password'
+                                        className='element-input'
+                                        onChange={props.onCpwChange}
+                                    />
+                                    <Grid className='errorm'>{props.message}</Grid>
+                                    </>
+                                }
+                            />
+                            <Grid item xs={12}>
+                                <ColorButton
+                                    variant='contained'
+                                    className='element-center'
+                                    onClick={props.pwChange}
+                                    color='primary'
+                                >
+                                    비밀번호 변경
+                                </ColorButton>
+                            </Grid></>:''}
                     </Grid>
             </Grid>
         </Grid>

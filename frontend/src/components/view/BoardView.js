@@ -29,8 +29,7 @@ const BoardView = (props) => {
                         <Button className='makebtn' onClick ={props.boardupdate}>수정</Button></Grid> }
                     </Grid>
                     <Divider/>
-                    <Grid className='postclass'><Grid className='title'>제목</Grid><Grid className='writer'>작성자</Grid><Grid className='date'>작성일</Grid></Grid>
-                    <Divider/>
+
                     <PostList onpost={props.onpost} postlist = {props.postlist}/>
                 </Grid>:''}
                 {(props.state===2)?<Grid className='board'>
