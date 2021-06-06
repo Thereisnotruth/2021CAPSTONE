@@ -41,11 +41,16 @@ const Member = (props) => {
       setStartTime(data.time);
       h = parseInt(data.time/3600);
       const d = new Date();
+
       setHours(d.getHours() - h);
       m = parseInt((data.time - h * 3600) / 60);
       setMinutes(d.getMinutes() - m);
       s = parseInt(data.time - h * 3600 - m * 60);
+      let ddif_s = d.getSeconds() - s;
       setSeconds(d.getSeconds() - s);
+      if (ddif_s <= 0) {
+        setSeconds(1);
+      }
     }
   }, []); 
   useEffect(() => {
