@@ -64,8 +64,8 @@ class ViewModel {
     findid = async(email) => {
         return await this.model.findid(email);
     }
-    findpw = async() => {
-        return await this.model.findpw();
+    findpw = async(userid,email,quest,hint) => {
+        return await this.model.findpw(userid,email,quest,hint);
     }
 }
 

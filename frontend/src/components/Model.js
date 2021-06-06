@@ -250,8 +250,16 @@ class Model {
             return res;});
         return data;
     }
-    findpw =()=>{
-        
+    findpw =(userid,email,quest,hint)=>{
+        let data = axios.post('/user/find_pw',{
+            user_id: userid, 
+            email: email, 
+            question_number: quest,
+            hint: hint
+        })
+        .then((res)=>{
+            return res;});
+        return data;
     }
 }
 

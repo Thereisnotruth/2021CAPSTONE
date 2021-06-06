@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import IdView from './IdView';
-
 import { HeaderController } from '../ui';
-import useStore from '../useStore';
 
 const IdController = ({ viewModel }) => {
     const [email, setEmail] = useState('');
@@ -16,11 +14,11 @@ const IdController = ({ viewModel }) => {
         if(email !==''){
             const id = viewModel.findid(email);
             console.log(id);
-            alert('당신의 아이디는:'+id+'입니다.');
+            alert('당신의 아이디는:'+id.data+'입니다.');
             history.replace('/login');
         }
         else{
-            alert('위의 항목들을 모두 작성해야합니다.');
+            alert('위의 항목을 모두 작성해야합니다.');
         }
     }
     return (

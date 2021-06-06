@@ -7,21 +7,23 @@ const PwView = (props) => {
         <Grid container direction='column'>
             <Grid className='contents'>
                 <Grid className='logo'>HELP</Grid>
-                    <Grid className='join_title'>이름</Grid>
+                    <Grid className='join_title'>아이디</Grid>
                     <input
                         type='text'
                         className='login'
-                        placeholder={'이름'}
+                        placeholder={'아이디'}
+                        onChange={props.onIdChange}
                     />
                     <Grid className='join_title'>이메일</Grid>
                     <input
                         type="email"
                         className='login'
                         placeholder={'email'}
+                        onChange={props.onEmailChange}
                     />
                     <Grid className='join_title'>힌트</Grid>
                     <NativeSelect
-                        onChange={props.genderChange}
+                        onChange={props.onQuestChange}
                         className='GenderSelect'>
                         <option aria-label="" value="" >질문</option>
                         <option value="1">당신의 아버지 성함은?</option>
@@ -30,11 +32,12 @@ const PwView = (props) => {
                         <option value="4">당신의 모교는?</option>
                     </NativeSelect>
                     <input
-                        type="email"
+                        type="text"
                         className='login'
                         placeholder={'힌트대답'}
+                        onChange={props.onHintChange}
                     />
-                    <button type='button' className='loginbtn'>아이디 찾기</button>
+                    <button type='button' className='loginbtn' onClick ={props.findPw}>비밀번호 찾기</button>
                     <Divider/>
                     <Grid className='link'>
                         <Link className='a' to={'/login'}>로그인</Link>|
