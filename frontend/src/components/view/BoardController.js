@@ -16,12 +16,15 @@ const BoardController = ({ viewModel }) => {
     const [changestate,setChangestate] = useState(false);
     const [rename,setRename] = useState('');
     const [state,setState] = useState(1);
+    const [postid,setPostid] = useState('');
     const [title,setTitle] = useState('');
     const [content,setContent] = useState('');
     const [posttitle,setPosttitle] = useState('');
     const [postcontent,setPostcontent] = useState('');
     const [postcreat,setPostcreate] = useState('');
     const [postuser,setPostuser] = useState('');
+    const [updatetitle,setUpdatetitle] = useState('');
+    const [updatecontent,setUpdatecontent] = useState('');
 
 
     const ontitleChange = (e) => {
@@ -41,7 +44,7 @@ const BoardController = ({ viewModel }) => {
             viewModel.makepost(board,user_id,title,content);
             setState(1);
             setBoard(board);
-            getboardlist();
+            onboard(board);
         }
     }
     const getboardlist = async () => {
@@ -99,7 +102,6 @@ const BoardController = ({ viewModel }) => {
     const deleteboard = () =>{
         viewModel.board_delete(user_id,board);
         getboardlist();
-        onboard('1');
     }
     const makepost = ()=>{
         if(Auth.isLogged === false){ history.replace('/login');}
@@ -129,12 +131,12 @@ const BoardController = ({ viewModel }) => {
     const onRename =(e) =>{
         setRename(e.target.value);
     }
-
     const getdetail = async (post_id) => {
         const test = await viewModel.postdetail(post_id);
         const status = test?.status;
         const data = test.data
         console.log(data);
+        setPostid(data.post_id);
         setPosttitle(data.post_title);
         setPostcontent(data.post_content);
         const alltime = data.created_at;
@@ -150,6 +152,15 @@ const BoardController = ({ viewModel }) => {
             alert('내부 서버 오류입니다.');
         }
     }
+    const deletepost =()=>{//post_id, user_id
+        viewModel.deletepost(postid,user_id);
+        onboard(board);
+        setState(1);
+    }
+    const updatepost=()=>{//post_id, user_id, post_title, post_content
+        viewModel.deletepost(postid,user_id,updatetitle, updatecontent);
+    }
+
     return (
         <>
         <HeaderController header='게시판' />
@@ -166,6 +177,8 @@ const BoardController = ({ viewModel }) => {
             ontitleChange={ontitleChange}
             oncontentChange={oncontentChange}
             post={post}
+            deletepost={deletepost}
+            updatepost={updatepost}
             state={state}
             boardlist = {boardlist}
             postlist = {postlist}

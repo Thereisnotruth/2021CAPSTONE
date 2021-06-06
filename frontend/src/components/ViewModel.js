@@ -55,6 +55,12 @@ class ViewModel {
     postdetail = async(post_id) => {
         return await this.model.postdetail(post_id);
     }
+    updatepost = async(post_id, user_id, post_title, post_content) => {
+        return await this.model.updatepost(post_id, user_id, post_title, post_content);
+    }
+    deletepost = async(post_id, user_id) => {
+        return await this.model.deletepost(post_id, user_id);
+    }
      
 }
 

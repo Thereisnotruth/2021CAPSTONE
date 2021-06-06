@@ -223,8 +223,32 @@ class Model {
                 return res;});
         console.log(data);
         return data;
-        }
-    
+    }
+    //특정 게시글 수정
+    updatepost = (post_id, user_id, post_title, post_content) =>{ 
+        let data = axios.post('/helpapp/posts/'+post_id+'/update',{
+            post_id: post_id,
+            user_id: user_id,
+            post_title: post_title,
+            post_content: post_content
+
+        })
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
+    }
+    //특정 게시글 삭제
+    deletepost = (post_id, user_id) =>{ 
+        let data = axios.post('/helpapp/posts/'+post_id+'/delete',{
+            post_id: post_id,
+            user_id: user_id
+        })
+            .then((res)=>{
+                return res;});
+        console.log(data);
+        return data;
+    }
 }
 
 export default Model;
