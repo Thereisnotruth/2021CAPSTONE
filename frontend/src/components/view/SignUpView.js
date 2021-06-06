@@ -14,6 +14,14 @@ const SignupView = (props) => {
                     onChange={props.onIdChange}
                 />
                 <Grid className='errorm'>{props.message1}</Grid>
+                <Grid className='join_title'>이메일</Grid>
+                    <input
+                        type="email"
+                        className='login'
+                        placeholder={'email'}
+                        onChange={props.onEmailChange}
+                    />
+                <Grid className='errorm'>{props.message7}</Grid>
                 <Grid className='join_title'>비밀번호</Grid>
                 <input
                     type='password'
@@ -47,6 +55,24 @@ const SignupView = (props) => {
                     <option value="F">여자</option>
                 </NativeSelect>
                 <Grid className='errorm'>{props.message5}</Grid>
+                <Grid className='join_title'>힌트</Grid>
+                    <NativeSelect
+                        onChange={props.questChange}
+                        className='GenderSelect'>
+                        <option aria-label="" value="" >질문</option>
+                        <option value="1">당신의 아버지 성함은?</option>
+                        <option value="2">당신의 어머니 성함은?</option>
+                        <option value="3">당신이 사는 지역은?</option>
+                        <option value="4">당신의 모교 이름은?</option>
+                    </NativeSelect>
+                    <Grid className='errorm'>{props.message6}</Grid>
+                    <input
+                        type="text"
+                        className='login'
+                        placeholder={'힌트대답'}
+                        onChange={props.onHintChange}
+                    />
+                    <Grid className='errorm'>{props.message8}</Grid>
                 <button type='button' className='loginbtn' onClick={props.Signup}>가입하기</button>
                 <Divider />
             </Grid>

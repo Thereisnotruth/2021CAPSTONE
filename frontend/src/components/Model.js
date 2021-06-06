@@ -57,12 +57,15 @@ class Model {
         // setTimeout(this.silentRefresh, JWT_EXPIRY_TIME - 60000)
     }
     // 회원가입
-    signUp(id, pw, name,gender) {
+    signUp(id, pw, name,gender, email, quest, hint) {
         const result = axios.post('/users/new', {
             user_id: id,
             user_pw: pw,
             user_name: name,
-            gender: gender
+            gender: gender,
+            question_number: Number(quest),
+            hint: hint,
+            email: email
         })
         .then((res) => {
             return res;
@@ -120,7 +123,6 @@ class Model {
         let data = axios.get('/studies')
             .then((res)=>{
                 return res;});
-        console.log(data);
         return data;
     }
     //스터디 세부정보
@@ -155,7 +157,6 @@ class Model {
     })
         .then((res)=>{
             return res;});
-    console.log(data);
     return data;
     }
    //게시판 조회
@@ -165,30 +166,126 @@ class Model {
     })
         .then((res)=>{
             return res;});
-    console.log(data);
     return data;
     }
     //게시판 수정
-    board_update = (board_id) =>{ 
-    let data = axios.post('/boards/'+board_id+'update',{
-        //필요데이터 넣을예정
+    board_update = (board_id,board_name,user_id) =>{ 
+    let data = axios.post('/boards/'+board_id+'/update',{
+        board_id: board_id,
+        board_name: board_name,
+        user_id: user_id
     })
         .then((res)=>{
             return res;});
-    console.log(data);
     return data;
     }
     //게시판 삭제
-    board_delete = (board_id) =>{ 
-    let data = axios.post('/boards/'+board_id+'delete',{
+    board_delete = (user_id,board_id) =>{ 
+    let data = axios.post('/boards/'+board_id+'/delete',{
+        user_id: user_id,
         board_id: board_id
     })
         .then((res)=>{
             return res;});
-    console.log(data);
     return data;
     }
-    
+    //특정 게시판글들 조회
+    boardpostlist = (board_id) =>{ 
+    let data = axios.post('/boards/'+board_id+'/board_postlist',{
+        board_id: board_id
+    })
+        .then((res)=>{
+            return res;});
+    return data;
+    }
+    //게시판글 작성
+    makepost= (board_id,user_id,post_title,post_content) =>{ 
+    let data = axios.post('/posts/new',{
+        board_id: board_id,
+        user_id: user_id,
+        post_title: post_title,
+        post_content: post_content
+    })
+        .then((res)=>{
+            return res;});
+    return data;
+    }
+    //특정 게시글 조회
+    postdetail = (post_id) =>{ 
+        let data = axios.post('/posts/'+post_id,{
+            post_id: post_id
+        })
+            .then((res)=>{
+                return res;});
+        return data;
+    }
+    //특정 게시글 수정
+    updatepost = (post_id, user_id, post_title, post_content) =>{ 
+        let data = axios.post('/posts/'+post_id+'/update',{
+            post_id: post_id,
+            user_id: user_id,
+            post_title: post_title,
+            post_content: post_content
+
+        })
+            .then((res)=>{
+                return res;});
+        return data;
+    }
+    //특정 게시글 삭제
+    deletepost = (post_id, user_id) =>{ 
+        let data = axios.post('/posts/'+post_id+'/delete',{
+            post_id: post_id,
+            user_id: user_id
+        })
+            .then((res)=>{
+                return res;});
+        return data;
+    }
+    findid =(email)=>{
+        const data = axios.post('/users/find_id',{
+            email: email
+        })
+        .then((res)=>{
+            return res;})
+        .catch((error) => {
+            return error.response;
+        });
+        return data;
+    }
+    findpw =(userid,user_name,quest,hint)=>{
+        const data = axios.post('/users/find_pw',{
+            user_id: userid, 
+            user_name: user_name, 
+            question_number: Number(quest),
+            hint: hint
+        })
+        .then((res)=>{
+            return res;})
+        .catch((error) => {
+            return error.response;
+        });
+        return data;
+    }
+    //비밀번호변경
+    changepw = (id, pw) => {
+        this.loginData = {
+            id,
+            pw,
+        };
+        const result = axios.post('/users/change_pw', {
+            user_id: id,
+            user_pw: pw
+        })
+        .then((res) => {
+            this.loginSuccess(res);
+            return res;
+        })
+        .catch((error) => {
+            return error.response;
+        });
+        return result;
+    }
     
 }
 

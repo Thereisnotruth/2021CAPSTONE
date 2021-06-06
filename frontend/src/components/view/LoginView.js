@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const LoginView = (props) => {
     return (
         <Grid container direction='column'>
-
             <Grid className='contents'>
                 <Grid className='logo'>HELP</Grid>
                 <input
@@ -23,8 +22,9 @@ const LoginView = (props) => {
                 <button type='button' className='loginbtn' onClick={props.login}>로그인</button>
                 <Divider className='logindivider' />
                 <Grid className='link'>
-                    아이디찾기| 비밀번호찾기|구글로그인|
-                    <Link className='a' to={'/signup'}>회원가입</Link>
+                <Link className='a' to={'/findid'}>아아디 찾기</Link>
+                |<Link className='a' to={'/findpw'}>비밀번호 찾기</Link>
+                |<Link className='a' to={'/signup'}>회원가입</Link>
                 </Grid>
             </Grid>
         </Grid>
