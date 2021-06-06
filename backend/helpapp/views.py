@@ -3,7 +3,6 @@ update contents:
     1. board_postlist() 추가: Board에 속한 post 리스트를 반환하는 view
 """
 
-
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from .serializers import *
@@ -21,8 +20,11 @@ sched = BackgroundScheduler()
 sched.add_job(reset_exercise_time, 'cron', year='*', month='*', day='*', hour='0')
 sched.start()
 
-# def index(request):
-#     return render(request, 'helpapp/index.html')
+
+@api_view(['GET'])
+@permission_classes((permissions.AllowAny,))
+def index(request):
+    return render(request, 'index.html')
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -48,12 +50,16 @@ class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 �
     def __init__(self):
         super()
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
 def find_id(request):
     email = request.data['email']
     user = get_object_or_404(User, email=email)
     user_id = str(user.user_id)
-    return JsonResponse({'user_id':user_id}, status=400)
+    return JsonResponse({'user_id':user_id}, status=200)
 
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
 def find_pw(request):
     user_id = request.data['user_id']
     user_name = request.data['user_name']
@@ -144,6 +150,7 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
+        print('request입니다.', request)
         user_id = request.data['user_id']
         study_name = request.data['study_name']
         capacity = request.data['capacity']
