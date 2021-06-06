@@ -1,3 +1,18 @@
 .boardview{
     display: flex;
+    list-style: none;
+    .postclass{
+        display: flex;
+        color:gray;
+        text-align: center;
+        .title{
+            width:50%;
+        }
+        .writer{
+            width:20%;
+        }
+        .date{
+            width:30%;
+        }
+    }
 }

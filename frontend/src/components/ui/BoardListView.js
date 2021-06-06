@@ -4,7 +4,7 @@ import { Link} from 'react-router-dom';
 const BoardListView = (props) => {
     console.log(props);
     const list = props.boardlist.map(
-        (element) =>(<Grid>
+        (element, index) =>(<Grid key={index}>
                 <li key={element.board_id}>
                     <a href = 'board' onClick = {function(ev){
                         ev.preventDefault();

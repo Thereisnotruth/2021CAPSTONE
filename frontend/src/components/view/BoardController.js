@@ -4,7 +4,6 @@ import { HeaderController  } from '../ui';
 import BoardView from './BoardView';
 import useStore from '../useStore';
 import { useHistory } from 'react-router-dom';
-import { set } from 'mobx';
 
 const BoardController = ({ viewModel }) => {
     const { Auth } = useStore();
@@ -13,14 +12,44 @@ const BoardController = ({ viewModel }) => {
     const [postlist,setPostlist] = useState([]);
     const user_id = Auth.isLogged ? Auth.data.user_id:''
     const [board_name,setBoard_name] = useState('');
-    const [board,setBoard] = useState('1');
+    const [board,setBoard] = useState('');
     const [changestate,setChangestate] = useState(false);
     const [rename,setRename] = useState('');
+    const [state,setState] = useState(1);
+    const [title,setTitle] = useState('');
+    const [content,setContent] = useState('');
+    const [posttitle,setPosttitle] = useState('');
+    const [postcontent,setPostcontent] = useState('');
+    const [postcreat,setPostcreate] = useState('');
+    const [postuser,setPostuser] = useState('');
 
+
+    const ontitleChange = (e) => {
+        setTitle(e.target.value);
+    }
+    const oncontentChange = (e) => {
+        setContent(e.target.value);
+    }
+    const post =() =>{
+        if(title ===''){
+            alert('제목을 적어주세요.');
+        }
+        else if(content === '') {
+            alert('내용을 작성하지 않았습니다.');
+        }
+        else{
+            viewModel.makepost(board,user_id,title,content);
+            setState(1);
+            setBoard(board);
+            getboardlist();
+        }
+    }
     const getboardlist = async () => {
         const test = await viewModel.boardlist();
         const status = test?.status;
         console.log(test);
+        setBoard(test.data[0].board_id);
+        onboard(test.data[0].board_id);
         if (status === 200) {
             setBoardlist(test.data);
         }
@@ -30,7 +59,6 @@ const BoardController = ({ viewModel }) => {
     }
     useEffect(() => {
         getboardlist();
-        onboard('1');
       },[]);
 
     const makeboard = ()=>{
@@ -54,7 +82,19 @@ const BoardController = ({ viewModel }) => {
         setBoard(board_id);
         const test = await viewModel.boardpostlist(board_id);
         console.log(test.data);
+        setTitle('');
+        setContent('');
+        setRename('');
+        setState(1);
         setPostlist(test.data);
+        setChangestate(false);
+    }
+    const onpost= (post_id) =>{
+        setTitle('');
+        setContent('');
+        setRename('');
+        setState(3);
+        getdetail(post_id);
     }
     const deleteboard = () =>{
         viewModel.board_delete(user_id,board);
@@ -64,17 +104,24 @@ const BoardController = ({ viewModel }) => {
     const makepost = ()=>{
         if(Auth.isLogged === false){ history.replace('/login');}
         else{
-            {history.push({
+            setTitle('');
+            setContent('');
+            setRename('');
+            setState(2);
+            /*{history.push({
                 pathname: "/postmake",
                 state: {board_id: board}
-              })}
+              })}*/
         }
     }
     const boardupdate =() =>{
-        viewModel.board_update(board,rename,user_id);
-        setRename('');
-        setChangestate(false);
-        getboardlist();
+        if(rename===''){setChangestate(false);}
+        else{
+            viewModel.board_update(board,rename,user_id);
+            setRename('');
+            setChangestate(false);
+            getboardlist();
+        }
     }
     const change =() =>{
         setChangestate(true);
@@ -82,7 +129,27 @@ const BoardController = ({ viewModel }) => {
     const onRename =(e) =>{
         setRename(e.target.value);
     }
-    
+
+    const getdetail = async (post_id) => {
+        const test = await viewModel.postdetail(post_id);
+        const status = test?.status;
+        const data = test.data
+        console.log(data);
+        setPosttitle(data.post_title);
+        setPostcontent(data.post_content);
+        const alltime = data.created_at;
+        const idx = alltime.indexOf("T");
+        const date = alltime.substring(0,idx);
+        console.log(date);
+        setPostcreate(date);
+        setPostuser(data.user_id);
+        if (status === 200) {
+            
+        }
+        else {
+            alert('내부 서버 오류입니다.');
+        }
+    }
     return (
         <>
         <HeaderController header='게시판' />
@@ -91,13 +158,22 @@ const BoardController = ({ viewModel }) => {
             makeboard={makeboard}
             makepost={makepost}
             onboard={onboard}
+            onpost={onpost}
             deleteboard={deleteboard}
             boardupdate={boardupdate}
             change={change}
             onRename={onRename}
+            ontitleChange={ontitleChange}
+            oncontentChange={oncontentChange}
+            post={post}
+            state={state}
             boardlist = {boardlist}
             postlist = {postlist}
-            changestate={changestate}/>
+            changestate={changestate}
+            posttitle={posttitle}
+            postcontent={postcontent}
+            postcreat={postcreat}
+            postuser={postuser}/>
         </>
     );
 };

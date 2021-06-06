@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid,Button,Divider } from '@material-ui/core';
+import { Grid,Button,Divider,Input } from '@material-ui/core';
 import { BoardList,PostList} from '../ui';
 import { Link} from 'react-router-dom';
 
@@ -14,18 +14,48 @@ const BoardView = (props) => {
                             makeboard ={props.makeboard}
                             onboard = {props.onboard}
                             boardlist={props.boardlist}/>
-                <Grid className='board'>
-                    <Button className='makebtn' onClick ={props.makepost}>게시글 생성</Button>
-                    <Button className='makebtn' onClick ={props.deleteboard}>게시판 삭제</Button>
-                    {!props.changestate?
-                    <Button className='makebtn' onClick ={props.change}>게시판 수정</Button>:
-                    <Grid><input 
-                    type='text'
-                    onChange={props.onRename}
-                    />
-                    <Button className='makebtn' onClick ={props.boardupdate}>수정</Button></Grid> }
-                    <PostList postlist = {props.postlist}/>
-                </Grid>
+                {(props.state===1)?<Grid className='board'>
+                    <Grid className='boardbtn'>
+                        {!props.changestate?
+                        <Grid><Button className='makebtn' onClick ={props.makepost}>글쓰기</Button>
+                        <Button className='makebtn' onClick ={props.deleteboard}>삭제</Button>
+                        <Button className='makebtn' onClick ={props.change}>수정</Button></Grid>:
+                        <Grid className='boardupdate'><Input 
+                        type='text'
+                        onChange={props.onRename}
+                        />
+                        <Button className='makebtn' onClick ={props.boardupdate}>수정</Button></Grid> }
+                    </Grid>
+                    <Divider/>
+                    <Grid className='postclass'><Grid className='title'>제목</Grid><Grid className='writer'>작성자</Grid><Grid className='date'>작성일</Grid></Grid>
+                    <Divider/>
+                    <PostList onpost={props.onpost} postlist = {props.postlist}/>
+                </Grid>:''}
+                {(props.state===2)?<Grid className='board'>
+                    <Grid>
+                        <h1>title</h1>
+                        <input
+                            type='text'
+                            className='title' 
+                            placeholder={'제목을 작성하세요.'}
+                            onChange={props.ontitleChange}
+                        />
+                        <h3>content</h3>
+                        <input
+                            type='text'
+                            className='content'
+                            placeholder={'500자미만으로 작성하세오.'}
+                            onChange={props.oncontentChange}
+                        />
+                        <Button onClick = {props.post}>게시글 올리기</Button>`
+                    </Grid>
+                </Grid>:''}
+                {(props.state===3)?<Grid className='board'>
+                    <Grid>
+                        <h1>제목:{props.posttitle}</h1><h2>작성자:{props.postuser}</h2>
+                        <h2>내용:{props.postcontent}</h2>작성일자:{props.postcreat}
+                    </Grid>
+                </Grid>:''}
             </Grid>
         </Grid>
     )    
