@@ -11,7 +11,7 @@ const GroupMember = (props) => {
                 <Member
                     user_id={groupmembers.user_id}
                     user_name={groupmembers.user_name}
-                    start_time={groupmembers.start_time}
+                    start_time={groupmembers.exercise_start_time}
                     exercise_state={groupmembers.exercise_state}
                     key={index}
                 />
