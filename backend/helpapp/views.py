@@ -20,7 +20,6 @@ sched = BackgroundScheduler()
 sched.add_job(reset_exercise_time, 'cron', year='*', month='*', day='*', hour='0')
 sched.start()
 
-
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def index(request):
@@ -67,11 +66,21 @@ def find_pw(request):
     hint = request.data['hint']
     user = get_object_or_404(User, user_id=user_id)
     if (str(user.user_name) == user_name) & \
-        (int(user.question_number) == question_number) & \
+        (int(user.question_number) == int(question_number)) & \
         (str(user.hint) == hint):
         return JsonResponse({'user_pw':str(user.user_pw)}, status=200)
     else:
         return JsonResponse({'message':'이름과 힌트를 다시 확인해 주세요.'}, status=403)
+
+@api_view(['POST'])
+@permission_classes((permissions.AllowAny,))
+def change_pw(request):
+    user_id = request.data['user_id']
+    user_pw = request.data['user_pw']
+    user = get_object_or_404(User, user_id=user_id)
+    user.user_pw = user_pw
+    user.save()
+    return HttpResponse(status=200)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
@@ -101,11 +110,14 @@ def create_user(request):
 @permission_classes((permissions.AllowAny,))
 def show_mygroups(request, user_id):
     if request.method == 'POST':
-        user_id = request.data['user_id']
+        user_id = user_id
         user = get_object_or_404(User, user_id=user_id)
-        study_list = Study.objects.filter(user_id=user)
+        study_set = Study.objects.filter(user_id=user)
+        study_list = []
+        for study in study_set:
+            study_list.append(study.study_id)
         serializer = StudySerializer(data=study_list, many=True)
-        return JsonResponse(serializer.data, status=200)
+        return JsonResponse(serializer.data, status=200, safe=False)
     return HttpResponse(status=400)
 
 @api_view(['POST'])
@@ -150,7 +162,6 @@ def study_detail(request, study_id):
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
     if request.method == 'POST':
-        print('request입니다.', request)
         user_id = request.data['user_id']
         study_name = request.data['study_name']
         capacity = request.data['capacity']
