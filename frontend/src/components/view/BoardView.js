@@ -15,11 +15,11 @@ const BoardView = (props) => {
                             onboard = {props.onboard}
                             boardlist={props.boardlist}/>
                 {(props.board!=='')?
-                <Grid>
+                <Grid className='element'>
                 {(props.state===1)?<Grid className='board'>
                     <Grid className='boardbtn'>
                         {!props.changestate?
-                        <Grid><Button className='makebtn' onClick ={props.makepost}>글쓰기</Button>
+                        <Grid className='boardbtns'><Button className='makebtn' onClick ={props.makepost}>글쓰기</Button>
                         <Button className='makebtn' onClick ={props.deleteboard}>삭제</Button>
                         <Button className='makebtn' onClick ={props.change}>수정</Button></Grid>:
                         <Grid className='boardupdate'><Input 

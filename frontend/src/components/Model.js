@@ -243,22 +243,28 @@ class Model {
         return data;
     }
     findid =(email)=>{
-        let data = axios.post('/users/find_id',{
+        const data = axios.post('/users/find_id',{
             email: email
         })
         .then((res)=>{
-            return res;});
+            return res;})
+        .catch((error) => {
+            return error.response;
+        });
         return data;
     }
     findpw =(userid,user_name,quest,hint)=>{
-        let data = axios.post('/users/find_pw',{
+        const data = axios.post('/users/find_pw',{
             user_id: userid, 
             user_name: user_name, 
             question_number: quest,
             hint: hint
         })
         .then((res)=>{
-            return res;});
+            return res;})
+        .catch((error) => {
+            return error.response;
+        });
         return data;
     }
 }

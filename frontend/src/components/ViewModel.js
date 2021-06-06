@@ -61,11 +61,11 @@ class ViewModel {
     deletepost = async(post_id, user_id) => {
         return await this.model.deletepost(post_id, user_id);
     }
-    findid = async(email) => {
-        return await this.model.findid(email);
+    findid = (email) => {
+        return this.model.findid(email);
     }
-    findpw = async(userid,user_name,quest,hint) => {
-        return await this.model.findpw(userid,user_name,quest,hint);
+    findpw = (userid,user_name,quest,hint) => {
+        return this.model.findpw(userid,user_name,quest,hint);
     }
 }
 

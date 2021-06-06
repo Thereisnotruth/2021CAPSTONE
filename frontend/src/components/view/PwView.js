@@ -18,7 +18,7 @@ const PwView = (props) => {
                     <input
                         type="text"
                         className='login'
-                        placeholder={'email'}
+                        placeholder={'이름'}
                         onChange={props.onNameChange}
                     />
                     <Grid className='join_title'>힌트</Grid>

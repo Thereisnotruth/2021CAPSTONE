@@ -22,15 +22,29 @@ const PwController = ({ viewModel }) => {
     const onIdChange = (e) =>{
         setUserid(e.target.value);
     }
-    const findPw = () =>{
+    const findPw = async() =>{
         if(quest==='' || hint==='' || name==='' || userid===''){
             alert('위의 항목들을 모두 작성해야합니다.');
         }else{
-            const pw = viewModel.findpw(userid,name,quest,hint);
-            console.log(pw);
-            alert('당신의 비밀번호는:'+pw.data+'입니다.');
-            history.replace('/login');
+            console.log(quest,hint,name,userid);
+            const connect = await viewModel.findpw(userid,name,quest,hint);
+            console.log(connect);
+            const status = connect?.status;
+            if (status === 200) {
+                alert(userid+'아이디의 비밀번호는'+connect.data+'입니다.');
+                history.replace('/login');
+            } else if (status === 403) {
+                alert(connect.data.message);
+            }else if(status === 404){
+                alert(connect.data.detail);
+            }
+             else {
+                alert('내부 서버 오류입니다.');
+            }
         }
+    }
+    const find = async () => {
+        
     }
 
     return (
