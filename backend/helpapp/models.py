@@ -14,8 +14,9 @@ class User(models.Model):
     gender = models.CharField(max_length=5)
     character_type = models.IntegerField(default=0)
     level = models.IntegerField(default=1)
-    hint = models.CharField(max_length=20)
-    email = models.EmailField(max_length=100)
+    question_number = models.IntegerField(default=1)
+    hint = models.CharField(max_length=20, default=False)
+    email = models.EmailField(max_length=100, unique=True, default=False)
 
     back_exp = models.FloatField(default=0)
     chest_exp = models.FloatField(default=0)
