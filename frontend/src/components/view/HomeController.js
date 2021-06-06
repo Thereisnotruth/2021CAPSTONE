@@ -30,10 +30,11 @@ const HomeController = ({ viewModel }) => {
         if(updatedM===59){
             updatedH++;
             updatedM=0;
+            
         }
         if(updatedS===59){
             updatedM++;
-            updatedS=0;
+            updatedS=-1;
         }
         updatedS++;
         return setTime({h:updatedH,m:updatedM,s:updatedS});

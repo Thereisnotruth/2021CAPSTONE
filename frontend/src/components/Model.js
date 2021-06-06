@@ -11,7 +11,7 @@ class Model {
     }
     // 스터디 생성
     makeStudy(user, study, capacity) {
-        axios.post('/helpapp/studies/new', {
+        axios.post('/studies/new', {
             user_id: user,
             study_name:study,
             capacity: capacity,
@@ -29,7 +29,7 @@ class Model {
             id,
             pw,
         };
-        const result = axios.post('/helpapp/login', {
+        const result = axios.post('/login', {
             user_id: id,
             user_pw: pw
         })
@@ -43,7 +43,7 @@ class Model {
         return result;
     }
     silentRefresh = () => {
-        axios.post('/helpapp/silent-refresh', this.loginData)
+        axios.post('/silent-refresh', this.loginData)
         .then(this.loginSuccess)
         .catch(() => {
             Auth.logout();
@@ -58,7 +58,7 @@ class Model {
     }
     // 회원가입
     signUp(id, pw, name,gender) {
-        const result = axios.post('/helpapp/users/new', {
+        const result = axios.post('/users/new', {
             user_id: id,
             user_pw: pw,
             user_name: name,
@@ -74,7 +74,7 @@ class Model {
     }
     // 운동
     exercise(expart, times, btn) {
-        let socketPath = 'ws://10.42.127.222:8000/ws/helpapp/' + Auth.data.user_id;
+        let socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + Auth.data.user_id;
         console.log(btn)
         const socket = new WebSocket(socketPath);
 
@@ -91,7 +91,7 @@ class Model {
     }
     //가입
     join(user,study) {
-        axios.post('../helpapp/studies/'+study+'/join', {
+        axios.post('../studies/'+study+'/join', {
             study_id: study,
             user_id: user
         })
@@ -104,7 +104,7 @@ class Model {
     }
     //탈퇴
     disjoin(user,study) {
-        axios.post('../helpapp/studies/'+study+'/disjoin', {
+        axios.post('../studies/'+study+'/disjoin', {
             study_id: study,
             user_id: user
         })
@@ -117,7 +117,7 @@ class Model {
     }
     //스터디 목록
     list = () => { 
-        let data = axios.get('/helpapp/studies')
+        let data = axios.get('/studies')
             .then((res)=>{
                 return res;});
         console.log(data);
@@ -125,7 +125,7 @@ class Model {
     }
     //스터디 세부정보
     study_detail = (study_id) =>{ 
-        let data = axios.post('../../helpapp/studies/'+study_id,{
+        let data = axios.post('../../studies/'+study_id,{
             study_id: study_id})
             .then((res)=>{
                 return res;});
@@ -133,7 +133,7 @@ class Model {
     }
     //스터디내의 유저들정보
     member = (study_id) =>{ 
-        let data = axios.post('../../helpapp/studies/'+study_id+'/userlist',{
+        let data = axios.post('../../studies/'+study_id+'/userlist',{
             study_id: study_id
         })
             .then((res)=>{
@@ -142,14 +142,14 @@ class Model {
     }
     //게시판 리스트
     boardlist = () =>{ 
-        let data = axios.get('/helpapp/boards')
+        let data = axios.get('/boards')
             .then((res)=>{
                 return res;});
         return data;
     }
     //게시판 생성
    makeboard = (user_id, board_name) =>{ 
-    let data = axios.post('/helpapp/boards/new',{
+    let data = axios.post('/boards/new',{
         user_id: user_id, 
         board_name: board_name
     })
@@ -160,7 +160,7 @@ class Model {
     }
    //게시판 조회
    board_search = (board_id) =>{ 
-    let data = axios.post('/helpapp/boards/'+board_id,{
+    let data = axios.post('/boards/'+board_id,{
         board_id: board_id
     })
         .then((res)=>{
@@ -170,7 +170,7 @@ class Model {
     }
     //게시판 수정
     board_update = (board_id) =>{ 
-    let data = axios.post('/helpapp/boards/'+board_id+'update',{
+    let data = axios.post('/boards/'+board_id+'update',{
         //필요데이터 넣을예정
     })
         .then((res)=>{
@@ -180,7 +180,7 @@ class Model {
     }
     //게시판 삭제
     board_delete = (board_id) =>{ 
-    let data = axios.post('/helpapp/boards/'+board_id+'delete',{
+    let data = axios.post('/boards/'+board_id+'delete',{
         board_id: board_id
     })
         .then((res)=>{
