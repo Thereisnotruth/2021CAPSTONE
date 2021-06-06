@@ -14,12 +14,12 @@ const PwView = (props) => {
                         placeholder={'아이디'}
                         onChange={props.onIdChange}
                     />
-                    <Grid className='join_title'>이메일</Grid>
+                    <Grid className='join_title'>이름</Grid>
                     <input
-                        type="email"
+                        type="text"
                         className='login'
                         placeholder={'email'}
-                        onChange={props.onEmailChange}
+                        onChange={props.onNameChange}
                     />
                     <Grid className='join_title'>힌트</Grid>
                     <NativeSelect

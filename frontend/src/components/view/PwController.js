@@ -7,8 +7,8 @@ const PwController = ({ viewModel }) => {
     const history = useHistory();
     const [quest, setQuest] = useState('');
     const [hint, setHint] = useState('');
-    const [email, setEmail] = useState('');
     const [userid, setUserid] = useState('');
+    const [name, setName] = useState('');
 
     const onHintChange = (e) =>{
         setHint(e.target.value);
@@ -16,19 +16,19 @@ const PwController = ({ viewModel }) => {
     const onQuestChange = (e) =>{
         setQuest(e.target.value);
     }
-    const onEmailChange = (e) =>{
-        setEmail(e.target.value);
+    const onNameChange = (e) =>{
+        setName(e.target.value);
     }
     const onIdChange = (e) =>{
         setUserid(e.target.value);
     }
     const findPw = () =>{
-        if(quest==='' || hint==='' || email==='' || userid===''){
+        if(quest==='' || hint==='' || name==='' || userid===''){
             alert('위의 항목들을 모두 작성해야합니다.');
         }else{
-            const pw = viewModel.findpw(userid,email,quest,hint);
+            const pw = viewModel.findpw(userid,name,quest,hint);
             console.log(pw);
-            alert('당신의 아이디는:'+pw.data+'입니다.');
+            alert('당신의 비밀번호는:'+pw.data+'입니다.');
             history.replace('/login');
         }
     }
@@ -41,7 +41,7 @@ const PwController = ({ viewModel }) => {
         <PwView
             onHintChange={onHintChange}
             onQuestChange={onQuestChange}
-            onEmailChange={onEmailChange}
+            onNameChange={onNameChange}
             onIdChange={onIdChange}
             findPw={findPw}
         />

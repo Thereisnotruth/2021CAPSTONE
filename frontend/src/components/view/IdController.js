@@ -13,9 +13,16 @@ const IdController = ({ viewModel }) => {
     const find =() =>{
         if(email !==''){
             const id = viewModel.findid(email);
+            const status = id?.status;
             console.log(id);
-            alert('당신의 아이디는:'+id.data+'입니다.');
-            history.replace('/login');
+            if (status === 200) {
+                alert('당신의 아이디는:'+id.data+'입니다.');
+                history.replace('/login');
+            } else if (status === 400 || status === 401) {
+                alert('아이디 또는 비밀번호가 잘못되었습니다.')
+            } else {
+                alert('내부 서버 오류입니다.');
+            }
         }
         else{
             alert('위의 항목을 모두 작성해야합니다.');

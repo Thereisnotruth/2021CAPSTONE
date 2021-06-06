@@ -243,17 +243,17 @@ class Model {
         return data;
     }
     findid =(email)=>{
-        let data = axios.post('/user/find_id',{
+        let data = axios.post('/users/find_id',{
             email: email
         })
         .then((res)=>{
             return res;});
         return data;
     }
-    findpw =(userid,email,quest,hint)=>{
-        let data = axios.post('/user/find_pw',{
+    findpw =(userid,user_name,quest,hint)=>{
+        let data = axios.post('/users/find_pw',{
             user_id: userid, 
-            email: email, 
+            user_name: user_name, 
             question_number: quest,
             hint: hint
         })

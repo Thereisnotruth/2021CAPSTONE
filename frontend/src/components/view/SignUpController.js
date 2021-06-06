@@ -29,6 +29,15 @@ const SignupController = ({ viewModel }) => {
             return false;
         }
     }
+    function CheckEmail(str){
+         var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+        if(!reg_email.test(str)){
+            return false;
+        }
+        else{
+            return true;
+        }
+    } 
     const onIdChange = (e) => {    
         if(e.target.value==='')
             setMessage1('아이디를 입력해주세요.');
@@ -44,8 +53,13 @@ const SignupController = ({ viewModel }) => {
         if(e.target.value==='')
             setMessage7('e-mail을 입력해주세요.');
         else{
-            setMessage7('');
-            setEmail(e.target.value);}
+            if(CheckEmail(e.target.value)){
+                setMessage7('');
+                setEmail(e.target.value);}
+            else{
+                setMessage7('e-mail형식에 맞게 적어주세요.');
+            }
+        }    
     }
     const onPwChange = (e) => {
         if(e.target.value==='')
