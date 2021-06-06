@@ -53,13 +53,33 @@ const BoardView = (props) => {
                 {(props.state===3)?<Grid className='board'>
                     <Grid>
                         <Button className='makebtn' onClick ={props.deletepost}>글삭제</Button>
-                        <Button className='makebtn' onClick ={props.updatepost}>글수정</Button></Grid>
+                        <Button className='makebtn' onClick ={props.postupdatestate}>글수정</Button></Grid>
                         <Divider/>
                     <Grid>
                         <h1>제목:{props.posttitle}</h1><h2>작성자:{props.postuser}</h2>
                         <h2>내용:{props.postcontent}</h2>작성일자:{props.postcreat}
                     </Grid>
                 </Grid>:''}
+                {(props.state===4)?<Grid className='board'>
+                    <Grid>
+                        <h1>title</h1>
+                        <input
+                            type='text'
+                            className='title' 
+                            placeholder={props.posttitle}
+                            onChange={props.onposttitleChange}
+                        />
+                        <h3>content</h3>
+                        <input
+                            type='text'
+                            className='content'
+                            placeholder={props.postcontent}
+                            onChange={props.onpostcontentChange}
+                        />
+                        <Button onClick = {props.updatepost}>수정</Button>`
+                    </Grid>
+                </Grid>:''}
+                
             </Grid>
         </Grid>
     )    

@@ -157,10 +157,22 @@ const BoardController = ({ viewModel }) => {
         onboard(board);
         setState(1);
     }
-    const updatepost=()=>{//post_id, user_id, post_title, post_content
-        viewModel.deletepost(postid,user_id,updatetitle, updatecontent);
+    
+    const postupdatestate=()=>{//post_id, user_id, post_title, post_content
+        setState(4);
     }
-
+    const onposttitleChange = (e) => {
+        setUpdatetitle(e.target.value);
+    }
+    const onpostcontentChange = (e) => {
+        setUpdatecontent(e.target.value);
+    }
+    
+    const updatepost=()=>{//post_id, user_id, post_title, post_content
+        viewModel.updatepost(postid, user_id, updatetitle, updatecontent);
+        setState(1);
+        onboard(board);
+    }
     return (
         <>
         <HeaderController header='게시판' />
@@ -179,6 +191,9 @@ const BoardController = ({ viewModel }) => {
             post={post}
             deletepost={deletepost}
             updatepost={updatepost}
+            onposttitleChange={onposttitleChange}
+            onpostcontentChange={onpostcontentChange}
+            postupdatestate={postupdatestate}
             state={state}
             boardlist = {boardlist}
             postlist = {postlist}
