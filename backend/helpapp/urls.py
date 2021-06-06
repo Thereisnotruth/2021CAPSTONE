@@ -1,4 +1,5 @@
 from django.urls import path
+from django.views.generic import TemplateView
 
 from . import views
 
@@ -22,18 +23,18 @@ from . import views
         users/<int:user_number>/: user 개인 정보를 조회 요청을 처리하는 url
             - POST
             - Data) user_number
-        user/<int:user_number>/save_time: 운동 시간 저장 요청을 처리하는 url
+        users/<int:user_number>/save_time: 운동 시간 저장 요청을 처리하는 url
             - POST
             - Data) user_number, 6개 부위별 exp
-        user/<int:user_number>/mygroups: 해당 user가 가입한 스터디 조회 요청을 처리하는 url
+        users/<int:user_number>/mygroups: 해당 user가 가입한 스터디 조회 요청을 처리하는 url
             - POST
             - Data) user_number
-        user/find_id: user의 아이디 찾기 요청을 처리하는 url
+        users/find_id: user의 아이디 찾기 요청을 처리하는 url
             - POST
             - Data) email
-        user/find_pw: user의 비밀번호 찾기 요청을 처리하는 url
+        users/find_pw: user의 비밀번호 찾기 요청을 처리하는 url
             - POST
-            - Data) user_id, email, question_number, hint
+            - Data) user_id, user_name, question_number, hint
     - Study 관련    
         studies: 스터디 목록 조회 요청을 처리하는 url
             - GET
@@ -88,7 +89,8 @@ from . import views
 """
 
 urlpatterns = [
-    # path('', views.index),
+    path('', views.index),
+    # path('', TemplateView.as_view(template_name='index.html')),
     path('login', views.login),
     path('users', views.user_list),
     path('users/find_id', views.find_id),
