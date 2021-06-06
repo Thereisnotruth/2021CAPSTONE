@@ -4,7 +4,7 @@ update contents:
 """
 
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse, JsonResponse
 from .serializers import *
 from rest_framework import permissions
@@ -20,6 +20,9 @@ def reset_exercise_time():
 sched = BackgroundScheduler()
 sched.add_job(reset_exercise_time, 'cron', year='*', month='*', day='*', hour='0')
 sched.start()
+
+# def index(request):
+#     return render(request, 'helpapp/index.html')
 
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
@@ -44,6 +47,25 @@ def login(request):
 class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 만듦
     def __init__(self):
         super()
+
+def find_id(request):
+    email = request.data['email']
+    user = get_object_or_404(User, email=email)
+    user_id = str(user.user_id)
+    return JsonResponse({'user_id':user_id}, status=400)
+
+def find_pw(request):
+    user_id = request.data['user_id']
+    user_name = request.data['user_name']
+    question_number = request.data['question_number']
+    hint = request.data['hint']
+    user = get_object_or_404(User, user_id=user_id)
+    if (str(user.user_name) == user_name) & \
+        (int(user.question_number) == question_number) & \
+        (str(user.hint) == hint):
+        return JsonResponse({'user_pw':str(user.user_pw)}, status=200)
+    else:
+        return JsonResponse({'message':'이름과 힌트를 다시 확인해 주세요.'}, status=403)
 
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
