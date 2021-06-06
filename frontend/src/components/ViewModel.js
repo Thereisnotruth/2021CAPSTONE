@@ -9,8 +9,8 @@ class ViewModel {
     login = (id, pw) => {
         return this.model.login(id, pw);
     }
-    signUp = (id, pw, name, gender) => {
-        return this.model.signUp(id, pw, name, gender);
+    signUp = (id, pw, name, gender, email, quest, hint) => {
+        return this.model.signUp(id, pw, name, gender, email, quest, hint);
     }
     exercise = (expart, times, btn) => {
         return this.model.exercise(expart, times, btn);
@@ -61,7 +61,12 @@ class ViewModel {
     deletepost = async(post_id, user_id) => {
         return await this.model.deletepost(post_id, user_id);
     }
-     
+    findid = async(email) => {
+        return await this.model.findid(email);
+    }
+    findpw = async() => {
+        return await this.model.findpw();
+    }
 }
 
 export default ViewModel;

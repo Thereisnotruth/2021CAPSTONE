@@ -47,12 +47,22 @@ const BoardController = ({ viewModel }) => {
             onboard(board);
         }
     }
-    const getboardlist = async () => {
+    const getboardlist = async (del) => {
         const test = await viewModel.boardlist();
         const status = test?.status;
-        console.log(test);
-        setBoard(test.data[0].board_id);
-        onboard(test.data[0].board_id);
+
+        if(test.data.length !==0){
+            if(board===''){
+                setBoard(test.data[0].board_id);
+                onboard(test.data[0].board_id);}
+            else if(del===1){
+                setBoard(test.data[0].board_id);
+                onboard(test.data[0].board_id);
+            }else{
+                setBoard(board);
+                onboard(board);
+            }
+        }
         if (status === 200) {
             setBoardlist(test.data);
         }
@@ -61,7 +71,7 @@ const BoardController = ({ viewModel }) => {
         }
     }
     useEffect(() => {
-        getboardlist();
+        getboardlist(0);
       },[]);
 
     const makeboard = ()=>{
@@ -73,7 +83,7 @@ const BoardController = ({ viewModel }) => {
             else{
                 viewModel.makeboard(user_id, board_name);
                 setBoard_name('');
-                getboardlist();
+                getboardlist(0);
             }
         }
     }
@@ -84,7 +94,6 @@ const BoardController = ({ viewModel }) => {
     const onboard= async(board_id) =>{
         setBoard(board_id);
         const test = await viewModel.boardpostlist(board_id);
-        console.log(test.data);
         setTitle('');
         setContent('');
         setRename('');
@@ -101,7 +110,7 @@ const BoardController = ({ viewModel }) => {
     }
     const deleteboard = () =>{
         viewModel.board_delete(user_id,board);
-        getboardlist();
+        getboardlist(1);
     }
     const makepost = ()=>{
         if(Auth.isLogged === false){ history.replace('/login');}
@@ -122,7 +131,7 @@ const BoardController = ({ viewModel }) => {
             viewModel.board_update(board,rename,user_id);
             setRename('');
             setChangestate(false);
-            getboardlist();
+            getboardlist(0);
         }
     }
     const change =() =>{
@@ -135,14 +144,12 @@ const BoardController = ({ viewModel }) => {
         const test = await viewModel.postdetail(post_id);
         const status = test?.status;
         const data = test.data
-        console.log(data);
         setPostid(data.post_id);
         setPosttitle(data.post_title);
         setPostcontent(data.post_content);
-        const alltime = data.created_at;
+        const alltime = data.updated_at;
         const idx = alltime.indexOf("T");
         const date = alltime.substring(0,idx);
-        console.log(date);
         setPostcreate(date);
         setPostuser(data.user_id);
         if (status === 200) {
@@ -194,6 +201,8 @@ const BoardController = ({ viewModel }) => {
             onposttitleChange={onposttitleChange}
             onpostcontentChange={onpostcontentChange}
             postupdatestate={postupdatestate}
+            board={board}
+            user_id={user_id}
             state={state}
             boardlist = {boardlist}
             postlist = {postlist}

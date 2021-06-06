@@ -14,6 +14,8 @@ const BoardView = (props) => {
                             makeboard ={props.makeboard}
                             onboard = {props.onboard}
                             boardlist={props.boardlist}/>
+                {(props.board!=='')?
+                <Grid>
                 {(props.state===1)?<Grid className='board'>
                     <Grid className='boardbtn'>
                         {!props.changestate?
@@ -47,18 +49,19 @@ const BoardView = (props) => {
                             placeholder={'500자미만으로 작성하세오.'}
                             onChange={props.oncontentChange}
                         />
-                        <Button onClick = {props.post}>게시글 올리기</Button>`
+                        <Button onClick = {props.post}>게시글 올리기</Button>
                     </Grid>
                 </Grid>:''}
-                {(props.state===3)?<Grid className='board'>
-                    <Grid>
-                        <Button className='makebtn' onClick ={props.deletepost}>글삭제</Button>
-                        <Button className='makebtn' onClick ={props.postupdatestate}>글수정</Button></Grid>
-                        <Divider/>
+                {(props.state===3)?<Grid className='board'>   
                     <Grid>
                         <h1>제목:{props.posttitle}</h1><h2>작성자:{props.postuser}</h2>
                         <h2>내용:{props.postcontent}</h2>작성일자:{props.postcreat}
                     </Grid>
+                    <Divider/>
+                    {(props.user_id===props.postuser)?
+                    <Grid>
+                        <Button className='makebtn' onClick ={props.deletepost}>글삭제</Button>
+                        <Button className='makebtn' onClick ={props.postupdatestate}>글수정</Button></Grid>:''}
                 </Grid>:''}
                 {(props.state===4)?<Grid className='board'>
                     <Grid>
@@ -80,6 +83,7 @@ const BoardView = (props) => {
                     </Grid>
                 </Grid>:''}
                 
+            </Grid>:''}
             </Grid>
         </Grid>
     )    
