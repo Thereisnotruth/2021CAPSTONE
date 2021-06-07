@@ -112,11 +112,11 @@ def show_mygroups(request, user_id):
     if request.method == 'POST':
         user_id = user_id
         user = get_object_or_404(User, user_id=user_id)
-        study_set = Study.objects.filter(user_id=user)
+        study_set = User_Study.objects.filter(user_id=user_id)
         study_list = []
         for study in study_set:
             study_list.append(study.study_id)
-        serializer = StudySerializer(data=study_list, many=True)
+        serializer = StudySerializer(study_list, many=True)
         return JsonResponse(serializer.data, status=200, safe=False)
     return HttpResponse(status=400)
 
