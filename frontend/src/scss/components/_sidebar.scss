@@ -1,0 +1,31 @@
+.sidebar {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    height: 100%;
+    width: 300px;
+    transition: 0.3s ease-in-out;
+    background: white;
+    text-align: center;
+    z-index: 1;
+    flex-direction: vertical;
+    .sidebar-header {
+      height: 40px;
+      background: $theme-color;
+      .close-button {
+        position: absolute;
+        right: 0;
+      }
+    }
+    .login-button {
+      height: 60px;
+      width: 100%;
+    }
+    .sidebar-item {
+      height: 50px;
+      width: 100%;
+    }
+    .sidebar-link {
+      text-decoration: none;
+    }
+}
