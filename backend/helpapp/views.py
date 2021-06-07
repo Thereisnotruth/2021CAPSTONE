@@ -116,7 +116,7 @@ def show_mygroups(request, user_id):
         study_list = []
         for study in study_set:
             study_list.append(study.study_id)
-        serializer = StudySerializer(data=study_list, many=True)
+        serializer = StudySerializer(study_list, many=True)
         return JsonResponse(serializer.data, status=200, safe=False)
     return HttpResponse(status=400)
 
