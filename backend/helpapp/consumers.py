@@ -49,7 +49,7 @@ class ExConsumer(AsyncWebsocketConsumer):
         {
           'type': 'spread_message',
           'user_id': self.user_id,
-          'time': time, # 총 운동 시간
+          'time': 0,
           'exercise_state': False
         }
       )
