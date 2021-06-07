@@ -19,6 +19,14 @@
         position: relative;
         text-align: center;
         height: 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        .grouprank{
+            margin-left:20px;
+            font-size: 40px;
+            color:$theme-color;
+        }
         .groupicon{
             .groupiconbtn{
                 span{
