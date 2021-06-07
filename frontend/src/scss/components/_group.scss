@@ -20,7 +20,20 @@
         text-align: center;
         height: 60px;
         .groupicon{
-            display: block;
+            .groupiconbtn{
+                span{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    svg{
+                        width:30px;
+                        height:30px;
+                    }
+                }
+            }
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             float:left;
             height: 60px;
             position: relative;
@@ -54,6 +67,7 @@
         color:silver;
     }
     .doing{
+        border-top: 4px solid  gray;
         background-color:white;
         position: relative;
         text-align: center;

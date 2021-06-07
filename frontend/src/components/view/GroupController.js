@@ -20,6 +20,7 @@ const GroupController = ({ viewModel }) => {
     const history = useHistory();
     const address = (history.location.pathname);
     const study_id = address.replace(/[^0-9]/g,'');
+
     const getmember = async () => {
         const test = await viewModel.member(study_id);
         const status = test?.status;
@@ -64,15 +65,21 @@ const GroupController = ({ viewModel }) => {
             if(Auth.isLogged === false){ history.replace('/login');}
             else{
                 if(ismember===false){
-                    try {
-                        viewModel.join(id,study_id);
-                        alert('가입되었습니다.');
-                        setnotice('가입됨');
-                        setIsmember(true);
-                        getstudy_detail();
-                        getmember();
-                    } catch (e) {
-                        console.log(e);
+                    {
+                        if(studydetail.current_user_count===studydetail.capacity){
+                            alert('더 이상 해당그룹에 가입할 수 없습니다.');
+                        }else{
+                            try {
+                                viewModel.join(id,study_id);
+                                alert('가입되었습니다.');
+                                setnotice('가입됨');
+                                setIsmember(true);
+                                getstudy_detail();
+                                getmember();
+                            } catch (e) {
+                                console.log(e);
+                            }
+                        }
                     }
                 }
                 else{
@@ -84,15 +91,21 @@ const GroupController = ({ viewModel }) => {
             if(Auth.isLogged === false){ history.replace('/login');}
             else{
                 if(ismember===true){
-                    try {
+                    if(studydetail.current_user_count===1){
                         viewModel.disjoin(id,study_id);
                         alert('탈퇴되었습니다.');
-                        setnotice('탈퇴됨');
-                        setIsmember(false);
-                        getstudy_detail();
-                        getmember();
-                    } catch (e) {
-                        console.log(e);
+                        history.replace('/grouplist');
+                    }else{
+                        try {
+                            viewModel.disjoin(id,study_id);
+                            alert('탈퇴되었습니다.');
+                            setnotice('탈퇴됨');
+                            setIsmember(false);
+                            getstudy_detail();
+                            getmember();
+                        } catch (e) {
+                            console.log(e);
+                        }
                     }
                 }
                 else{

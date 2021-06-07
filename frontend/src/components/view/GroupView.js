@@ -15,14 +15,12 @@ const GroupView = (props) => {
                 
                 <Grid className = 'groupmembernumber'>멤버<Grid className = 'groupmember'>{props.groupmember}</Grid>명</Grid>
                 <Grid className = 'groupkategorie'>
-                    <Grid className='groupicon'><IoPodiumOutline/><Grid>Rank</Grid></Grid>
-                    <Grid className='groupicon'><IoCalendarOutline/><Grid>Calendar</Grid></Grid>
+                    <Grid className='groupicon'><Button className='groupiconbtn'><IoPodiumOutline/><Grid>Rank</Grid></Button></Grid>
+                    <Grid className='groupicon'><Button className='groupiconbtn'><IoCalendarOutline/><Grid>Calendar</Grid></Button></Grid>
                     {(props.ismember===false)?
-                    <Grid className='groupicon'><Button onClick={props.join}><BsPersonPlus/><Grid>가입</Grid></Button></Grid>:
-                    <Grid className='groupicon'><Button onClick={props.disjoin}><BsPersonPlus/><Grid>탈퇴</Grid></Button></Grid>}
+                    <Grid className='groupicon'><Button className='groupiconbtn' onClick={props.join}><BsPersonPlus/><Grid>가입</Grid></Button></Grid>:
+                    <Grid className='groupicon'><Button className='groupiconbtn' onClick={props.disjoin}><BsPersonPlus/><Grid>탈퇴</Grid></Button></Grid>}
                 </Grid>
-                <Grid className ='Notice'>공지</Grid>
-                <Grid className='noticetxt'>{props.notice}</Grid>
                 <Grid className ='doing'>
                     <Grid>지금운동중인 멤버 수<Grid className = 'groupmember'>{props.Exercisemember}</Grid></Grid>
                     <GroupMember groupmembers={props.groupmembers}></GroupMember>
