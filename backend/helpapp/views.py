@@ -159,6 +159,7 @@ def study_list(request):
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_detail(request, study_id):
+    study_list = Study.objects.order_by('study_total_time')[:100]
     study = get_object_or_404(Study, study_id=study_id)
     serializer = StudySerializer(study)
     return JsonResponse(serializer.data, status=200)
