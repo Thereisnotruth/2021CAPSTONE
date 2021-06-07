@@ -30,7 +30,7 @@ const MystudyController = ({ viewModel }) => {
       },[]);
     return (
         <>
-            <HeaderController header='그룹 목록' />
+            <HeaderController header='내스터디' />
             <MystudyView 
                 groupdata = {list}
             />
