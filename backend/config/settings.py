@@ -10,20 +10,32 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
+
 from pathlib import Path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+import json
+from django.core.exceptions import ImproperlyConfigured
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
+# secret_file = os.path.join(BASE_DIR, 'secrets.json') # secrets.json 파일 위치를 명시
+secret_file = os.path.join('./secrets.json') # secrets.json 파일 위치를 명시
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'd$_^vo-r7d&v_t-q_aubtm_-38*8rpe3*r%9#te9fa)gvbv-nr'
+with open(secret_file) as f:
+    secrets = json.loads(f.read())
 
-# SECURITY WARNING: don't run with debug turned on in production!
+def get_secret(setting, secrets=secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+SECRET_KEY = get_secret("SECRET_KEY")
+
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
@@ -42,6 +54,7 @@ INSTALLED_APPS = [
     'helpapp',
     'rest_framework',
     'corsheaders',
+    # 'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -65,7 +78,10 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR/'templates/helpapp/build'],
+        # 'DIRS': [
+        #     'helpapp/build'
+        #  ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -77,6 +93,14 @@ TEMPLATES = [
         },
     },
 ]
+
+
+STATIC_URL = '/static/'
+STATIC_DIR = os.path.join(BASE_DIR, 'templates/helpapp/build/static')
+STATICFILES_DIRS = (
+    # os.path.join(os.path.join(BASE_DIR, 'helpapp'), 'build', 'static'),
+    STATIC_DIR,
+)
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
@@ -136,6 +160,14 @@ REST_FRAMEWORK = {
     )
 }
 
+# WEBPACK_LOADER = {
+#     'DEFAULT': {
+#             'BUNDLE_DIR_NAME': 'bundles/',
+#             'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
+#         }
+# }
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -153,4 +185,3 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
