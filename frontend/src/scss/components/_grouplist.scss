@@ -1,0 +1,47 @@
+.grouplist{
+    min-width: 360px;
+    margin-top: 40px;
+    background-color: #eaeaea;
+    .makegroupbtn{
+        background:$theme-color;
+        color :white;
+        position: fixed;
+        bottom:0;
+        right: 0;
+    }
+    .groups{
+        all:unset;
+        display:block;
+        background-color: white;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        width:auto;
+        .groupname{
+            color:$theme-color;
+            font-size: 45px;
+            font-weight: 500;
+        }
+        .member{
+            color:gray;
+            float: right;
+            font-size: 20px;
+        }
+        .leader{
+            color:gray;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .extime{
+            color:gray;
+            font-size: 20px;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .start{
+            color:gray;
+            text-align:right;
+        }      
+    }
+}
