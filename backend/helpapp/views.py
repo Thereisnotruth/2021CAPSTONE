@@ -110,13 +110,18 @@ def create_user(request):
 @permission_classes((permissions.AllowAny,))
 def show_mygroups(request, user_id):
     if request.method == 'POST':
+        print('request',request)
         user_id = user_id
         user = get_object_or_404(User, user_id=user_id)
-        study_set = Study.objects.filter(user_id=user)
+        print('User', user)
+        study_set = User_Study.objects.filter(user_id=user_id)
+        print('Study', study_set)
         study_list = []
         for study in study_set:
+            print('Study 엘레먼트', study)
             study_list.append(study.study_id)
         serializer = StudySerializer(study_list, many=True)
+        print(serializer.data)
         return JsonResponse(serializer.data, status=200, safe=False)
     return HttpResponse(status=400)
 
