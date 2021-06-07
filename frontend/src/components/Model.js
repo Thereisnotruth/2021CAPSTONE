@@ -286,6 +286,15 @@ class Model {
         });
         return result;
     }
+    //내 스터디 목록
+    mylist = (user_id) =>{ 
+        const data = axios.post('users/'+user_id+'/mygroups',{
+            user_id: user_id
+        })
+            .then((res)=>{
+                return res;});
+        return data;
+    }
     
 }
 

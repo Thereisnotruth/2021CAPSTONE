@@ -1,52 +1,179 @@
 .boardview{
     display: flex;
     list-style: none;
+    width:100%;
+    height:calc(100vh);
+    border-bottom: 1px solid  gray;
+    min-width: 360px;
     .element{
-        .board{
-            .boardbtn{
-                .boardbtns{}
-                .makebtn{}
-
-            }
-            .boardupdate{
-                .makebtn{}
-            }
+        width:100%;
+        .nameboard{
+            height: 50px;
+            color:black;
+            text-align: center;
+            font-size: 30px;
+            border: 1px solid  gray;
+            border-left: 0px solid  gray;
+            background-clip: padding-box;
         }
-    }
-    /*.board{
-        width:calc(100% - 100px);
-        display:block;
-        height: 100%;
-        right:0;
-        .boardbtn{
-            .boardbtns{
-                display:flex;
-                .MuiButton-root{
-                    background-color: $theme-color;
-                    margin-left: 10px;
-                    margin-right: 10px;
-                    color: white;
+        .board{
+            height:calc(100%-50px);
+            display:block;
+            height: 100%;
+            right:0;
+            .boardlistform{
+                height: 100%;
+            }
+            .boardbtn{
+                display: flex;
+                width:100%;
+                .boardbtns{
+                    display: flex;
+                    width:100%;
+                    .makebtn{
+                        height: 100%;
+                        width:23%;
+                        background-color: $theme-color;
+                        margin-left: 5%;
+                        margin-right: 5%;
+                        color: white;
+                    }
                 }
                 .boardupdate{
-                    .input{
-                        font-size:100px;
+                    display: flex;
+                    width:100%;
+                    .boardname{
+                        width:56%;
+                        margin-left:5%;
+                        margin-right:5%;
+                    }
+                    .makebtn{
+                        width:23%;
+                        background-color: $theme-color;
+                        margin-left: 5%;
+                        margin-right: 5%;
+                        color: white;
                     }
                 }
             }
+            .post{
+                .title{
+                    resize: none;
+                    padding-top: 20px;
+                    font-size: 20px;
+                    font-weight: 700;
+                    width:100%;
+                    border: 0px;
+                    border-bottom: 1px solid  gray;
+                }
+                textarea::placeholder {
+                    color: rgba(136, 136, 136, 0.418);
+                }
+                .content{
+                    resize: none;
+                    height: 100%;
+                    width:90%;
+                    border: 0px;
+                    font-size: 20px;
+                    font-weight: 700;
+                    rows:100px;
+                }
+                .btncol{
+                    display: flex;
+                    align-items: center;
+                    flex-direction: column;
+                    border-top: 1px solid  gray;
+                    .makebtn{
+                        padding: 0px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        background-color: $theme-color;
+                        color:white;
+                        margin: 12px;
+                        width:110px;
+                    }
+                }   
+            }
+            .postview{
+                height: 50%;
+                padding:5px;
+                .postviewtitle{
+                    height: 18%;
+                    .postviewtitlefirst{
+                        display: flex;
+                        height:30%;
+                        .title{
+                            display:block;
+                            font-size: large;
+                            width:30%;
+                            p{
+                                height:100%;
+                                padding: 8px 0px;
+                                margin:0;
+                                text-align:center;
+                            }
+                        }
+                        .titlename{
+                            width:70%;
+                            display:block;
+                            font-size: x-large;
+                            font-weight:700;
+                        }
+                    }
+                    .postviewtitlesecon{
+                        display: flex;
+                        height:30%;
+                        margin-top: 5px;
+                        .user{display:block;
+                            font-size:medium;
+                            text-align:center;
+                            width:30%;}
+                        .username{
+                            display:block;
+                            font-size: medium;
+                            text-align:left;
+                            width:70%;}
+                    }
+                    .date{
+                        height:30%;
+                        display:block;
+                        font-size:small;
+                        text-align:right;
+                        width:90%;
+                    }
+                    
+                    
+                }
+                .postblank{
+                    height: 2%;
+                    border-top: 1px solid  gray;
+                }
+                .content{
+                    height: 78%;
+                    border-bottom: 1px solid  gray;
+                    padding-left: 7px;
+                }
+            }
+            .postbtn{
+                right:0;
+                display: flex;
+                margin-top: 10px;
+                .makedelbtn{
+                    background-color: $theme-color;
+                    color:white;
+                    margin-left: 12px;
+                    margin-right: 12px;
+                    width:64px;
+                }
+                .makeupbtn{
+                    background-color: $theme-color;
+                    color:white;
+                    margin-left: 12px;
+                    margin-right: 12px;
+                    width:64px;
+
+                }
+            }
         }
-        .postclass{
-            display: flex;
-            color:gray;
-            text-align: center;
-            .title{
-                width:50%;
-            }
-            .writer{
-                width:20%;
-            }
-            .date{
-                width:30%;
-            }
-        }
-    }*/
+    }
 }

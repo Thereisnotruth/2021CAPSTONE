@@ -18,6 +18,8 @@ export { default as IdView } from './IdView';
 export { default as IdController } from './IdController';
 export { default as PwView } from './PwView';
 export { default as PwController } from './PwController';
+export { default as MystudyView } from './MystudyView';
+export { default as MystudyController } from './MystudyController';
 export { default as Test } from './Test';
 
 

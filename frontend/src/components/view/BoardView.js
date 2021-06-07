@@ -1,29 +1,27 @@
 import React from 'react';
-import { Grid,Button,Divider,Input } from '@material-ui/core';
+import { Grid,Button,Divider } from '@material-ui/core';
 import { BoardList,PostList} from '../ui';
-import { Link} from 'react-router-dom';
 
 const BoardView = (props) => {
     return (
-        <Grid container direction='column'>
-            <Grid className='boardlogo'>HELP</Grid>
-            <Divider/>
+        <Grid className='boardmainview'>
             <Grid className='boardview'>
                 <BoardList boardlist={props.boardlist} 
                             onboardnameChange={props.onboardnameChange}
                             makeboard ={props.makeboard}
-                            onboard = {props.onboard}
+                            onClickboard = {props.onClickboard}
                             boardlist={props.boardlist}/>
                 {(props.board!=='')?
-                <Grid className='element'>
+                <Grid className='element'><Grid className='nameboard'>{props.boardtitle}</Grid>
                 {(props.state===1)?<Grid className='board'>
                     <Grid className='boardbtn'>
                         {!props.changestate?
                         <Grid className='boardbtns'><Button className='makebtn' onClick ={props.makepost}>글쓰기</Button>
                         <Button className='makebtn' onClick ={props.deleteboard}>삭제</Button>
                         <Button className='makebtn' onClick ={props.change}>수정</Button></Grid>:
-                        <Grid className='boardupdate'><Input 
+                        <Grid className='boardupdate'><input 
                         type='text'
+                        className ='boardname'
                         onChange={props.onRename}
                         />
                         <Button className='makebtn' onClick ={props.boardupdate}>수정</Button></Grid> }
@@ -33,52 +31,62 @@ const BoardView = (props) => {
                     <PostList onpost={props.onpost} postlist = {props.postlist}/>
                 </Grid>:''}
                 {(props.state===2)?<Grid className='board'>
-                    <Grid>
-                        <h1>title</h1>
-                        <input
+                    <Grid className='post'>
+                        <textarea
                             type='text'
                             className='title' 
-                            placeholder={'제목을 작성하세요.'}
+                            placeholder={'제목'}
                             onChange={props.ontitleChange}
                         />
-                        <h3>content</h3>
-                        <input
+                        <textarea
                             type='text'
                             className='content'
-                            placeholder={'500자미만으로 작성하세오.'}
+                            placeholder={'내용을 입력하세요.'}
                             onChange={props.oncontentChange}
                         />
-                        <Button onClick = {props.post}>게시글 올리기</Button>
+                        <Grid className='btncol'>
+                            <Button className='makebtn' onClick = {props.post}>게시글 올리기</Button>
+                            <Button className='makebtn' onClick = {props.back}>돌아가기</Button>
+                        </Grid>
                     </Grid>
                 </Grid>:''}
                 {(props.state===3)?<Grid className='board'>   
-                    <Grid>
-                        <h1>제목:{props.posttitle}</h1><h2>작성자:{props.postuser}</h2>
-                        <h2>내용:{props.postcontent}</h2>작성일자:{props.postcreat}
+                    <Grid className = 'postview'>
+                        <Grid className='postviewtitle'>
+                            <Grid className='postviewtitlefirst'>
+                                <Grid className='title'><p>제 목:</p></Grid>
+                                <Grid className='titlename'>{props.posttitle}</Grid>
+                            </Grid>
+                            <Grid className='postviewtitlesecon'>
+                                <Grid className='user'>작성자:</Grid>
+                                <Grid className='username'>{props.postuser}</Grid>
+                            </Grid>
+                            <Grid className='date'>{props.postcreat}</Grid>
+                        </Grid>
+                        <Grid className='postblank'></Grid>
+                        <Grid className='content'>{props.postcontent}</Grid>
                     </Grid>
-                    <Divider/>
                     {(props.user_id===props.postuser)?
-                    <Grid>
-                        <Button className='makebtn' onClick ={props.deletepost}>글삭제</Button>
-                        <Button className='makebtn' onClick ={props.postupdatestate}>글수정</Button></Grid>:''}
+                    <Grid className ='postbtn'>
+                        <Button className='makedelbtn' onClick ={props.deletepost}>글삭제</Button>
+                        <Button className='makeupbtn' onClick ={props.postupdatestate}>글수정</Button></Grid>:''}
                 </Grid>:''}
                 {(props.state===4)?<Grid className='board'>
-                    <Grid>
-                        <h1>title</h1>
-                        <input
+                    <Grid className='post'>
+                        <textarea
                             type='text'
                             className='title' 
-                            placeholder={props.posttitle}
                             onChange={props.onposttitleChange}
-                        />
-                        <h3>content</h3>
-                        <input
+                        >{props.posttitle}</textarea>
+                        <textarea
                             type='text'
                             className='content'
-                            placeholder={props.postcontent}
                             onChange={props.onpostcontentChange}
-                        />
-                        <Button onClick = {props.updatepost}>수정</Button>`
+                        >{props.postcontent}</textarea>
+                        <Grid className='btncol'>
+                            <Button className='makebtn' onClick = {props.updatepost}>수정</Button>
+                            <Button className='makebtn' onClick = {props.back}>돌아가기</Button>
+                        </Grid>
                     </Grid>
                 </Grid>:''}
                 

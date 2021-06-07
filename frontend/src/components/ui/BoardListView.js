@@ -7,7 +7,7 @@ const BoardListView = (props) => {
                 <li key={element.board_id}>
                     <a href = 'board' onClick = {function(ev){
                         ev.preventDefault();
-                        props.onboard(element.board_id);
+                        props.onClickboard(element.board_id,element.board_name);
                    }}>
                         {element.board_name} 
                     </a>

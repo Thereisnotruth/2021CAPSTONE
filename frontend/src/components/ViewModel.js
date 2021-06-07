@@ -70,6 +70,9 @@ class ViewModel {
     changepw = (user_id,user_pw)=>{
         return this.model.changepw(user_id,user_pw);
     }
+    mylist = async(user_id) => {
+        return await this.model.mylist(user_id);
+    }
 }
 
 export default ViewModel;

@@ -39,9 +39,17 @@ const SideBar = (props) => {
 					캐릭터
 				</Button>
 			</Link>
+			{
+				Auth.isLogged?
+			<Link to='/mygroup' className='sidebar-link'>
+				<Button className='sidebar-item'>
+					내 스터디 목록
+				</Button>
+			</Link>:''
+			}
 			<Link to='/grouplist' className='sidebar-link'>
 				<Button className='sidebar-item'>
-					그룹 목록
+					스터디 목록
 				</Button>
 			</Link>
 			<Link to='/board' className='sidebar-link'>

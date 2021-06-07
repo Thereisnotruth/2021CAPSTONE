@@ -1,0 +1,27 @@
+.postelement{
+    width:100%;
+    .postelementlist{
+        height: 100%;
+        .postelementa{
+            text-decoration:none;
+            color: #000000;
+            .postitems{
+                height: 60px;
+                display:block;
+                .postitemtitle{
+                    font-size: 20px;
+                    width:100%;
+                    padding-left: 5%;
+                }
+                .postitemuser{
+                    padding-top: 5px;
+                    padding-left: 5%;
+                    text-align: left;
+                    font-size: 10px;
+                    color:gray;
+                    width:100%;
+                }
+            }
+        }
+    }
+}

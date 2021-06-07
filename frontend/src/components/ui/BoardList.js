@@ -12,7 +12,7 @@ const BoardList = (props) => {
                 onChange={props.onboardnameChange}></input>
             <Button className='makebtn' onClick ={props.makeboard}>게시판 생성</Button>
             <Divider/>
-            <BoardListView boardlist={props.boardlist} onboard={props.onboard}/>
+            <BoardListView boardlist={props.boardlist} onClickboard={props.onClickboard}/>
         </Grid>
     )
 };

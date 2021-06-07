@@ -13,6 +13,7 @@ const BoardController = ({ viewModel }) => {
     const user_id = Auth.isLogged ? Auth.data.user_id:''
     const [board_name,setBoard_name] = useState('');
     const [board,setBoard] = useState('');
+    const [boardtitle,setBoardtitle] = useState('');
     const [changestate,setChangestate] = useState(false);
     const [rename,setRename] = useState('');
     const [state,setState] = useState(1);
@@ -54,9 +55,11 @@ const BoardController = ({ viewModel }) => {
         if(test.data.length !==0){
             if(board===''){
                 setBoard(test.data[0].board_id);
+                setBoardtitle(test.data[0].board_name);
                 onboard(test.data[0].board_id);}
             else if(del===1){
                 setBoard(test.data[0].board_id);
+                setBoardtitle(test.data[0].board_name);
                 onboard(test.data[0].board_id);
             }else{
                 setBoard(board);
@@ -90,7 +93,10 @@ const BoardController = ({ viewModel }) => {
     const onboardnameChange= (e) =>{
         setBoard_name(e.target.value);
     }
-
+    const onClickboard =(board_id,title)=>{
+        setBoardtitle(title);
+        onboard(board_id);
+    }
     const onboard= async(board_id) =>{
         setBoard(board_id);
         const test = await viewModel.boardpostlist(board_id);
@@ -128,6 +134,7 @@ const BoardController = ({ viewModel }) => {
     const boardupdate =() =>{
         if(rename===''){setChangestate(false);}
         else{
+            setBoardtitle(rename);
             viewModel.board_update(board,rename,user_id);
             setRename('');
             setChangestate(false);
@@ -180,6 +187,11 @@ const BoardController = ({ viewModel }) => {
         setState(1);
         onboard(board);
     }
+    const back=()=>{
+        if(state===2){setState(1);}
+        else{setState(3);}
+        
+    }
     return (
         <>
         <HeaderController header='게시판' />
@@ -201,6 +213,8 @@ const BoardController = ({ viewModel }) => {
             onposttitleChange={onposttitleChange}
             onpostcontentChange={onpostcontentChange}
             postupdatestate={postupdatestate}
+            onClickboard={onClickboard}
+            back={back}
             board={board}
             user_id={user_id}
             state={state}
@@ -210,7 +224,8 @@ const BoardController = ({ viewModel }) => {
             posttitle={posttitle}
             postcontent={postcontent}
             postcreat={postcreat}
-            postuser={postuser}/>
+            postuser={postuser}
+            boardtitle={boardtitle}/>
         </>
     );
 };
