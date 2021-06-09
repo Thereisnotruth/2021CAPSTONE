@@ -21,12 +21,10 @@ class ExConsumer(AsyncWebsocketConsumer):
     )
   # 클라이언트에서 오는 소켓 통신 
   async def receive(self, text_data):
-    print(text_data)
     text_data_json = json.loads(text_data)
     time = text_data_json['time']
     expart = text_data_json['expart']
     button = text_data_json['btn']
-    print(button)
     # 운동 시작 메시지
     if button == 1:
       await self.start_exercise(self.user_id, time)
@@ -42,7 +40,7 @@ class ExConsumer(AsyncWebsocketConsumer):
       )
     # 운동 중지 메시지
     elif button == 2:
-      await self.stop_exercise(self.user_id)
+      await self.stop_exercise(self.user_id, time, expart)
 
       await self.channel_layer.group_send(
         self.user_group_name,
@@ -61,10 +59,22 @@ class ExConsumer(AsyncWebsocketConsumer):
     user.save()
   
   @database_sync_to_async
-  def stop_exercise(self, user_id):
+  def stop_exercise(self, user_id, time, expart):
     user = User.objects.get(user_id=user_id)
     user.exercise_state = False
     user.exercise_start_time = 0
+    if expart == '1':
+      user.back_exp += time
+    elif expart == '2':
+      user.chest_exp += time
+    elif expart == '3':
+      user.shoulder_exp += time
+    elif expart == '4':
+      user.belly_exp += time
+    elif expart == '5':
+      user.arm_exp += time
+    elif expart == '6':
+      user.leg_exp += time
     user.save()
   
   # 서버에서 클라이언트로 뿌려주는 소켓 통신
