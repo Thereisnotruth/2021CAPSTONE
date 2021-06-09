@@ -17,10 +17,8 @@ class Model {
             capacity: capacity,
         })
         .then((res) => {
-            console.log(res);
         })
         .catch((e) => {
-            console.log(e);
         });
     }
     // 로그인
@@ -77,8 +75,7 @@ class Model {
     }
     // 운동
     exercise(expart, times, btn) {
-        let socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + Auth.data.user_id;
-        console.log(btn)
+        let socketPath = 'ws://192.168.0.103:8000/ws/helpapp/' + Auth.data.user_id;
         const socket = new WebSocket(socketPath);
 
         socket.onopen = function () {
@@ -102,7 +99,6 @@ class Model {
             return res;
         })
         .catch((e) => {
-            console.log(e);
         });
     }
     //탈퇴
@@ -115,7 +111,6 @@ class Model {
             return res;
         })
         .catch((e) => {
-            console.log(e);
         });
     }
     //스터디 목록

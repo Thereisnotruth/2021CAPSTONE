@@ -15,9 +15,7 @@ const MystudyController = ({ viewModel }) => {
     const getlist = async () => {
         const test = await viewModel.mylist(id);
         const status = test?.status;
-        console.log(test);
         setList(test.data);
-        console.log(list);
         if (status === 200) {
             
         }

@@ -33,7 +33,7 @@ const Member = (props) => {
     setHours(diff_h);
     setMinutes(diff_m);
     setSeconds(diff_s);
-    const socketPath = 'ws://192.168.0.2:8000/ws/helpapp/' + user_id;
+    const socketPath = 'ws://192.168.0.103:8000/ws/helpapp/' + user_id;
     const socket = new WebSocket(socketPath);
     socket.onmessage = function (e) {
       const data = JSON.parse(e.data);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 const MemberTimer = (props) => {
   const { startTime } = props;
-  console.log(startTime)
   const [hours, setHours] = useState(startTime);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);

@@ -16,9 +16,7 @@ const GrouplistController = ({ viewModel }) => {
     const getlist = async () => {
         const test = await viewModel.list();
         const status = test?.status;
-        console.log(test);
         setList(test.data);
-        console.log(list);
         if (status === 200) {
             
         }
@@ -29,7 +27,6 @@ const GrouplistController = ({ viewModel }) => {
     useEffect(() => {
         getlist();
       },[]);
-    console.log(list);
 
 
     const make = () =>{

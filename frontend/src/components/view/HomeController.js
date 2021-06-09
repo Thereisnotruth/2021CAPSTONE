@@ -55,7 +55,6 @@ const HomeController = ({ viewModel }) => {
         if(message===''){
             clearInterval(interv);
             const times = time.h * 3600 + time.m * 60 + time.s;
-            console.log(times);
             levelChange(times);
             setTime({h:0,m:0,s:0});
             setStatus(0);
@@ -64,14 +63,14 @@ const HomeController = ({ viewModel }) => {
     }
 
     const levelChange = (times) => {   
-        let Headandchest_level = (expart==="2")?levelcheck(Auth.data.chest_exp+times):levelcheck(Auth.data.chest_exp);
-        let Back_level = (expart==="1")? levelcheck(Auth.data.back_exp + times):levelcheck(Auth.data.back_exp);
-        let Arm_level = (expart==="5")?levelcheck(Auth.data.arm_exp + times):levelcheck(Auth.data.arm_exp);
-        let Lowerbody_level = (expart==="6")?levelcheck(Auth.data.leg_exp + times):levelcheck(Auth.data.leg_exp);
-        let Abs_level = (expart==="4")?levelcheck(Auth.data.belly_exp + times):levelcheck(Auth.data.belly_exp);
-        let Shoulder_level = (expart==="3")?levelcheck(Auth.data.shoulder_exp + times):levelcheck(Auth.data.shoulder_exp);
+        let Headandchest_level = (expart==="2")?levelcheck1(Auth.data.chest_exp+times):levelcheck1(Auth.data.chest_exp);
+        let Back_level = (expart==="1")? levelcheck2(Auth.data.back_exp + times):levelcheck2(Auth.data.back_exp);
+        let Arm_level = (expart==="5")?levelcheck1(Auth.data.arm_exp + times):levelcheck1(Auth.data.arm_exp);
+        let Lowerbody_level = (expart==="6")?levelcheck2(Auth.data.leg_exp + times):levelcheck2(Auth.data.leg_exp);
+        let Abs_level = (expart==="4")?levelcheck1(Auth.data.belly_exp + times):levelcheck1(Auth.data.belly_exp);
+        let Shoulder_level = (expart==="3")?levelcheck1(Auth.data.shoulder_exp + times):levelcheck1(Auth.data.shoulder_exp);
         let Gender = (Auth.data.gender==='M')?0:1;
-
+        //가슴 배 어깨 팔 ->6 //하체 등 ->4
         unityContext.send('BigMan', 'Headandchest_LevelChange', Headandchest_level);
         unityContext.send('BigMan', 'Back_LevelChange', Back_level);
         unityContext.send('BigMan', 'Arm_LevelChange', Arm_level);
@@ -80,25 +79,36 @@ const HomeController = ({ viewModel }) => {
         unityContext.send('BigMan', 'Shoulder_LevelChange', Shoulder_level);
         unityContext.send('BigMan', 'GenderChange', Gender);
     }
-    const levelcheck = (parttime) =>{//전부 초단위 exp단위도 sec
+    const levelcheck1 = (parttime) =>{//전부 초단위 exp단위도 sec
         if(parttime<4500){
             return 1;
-        }else if(4500<=parttime<45000){
+        }else if(4500<=parttime&&parttime<45000){
             return 2;
-        }else if(45000<=parttime<125000){
+        }else if(45000<=parttime&&parttime<125000){
             return 3;
-        }else if(125000<=parttime<275000){
+        }else if(125000<=parttime&&parttime<275000){
             return 4;
-        }else if(275000<=parttime<815000){
+        }else if(275000<=parttime&&parttime<815000){
             return 5;
         }else if(815000<=parttime){
             return 6;
         }
 
     }
+    const levelcheck2 = (parttime) =>{//전부 초단위 exp단위도 sec
+        if(parttime<4500){
+            return 1;
+        }else if(4500<=parttime&&parttime<275000){
+            return 2;
+        }else if(275000<=parttime&&parttime<815000){
+            return 3;
+        }else if(815000<=parttime){
+            return 4;
+        }
+
+    }
 ////////////////////////////////////////////////////////////////////
     const SetChar = () => {
-        console.log('test');
         let Headandchest_level=1;
         let Back_level=1;
         let Arm_level=1;

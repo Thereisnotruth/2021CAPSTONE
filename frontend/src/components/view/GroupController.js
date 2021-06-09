@@ -77,7 +77,7 @@ const GroupController = ({ viewModel }) => {
                                 getstudy_detail();
                                 getmember();
                             } catch (e) {
-                                console.log(e);
+
                             }
                         }
                     }
@@ -104,7 +104,7 @@ const GroupController = ({ viewModel }) => {
                             getstudy_detail();
                             getmember();
                         } catch (e) {
-                            console.log(e);
+                            
                         }
                     }
                 }

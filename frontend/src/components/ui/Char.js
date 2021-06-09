@@ -5,20 +5,15 @@ import { unityContext } from '../../test';
 
 const Char = (props) => {
     useEffect(() => {
-        
-    }, []);
-    useEffect(function () {
         unityContext.on('canvas', (canvas) => {
             if (canvas !== null) {
                 canvas.width = 300;
                 canvas.height = 400;
                 canvas.getContext('webgl');
             }
+            props.SetChar();
         });
-        unityContext.on("GameOver", function () {
-          props.SetChar();
-        });
-      }, []);
+    }, []);
     return (
         <Grid className ='drawchar'>
              <Unity 

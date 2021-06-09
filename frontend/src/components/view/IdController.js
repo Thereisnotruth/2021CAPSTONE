@@ -12,7 +12,6 @@ const IdController = ({ viewModel }) => {
     }
     const find = async () => {
         const connect = await viewModel.findid(email);
-        console.log(connect);
         const status = connect?.status;
         if (status === 200) {
             alert('당신의 아이디는'+connect.data.user_id+'입니다.');

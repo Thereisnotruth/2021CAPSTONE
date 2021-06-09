@@ -29,9 +29,6 @@ const GroupMakeController = ({ viewModel }) => {
             setCapacity(e.target.value);}
     }
     const MakeStudy = async () => {
-		console.log('user_id: ',user);
-        console.log('study_name: ',study);
-        console.log('capacity: ', capacity);
         if(study==''|| capacity==''){
             alert('모든 정보를 입력해주세요.');
         }else{
@@ -40,7 +37,6 @@ const GroupMakeController = ({ viewModel }) => {
                 alert('스터디가 생성되었습니다.');
                 history.replace('/grouplist');
             } catch (e) {
-                console.log(e);
             }
         }
 
