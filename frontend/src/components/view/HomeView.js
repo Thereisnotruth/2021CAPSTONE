@@ -9,7 +9,7 @@ const HomeView = (props) => {
         <Grid container direction='column'>
             <Grid className='contents'>
                 <Grid className ='IdView'>
-                    <Char/>
+                    <Char SetChar={props.SetChar}/>
                     <Timer
                         time={props.time}
                         message={props.message}

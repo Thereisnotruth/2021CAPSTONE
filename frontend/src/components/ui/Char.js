@@ -3,8 +3,11 @@ import { Grid } from '@material-ui/core';
 import Unity, { UnityContext } from 'react-unity-webgl';
 import { unityContext } from '../../test';
 
-const Char = () => {
+const Char = (props) => {
     useEffect(() => {
+        
+    }, []);
+    useEffect(function () {
         unityContext.on('canvas', (canvas) => {
             if (canvas !== null) {
                 canvas.width = 300;
@@ -12,7 +15,10 @@ const Char = () => {
                 canvas.getContext('webgl');
             }
         });
-    }, []);
+        unityContext.on("GameOver", function () {
+          props.SetChar();
+        });
+      }, []);
     return (
         <Grid className ='drawchar'>
              <Unity 
