@@ -1,3 +1,4 @@
+//아이디 찾기 화면을 결정하는 view
 import React from 'react';
 import { Grid, Divider } from '@material-ui/core';
 import { Link } from 'react-router-dom';

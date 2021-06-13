@@ -1,8 +1,10 @@
+//게시판 화면을 결정하는 view
 import React from 'react';
 import { Grid,Button,Divider } from '@material-ui/core';
 import { BoardList,PostList} from '../ui';
 
 const BoardView = (props) => {
+    //props.state에 따라 화면이 변화한다.(1=게시글목록을 보여주는 화면,2=게시글 작성화면,3=게시글화면,4=게시글 수정화면)
     return (
         <Grid className='boardmainview'>
             <Grid className='boardview'>
@@ -13,7 +15,7 @@ const BoardView = (props) => {
                             boardlist={props.boardlist}/>
                 {(props.board!=='')?
                 <Grid className='element'><Grid className='nameboard'>{props.boardtitle}</Grid>
-                {(props.state===1)?<Grid className='board'>
+                {(props.state===1)?<Grid className='board'>{/*1=게시글목록을 보여주는 화면*/}
                     <Grid className='boardbtn'>
                         {!props.changestate?
                         <Grid className='boardbtns'><Button className='makebtn' onClick ={props.makepost}>글쓰기</Button>
@@ -30,7 +32,7 @@ const BoardView = (props) => {
 
                     <PostList onpost={props.onpost} postlist = {props.postlist}/>
                 </Grid>:''}
-                {(props.state===2)?<Grid className='board'>
+                {(props.state===2)?<Grid className='board'>{/*2=게시글 작성화면*/}
                     <Grid className='post'>
                         <textarea
                             type='text'
@@ -50,7 +52,7 @@ const BoardView = (props) => {
                         </Grid>
                     </Grid>
                 </Grid>:''}
-                {(props.state===3)?<Grid className='board'>   
+                {(props.state===3)?<Grid className='board'> {/*3=게시글화면*/}  
                     <Grid className = 'postview'>
                         <Grid className='postviewtitle'>
                             <Grid className='postviewtitlefirst'>
@@ -71,7 +73,7 @@ const BoardView = (props) => {
                         <Button className='makedelbtn' onClick ={props.deletepost}>글삭제</Button>
                         <Button className='makeupbtn' onClick ={props.postupdatestate}>글수정</Button></Grid>:''}
                 </Grid>:''}
-                {(props.state===4)?<Grid className='board'>
+                {(props.state===4)?<Grid className='board'>{/*4=게시글 수정화면*/}
                     <Grid className='post'>
                         <textarea
                             type='text'

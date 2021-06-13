@@ -1,6 +1,6 @@
+//주소에 따라 페이지를 연결해준다.
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-
 import {
     HomeController, LoginController, SignUpController, GroupMakeController, GroupListController, GroupController,
     UserInfoController, BoardController, Test ,IdController, PwController, MystudyController

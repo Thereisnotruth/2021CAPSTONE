@@ -1,3 +1,4 @@
+//모든화면 상단에 위치하며 페이지의 이름을 보여준다.
 import React from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';

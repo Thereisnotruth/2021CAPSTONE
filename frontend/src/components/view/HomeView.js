@@ -1,7 +1,6 @@
+//홈 화면을 결정하는 view
 import React from 'react';
 import { Grid } from '@material-ui/core';
-
-
 import { Timer, Char} from '../ui';
 
 const HomeView = (props) => {
@@ -9,7 +8,7 @@ const HomeView = (props) => {
         <Grid container direction='column'>
             <Grid className='contents'>
                 <Grid className ='IdView'>
-                    <Char SetChar={props.SetChar}/>
+                    <Char/>
                     <Timer
                         time={props.time}
                         message={props.message}

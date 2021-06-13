@@ -1,3 +1,4 @@
+//사이드바의 화면을 결정하는 코드
 import React from 'react';
 import { Grid, Button, Divider } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
@@ -7,7 +8,7 @@ import useStore from '../useStore';
 const SideBar = (props) => {
 	const { Auth } = useStore();
 	const history = useHistory();
-	const test = () => {
+	const test = () => { //로그아웃버튼 클릭후 실행 (로그아웃+홈화면)
 		Auth.logout();
 		history.replace('/');
 	}

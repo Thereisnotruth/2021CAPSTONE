@@ -1,8 +1,8 @@
+//게시판 화면에서 게시판목록을 보여주는 화면
+//여기서 BoardListView는 view모델에서 게시판 목록정보를 받아와 목록을 작성하여 보여주는 ui이다.
 import React from 'react';
 import { Grid, Button, Divider } from '@material-ui/core';
-
 import {BoardListView} from '../ui';
-import useStore from '../useStore';
 const BoardList = (props) => {
     return (
         <Grid className='boardlist'>

@@ -1,3 +1,4 @@
+//스터디목록 화면을 결정하는 view
 import React from 'react';
 import { Grid ,Link} from '@material-ui/core';
 
@@ -12,16 +13,6 @@ const GrouplistView = (props) => {
     return (
         <Grid container direction='column'>
             <Grid className ='grouplist'>
-                {/*<Grid className ='searchform'>
-                    <IoSearch/>
-                    <input 
-                    type='text'
-                    className = 'searchgroup'
-                    placeholder={'검색'}
-                    onChange={props.onsearchChange}
-                    />
-                    <button type='button' onClick={props.onsearchClick}>Search</button>
-    </Grid>*/}
                     <GroupForm groupdata = {props.groupdata}/>
                 <Fab className = 'makegroupbtn' aria-label="add" onClick = {props.make}>
                     <AddIcon />

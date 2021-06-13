@@ -1,7 +1,7 @@
+// 스터니 화면에서 멤버들의 운동 상태를 보여주는 화면
 import React, { useEffect, useState } from 'react';
 import {Grid} from '@material-ui/core';
 import { GiWeightLiftingDown, GiWeightLiftingUp } from "react-icons/gi";
-
 import Member from './Member';
 
 const GroupMember = (props) => {

@@ -1,17 +1,19 @@
+//아이디찾기 화면을 조정하는 코드이다.
+//viewmodel에서 데이터를 받아와 원하는 변수에 담아 view에 전송해준다.
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import IdView from './IdView';
 import { HeaderController } from '../ui';
 
 const IdController = ({ viewModel }) => {
-    const [email, setEmail] = useState('');
     const history = useHistory();
+    const [email, setEmail] = useState(''); //email
 
-    const onEmailChange = (e) => {
+    const onEmailChange = (e) => {//email작성
         setEmail(e.target.value);
     }
-    const find = async () => {
-        const connect = await viewModel.findid(email);
+    const find = async () => {//유저가 작성한 email로 유저의 ID를 찾는다.
+        const connect = await viewModel.findid(email);//아이디 찾기를 email과 함께 viewModel로 요청
         const status = connect?.status;
         if (status === 200) {
             alert('당신의 아이디는'+connect.data.user_id+'입니다.');

@@ -1,3 +1,4 @@
+//내스터디 목록 화면을 결정하는 view
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { GroupForm  } from '../ui';

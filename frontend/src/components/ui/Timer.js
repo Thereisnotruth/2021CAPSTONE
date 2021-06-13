@@ -1,7 +1,8 @@
+//홈 화면에서 타이머를 화면을 결정하는 코드
 import React, { useState } from 'react';
 import { Grid,NativeSelect,Button } from '@material-ui/core';
 
-const Timer = (props) => {
+const Timer = (props) => {//(타이머)+(운동부위 선택)+(운동시작/종료버튼)
     return (
         <Grid className='Timer'>
             <div>{props.time.h < 10 ? `0${props.time.h}` : props.time.h}:{props.time.m < 10 ? `0${props.time.m}` : props.time.m}:{props.time.s < 10 ? `0${props.time.s}` : props.time.s}</div>

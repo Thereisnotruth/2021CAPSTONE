@@ -1,3 +1,4 @@
+//유저정보 화면을 결정하는 view
 import React from 'react';
 import { Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles'

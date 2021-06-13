@@ -1,17 +1,22 @@
+//회원가입 화면을 조정하는 코드이다.
+//viewmodel에서 데이터를 받아와 원하는 변수에 담아 view에 전송해준다.
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import SignupView from './SignUpView';
 import { HeaderController } from '../ui';
 
 const SignupController = ({ viewModel }) => {
-    const [id, setId] = useState('');
-    const [email, setEmail] = useState('');
-    const [pw, setPw] = useState('');
-    const [cpw, setCpw] = useState('');
-    const [name, setName] = useState('');
-    const [gender, setGender] = useState('');
-    const [quest, setQuest] = useState('');
-    const [hint, setHint] = useState('');
+    const history = useHistory();
+    const [id, setId] = useState('');           //아이디
+    const [email, setEmail] = useState('');     //이메일
+    const [pw, setPw] = useState('');           //비밀번호
+    const [cpw, setCpw] = useState('');         //비밀번호확인
+    const [name, setName] = useState('');       //이름
+    const [gender, setGender] = useState('');   //성별
+    const [quest, setQuest] = useState('');     //질문
+    const [hint, setHint] = useState('');       //대답
+
+    //오류메시지
     const [message1,setMessage1] = useState('');
     const [message2,setMessage2] = useState('');
     const [message3,setMessage3] = useState('');
@@ -20,8 +25,9 @@ const SignupController = ({ viewModel }) => {
     const [message6,setMessage6] = useState('');
     const [message7,setMessage7] = useState('');
     const [message8,setMessage8] = useState('');
-    const history = useHistory();
-    const checkAlphaNum = (str) => {
+
+    
+    const checkAlphaNum = (str) => {//아이디 형태확인(알파벳 소문자, 대문자, 숫자만)
         const regexp = /^[a-zA-Z0-9]*$/;
         if(regexp.test(str)){
             return true;
@@ -29,7 +35,7 @@ const SignupController = ({ viewModel }) => {
             return false;
         }
     }
-    function CheckEmail(str){
+    function CheckEmail(str){//이메일 형태 확인
          var reg_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
         if(!reg_email.test(str)){
             return false;
@@ -38,7 +44,7 @@ const SignupController = ({ viewModel }) => {
             return true;
         }
     } 
-    const onIdChange = (e) => {    
+    const onIdChange = (e) => {//아이디 작성
         if(e.target.value==='')
             setMessage1('아이디를 입력해주세요.');
         else if (!checkAlphaNum(e.target.value)) {
@@ -49,7 +55,7 @@ const SignupController = ({ viewModel }) => {
             setMessage1('');
         }
     };
-    const onEmailChange = (e) => {
+    const onEmailChange = (e) => {//email 작성
         if(e.target.value==='')
             setMessage7('e-mail을 입력해주세요.');
         else{
@@ -61,14 +67,14 @@ const SignupController = ({ viewModel }) => {
             }
         }    
     }
-    const onPwChange = (e) => {
+    const onPwChange = (e) => {//비밀번호 작성
         if(e.target.value==='')
             setMessage2('비밀번호를 입력해주세요.');
         else{
             setMessage2('');
             setPw(e.target.value);}
     }
-    const onPwCheChange = (e) => {
+    const onPwCheChange = (e) => {//비밀번호 확인 작성
         if(e.target.value==='')
             setMessage3('비밀번호를 입력해주세요.');
         else if(e.target.value!==pw)
@@ -78,21 +84,21 @@ const SignupController = ({ viewModel }) => {
             setCpw(e.target.value);
         }
     }
-    const onNameChange = (e) => {
+    const onNameChange = (e) => {//이름 작성
         if(e.target.value==='')
             setMessage4('이름을 입력해주세요.');
         else{
             setMessage4('');
             setName(e.target.value);}
     }
-    const genderChange = (e) => {
+    const genderChange = (e) => {//성별 선택
         if(e.target.value==='')
             setMessage5('성별을 선택해주세요.');
         else{
             setMessage5('');
             setGender(e.target.value);}
     }
-    const questChange = (e) => {
+    const questChange = (e) => {//질문 선택
         if(e.target.value==='')
             setMessage6('질문을 선택해주세요.');
         else{
@@ -100,7 +106,7 @@ const SignupController = ({ viewModel }) => {
             setMessage8('');
             setQuest(e.target.value);}
     }
-    const onHintChange = (e) => {
+    const onHintChange = (e) => {//대답 작성
         if(message6 !==''){
             setMessage8('질문을 먼저 선택해주세요.');
         }else if(e.target.value===''&& message6 ===''){
@@ -111,7 +117,7 @@ const SignupController = ({ viewModel }) => {
             setHint(e.target.value);}
     }
 
-    const Signup = async () => {
+    const Signup = async () => {//회원가입
         if(id === ''|| email === ''|| pw === ''|| name === ''|| gender === ''|| quest === ''|| hint === ''){
             alert('모든 정보를 입력해주세요.');
         } else if (cpw === '') {
@@ -120,7 +126,7 @@ const SignupController = ({ viewModel }) => {
             alert('아이디는 알파벳 소문자, 대문자, 숫자만 가능합니다.');
             return;
         } else {
-            const connect = await viewModel.signUp(id, pw, name, gender, email, quest, hint);
+            const connect = await viewModel.signUp(id, pw, name, gender, email, quest, hint);//viewModel에 필요정보와 함께 회원가입 요청
             const status = connect?.status;
 
             if (status === 201) {

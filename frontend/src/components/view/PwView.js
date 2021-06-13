@@ -1,3 +1,4 @@
+//비밀번호 찾기 화면을 결정하는 view
 import React from 'react';
 import { Grid, Divider, NativeSelect } from '@material-ui/core';
 import { Link } from 'react-router-dom';

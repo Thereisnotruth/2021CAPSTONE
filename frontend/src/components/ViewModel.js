@@ -1,3 +1,4 @@
+//model가 서버에서 받은 데이터를 controller들에게 전달해준다.
 class ViewModel {
     constructor(model) {
        this.model = model;

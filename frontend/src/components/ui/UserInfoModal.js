@@ -1,3 +1,4 @@
+//유저의 운동정보를 운동 부위별로 수치를 보여주는 UI이다.
 import React from 'react';
 
 import { Paper, Grid, Modal } from '@material-ui/core';

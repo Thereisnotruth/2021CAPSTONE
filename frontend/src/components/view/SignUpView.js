@@ -1,3 +1,4 @@
+//회원가입 화면을 결정하는 view
 import React from 'react';
 import { Grid, Divider,NativeSelect } from '@material-ui/core';
 
