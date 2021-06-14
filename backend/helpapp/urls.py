@@ -1,9 +1,6 @@
-from django.urls import path
-from django.views.generic import TemplateView
+""" urls.py
 
-from . import views
-
-""" front-end로부터 들어온 요청을 분리하고 해당 작업을 처리하는 view와 연결하는 파일
+front-end로부터 들어온 요청을 분리하고 해당 작업을 처리하는 view와 연결하는 파일
 
     Notes: 
         - 아래 주석을 참고하여 HTTP 요청 시 적절한 methods, data를 url로 통신할 것
@@ -20,15 +17,15 @@ from . import views
         users/new: user 생성 요청을 처리하는 url
             - POST
             - Data) user 생성에 필요한 정보
-        users/<int:user_number>/: user 개인 정보를 조회 요청을 처리하는 url
+        users/<str:user_id>/: user 개인 정보를 조회 요청을 처리하는 url
             - POST
-            - Data) user_number
-        users/<int:user_number>/save_time: 운동 시간 저장 요청을 처리하는 url
+            - Data) user_id
+        users/<str:user_id>/save_time: 운동 시간 저장 요청을 처리하는 url
             - POST
-            - Data) user_number, 6개 부위별 exp
-        users/<int:user_number>/mygroups: 해당 user가 가입한 스터디 조회 요청을 처리하는 url
+            - Data) user_id, 6개 부위별 exp
+        users/<str:user_id>/mygroups: 해당 user가 가입한 스터디 조회 요청을 처리하는 url
             - POST
-            - Data) user_number
+            - Data) user_id
         users/find_id: user의 아이디 찾기 요청을 처리하는 url
             - POST
             - Data) email
@@ -90,6 +87,11 @@ from . import views
             - POST
             - Data) post_id, user_id
 """
+
+from django.urls import path
+from django.views.generic import TemplateView
+
+from . import views
 
 urlpatterns = [
     path('', views.index),

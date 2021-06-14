@@ -24,9 +24,11 @@ from django.core.exceptions import ImproperlyConfigured
 # secret_file = os.path.join(BASE_DIR, 'secrets.json') # secrets.json 파일 위치를 명시
 secret_file = os.path.join('./secrets.json') # secrets.json 파일 위치를 명시
 
+# load secret_file
 with open(secret_file) as f:
     secrets = json.loads(f.read())
 
+# secret key 로드 후 셋팅
 def get_secret(setting, secrets=secrets):
     try:
         return secrets[setting]
@@ -36,13 +38,14 @@ def get_secret(setting, secrets=secrets):
 
 SECRET_KEY = get_secret("SECRET_KEY")
 
-DEBUG = True
+# Debug 모드 설정
+DEBUG = False
 
+# 접근 가능한 호스트 주소
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'channels',
     'django.contrib.admin',
@@ -54,7 +57,6 @@ INSTALLED_APPS = [
     'helpapp',
     'rest_framework',
     'corsheaders',
-    # 'webpack_loader',
 ]
 
 MIDDLEWARE = [
@@ -68,13 +70,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CORS 설정 Open
 CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000'
 ]
 
+
 ROOT_URLCONF = 'config.urls'
+
+# Templates 경로 설정
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -94,7 +100,7 @@ TEMPLATES = [
     },
 ]
 
-
+# 정적파일 경로 설정
 STATIC_URL = '/static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'templates/helpapp/build/static')
 STATICFILES_DIRS = (
@@ -107,7 +113,7 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+# Database 설정
 DATABASES = {
     'default' : {
         'ENGINE' : 'django.db.backends.mysql',
@@ -137,6 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 #channels 설정
 ASGI_APPLICATION = 'config.asgi.application'
 CHANNEL_LAYERS = {
@@ -159,14 +166,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication'
     )
 }
-
-# WEBPACK_LOADER = {
-#     'DEFAULT': {
-#             'BUNDLE_DIR_NAME': 'bundles/',
-#             'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.dev.json'),
-#         }
-# }
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

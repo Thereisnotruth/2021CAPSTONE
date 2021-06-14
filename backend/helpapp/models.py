@@ -1,12 +1,10 @@
+""" models.py
+1. Database에 저장될 엔티티별 스키마 정보를 저장해 놓은 파일
 """
-06.04 17:32
-updated contents:
-    1. Post 출력시 fields명 수정: title -> post_title
-"""
-
 
 from django.db import models
 
+# Database에 저장될 User 스키마 정보 저장
 class User(models.Model):
     user_id = models.CharField(primary_key=True, max_length=20)
     user_pw = models.CharField(max_length=20)
@@ -34,6 +32,7 @@ class User(models.Model):
     def __str__(self):
         return self.user_id
 
+# Database에 저장될 Study 스키마 정보 저장
 class Study(models.Model):
     study_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
@@ -48,6 +47,7 @@ class Study(models.Model):
     def __str__(self):
         return self.study_name
 
+# Database에 저장될 User_Study 스키마 정보 저장
 class User_Study(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
     study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='study_id')
@@ -64,43 +64,7 @@ class User_Study(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-class Invitation(models.Model):
-    invitation_id = models.BigAutoField(primary_key=True)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='to')
-    study_id = models.ForeignKey(Study, on_delete=models.CASCADE, db_column='from')
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.invitation_id
-
-
-class Item(models.Model):
-    item_id = models.BigAutoField(primary_key=True)
-    item_name = models.CharField(max_length=20)
-    item_price = models.IntegerField()
-    item_type = models.IntegerField()
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.item_name
-
-class Inventory(models.Model):
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
-    item_id = models.ForeignKey(Item, on_delete=models.CASCADE, db_column='item_id')
-    buy_time = models.DateTimeField(auto_now_add=True)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['user_id', 'item_id'], name='item_in_inventory')
-        ]
-
+# Database에 저장될 Board 스키마 정보 저장
 class Board(models.Model):
     board_id = models.BigAutoField(primary_key=True)
     board_name = models.CharField(max_length=20)
@@ -112,6 +76,7 @@ class Board(models.Model):
     def __str__(self):
         return self.board_name
 
+# Database에 저장될 Post 스키마 정보 저장
 class Post(models.Model):
     post_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')
@@ -125,7 +90,7 @@ class Post(models.Model):
     def __str__(self):
         return self.post_title
 
-
+# Database에 저장될 Comment 스키마 정보 저장
 class Comment(models.Model):
     comment_id = models.BigAutoField(primary_key=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE, db_column='user_id')

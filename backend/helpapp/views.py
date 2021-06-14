@@ -1,6 +1,7 @@
-"""
-update contents:
-    1. board_postlist() 추가: Board에 속한 post 리스트를 반환하는 view
+""" views.py
+1. 프론트로부터 들어온 요청을 처리하는 함수들을 모아 놓을 파일
+2. Database에 저장된 데이터를 불러와 처리 후 결과값을 프론트에 반환
+3. 프론트로부터 전달받은 데이터를 처리한 후 저장하는 역할
 """
 
 from django.shortcuts import get_object_or_404, render
@@ -10,6 +11,7 @@ from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 from apscheduler.schedulers.background import BackgroundScheduler
 
+# 매일 자정이 되면 오늘 운동한 시간을 초기화하는 함수
 def reset_exercise_time():
     userlist = User.objects.all()
     for user in userlist:
@@ -20,11 +22,13 @@ sched = BackgroundScheduler()
 sched.add_job(reset_exercise_time, 'cron', year='*', month='*', day='*', hour='0')
 sched.start()
 
+# index.html을 렌더링하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def index(request):
     return render(request, 'index.html')
 
+# login 요청을 처리하는 로직
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def login(request):
@@ -49,6 +53,7 @@ class DiffPw(Exception):    # Exception을 상속받아서 새로운 예외를 �
     def __init__(self):
         super()
 
+# 아이디 찾는 로직을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def find_id(request):
@@ -57,6 +62,7 @@ def find_id(request):
     user_id = str(user.user_id)
     return JsonResponse({'user_id':user_id}, status=200)
 
+# 비밀번호를 찾는 로직을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def find_pw(request):
@@ -72,6 +78,7 @@ def find_pw(request):
     else:
         return JsonResponse({'message':'이름과 힌트를 다시 확인해 주세요.'}, status=403)
 
+# 비밀번호 변경 로직을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def change_pw(request):
@@ -82,6 +89,7 @@ def change_pw(request):
     user.save()
     return HttpResponse(status=200)
 
+# 유저 리스트를 반환하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def user_list(request):
@@ -89,6 +97,7 @@ def user_list(request):
     serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200)
 
+# 유저 상세 정보를 반환하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def user_detail(request, user_id):
@@ -96,6 +105,7 @@ def user_detail(request, user_id):
     serializer = UserSerializer(user)
     return JsonResponse(serializer.data, status=200)
 
+# 유저를 생성하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def create_user(request):
@@ -106,6 +116,7 @@ def create_user(request):
             return JsonResponse(serializer.data, status=201)
         return JsonResponse(serializer.errors, status=400)
 
+# 내가 가입한 스터디 목록을 보여주는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def show_mygroups(request, user_id):
@@ -125,6 +136,7 @@ def show_mygroups(request, user_id):
         return JsonResponse(serializer.data, status=200, safe=False)
     return HttpResponse(status=400)
 
+# 운동한 시간을 저장하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def save_time(request):
@@ -148,7 +160,7 @@ def save_time(request):
     else:
         return HttpResponse(status=400)
 
-
+# 스터디 목록을 반환하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def study_list(request):
@@ -156,6 +168,7 @@ def study_list(request):
     serializer = StudySerializer(study_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
+# 스터디 상세 정보를 조회하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_detail(request, study_id):
@@ -163,6 +176,7 @@ def study_detail(request, study_id):
     serializer = StudySerializer(study)
     return JsonResponse(serializer.data, status=200)
 
+# 스터디를 생성하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def create_study(request):
@@ -180,6 +194,7 @@ def create_study(request):
 
     return HttpResponse(status=400)
 
+# 스터디에 가입한 유저 목록을 반환하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_userlist(request, study_id):
@@ -190,6 +205,7 @@ def study_userlist(request, study_id):
     serializer = UserSerializer(user_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
+# 스터디에 가입하는 로직을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_join(request, study_id):
@@ -204,6 +220,7 @@ def study_join(request, study_id):
         return HttpResponse(status=201)
     return HttpResponse(status=400)
 
+# 스터디 탈퇴 로직을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def study_disjoin(request, study_id):
@@ -228,7 +245,7 @@ def silent_refresh(request):
         res.set_cookie('refreshToken', request.data['id'], 600, httponly=True)
         return res
 
-
+# 스터디 목록을 반환하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def study_list(request):
@@ -236,6 +253,7 @@ def study_list(request):
     serializer = StudySerializer(study_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
+# 게시판 리스트를 반환하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def board_list(request):
@@ -243,6 +261,7 @@ def board_list(request):
     serializer = BoardSerializer(board_list, many=True)
     return JsonResponse(serializer.data, status=200, safe=False)
 
+# 게시판을 생성하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def create_board(request):
@@ -257,6 +276,7 @@ def create_board(request):
     else:
         return HttpResponse(status=400)
 
+# 게시판 상세 정보를 반환하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def board_detail(request, board_id):
@@ -267,6 +287,7 @@ def board_detail(request, board_id):
     else:
         return HttpResponse(status=400)
 
+# 게시판의 글 목록을 반환하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def board_postlist(request, board_id):
@@ -278,6 +299,7 @@ def board_postlist(request, board_id):
         serializer = PostSerializer(post_list, many=True)
         return JsonResponse(serializer.data, status=200, safe=False)
 
+# 게시판 정보를 변경하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def board_update(request, board_id):
@@ -294,6 +316,7 @@ def board_update(request, board_id):
     else:
         return HttpResponse(status=400)
 
+# 게시판을 삭제하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def board_delete(request, board_id):
@@ -307,6 +330,7 @@ def board_delete(request, board_id):
     else:
         return HttpResponse(status=400)
 
+# 글 목록을 반환하는 함수
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
 def post_list(request):
@@ -316,7 +340,7 @@ def post_list(request):
         return JsonResponse(serializer.data, status=200)
     else:
         return HttpResponse(status=400)
-
+# 글을 생성하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def create_post(request):
@@ -334,6 +358,7 @@ def create_post(request):
     else:
         return HttpResponse(status=400)
 
+# 글의 상세 정보를 반환하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def post_detail(request, post_id):
@@ -344,6 +369,7 @@ def post_detail(request, post_id):
     else:
         return HttpResponse(status=400)
 
+# 글을 업데이트하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def post_update(request, post_id):
@@ -359,6 +385,7 @@ def post_update(request, post_id):
     else:
         return HttpResponse(status=400)
 
+# 글 삭제 요청을 처리하는 함수
 @api_view(['POST'])
 @permission_classes((permissions.AllowAny,))
 def post_delete(request, post_id):
